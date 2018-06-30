@@ -1,0 +1,34 @@
+{
+  "name": "deacon-server",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Deacon server app",
+  "license": "MIT",
+  "author": "Ralph Mack",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lupestro/deacon-service.git"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "main": "app.js",
+  "keywords": [
+    "church",
+    "deacons"
+  ],
+  "bugs": {
+    "url": "https://github.com/lupestro/deacon-service/issues"
+  },
+  "homepage": "https://github.com/lupestro/deacon-service#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "npm": "^6.1.0"
+  }
+}
