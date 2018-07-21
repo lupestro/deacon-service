@@ -29,6 +29,7 @@
   "homepage": "https://github.com/lupestro/deacon-service#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "npm": "^6.1.0"
+    "npm": "^6.1.0",
+    "pg": "^7.4.3"
   }
 }
