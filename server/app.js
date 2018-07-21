@@ -8,6 +8,6 @@ const router = express.Router();
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'www')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/api/v1', apiv1);
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

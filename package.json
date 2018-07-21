@@ -1,26 +1,24 @@
 {
-  "name": "deacon-server",
+  "name": "deacon-service",
   "version": "0.0.0",
   "private": true,
-  "description": "Deacon server app",
+  "description": "Deacon client and server",
   "license": "MIT",
   "author": "Ralph Mack",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lupestro/deacon-service.git"
   },
   "scripts": {
-    "start": "node app.js"
+    "install": "(cd client && npm install) && (cd server && npm install)",
+    "start": "concurrently \"cd client && PORT=4200 npm run start\" \"cd server && PORT=5000 npm run start\"",
+    "build": "concurrently \"cd client && npm run build\" \"cd server && npm run build\"",
+    "start:prod": "cd server && npm run start:prod"
   },
   "devDependencies": {},
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
   },
-  "main": "app.js",
   "keywords": [
     "church",
     "deacons"
@@ -30,8 +28,6 @@
   },
   "homepage": "https://github.com/lupestro/deacon-service#readme",
   "dependencies": {
-    "express": "^4.16.3",
-    "npm": "^6.1.0",
-    "pg": "^7.4.3"
+    "concurrently": "^3.6.0"
   }
 }

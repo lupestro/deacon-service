@@ -1,0 +1,30 @@
+{
+  "name": "deacon-server",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Deacon server app",
+  "license": "MIT",
+  "author": "Ralph Mack",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "",
+    "start": "nodemon --inspect ./app.js",
+    "start:prod": "node ./app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "npm": "^6.1.0",
+    "pg": "^7.4.3"
+  }
+}
