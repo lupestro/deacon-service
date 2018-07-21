@@ -20,8 +20,7 @@ exports.pumpOccasionData = (data) => {
                 required: row.count,
                 assigned: [],
                 confirmed: [],
-                declined: [],
-                volunteered: []
+                declined: []
             };
         }
         if (row.occasion !== oid) {
@@ -43,27 +42,21 @@ exports.pumpOccasionData = (data) => {
             case 'assigned':
                 role.assigned.push ({
                     id: row.attendance,
-                    name: row.participant,
+                    who: parseInt(row.participant),
                     team: row.team
                 });
                 break;
             case 'confirmed':
                 role.confirmed.push ({
                     id: row.attendance,
-                    name: row.participant
+                    who: parseInt(row.participant)
                 });
                 break;
             case 'declined':
                 role.declined.push ({
                     id: row.attendance,
-                    name: row.participant
-                });
-                break;
-            case 'volunteered':
-                role.volunteered.push ({
-                    id: row.attendance,
-                    name: row.participant,
-                    subfor: row.substitute_for
+                    who: parseInt(row.participant),
+                    sub: row.substitute
                 });
                 break;
         }

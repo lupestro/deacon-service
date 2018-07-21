@@ -42,17 +42,17 @@ class DeaconsDb {
         let queryString = 'SELECT ' + 
         'o.id as occasion, o.type, o.subtype, o.time as when, ' +
         'r.id as role, r.type as roletype, r.count, ' +
-        'a.id as attendance, a.type as attype, a.participant, a.substitute_for, a.team ' + 
+        'a.id as attendance, a.type as attype, a.participant, a.substitute_for as substitute, a.team ' + 
         'FROM occasions o, roles r, attendances a ' +
         'where o.id = r.occasion and r.id = a.role ';
         let parms = [];
         let result = [];
         return this.pool.connect().then( client => {
             if (from) {
-                queryString = queryString  + " and o.time >= $1"
+                queryString = queryString  + 'and o.time >= $1 '
                 parms.push (from);
             }
-            queryString = queryString + " order by o.time, o.id, r.id, a.type, a.id"
+            queryString = queryString + 'order by o.time, o.id, r.id, a.type, a.id '
             return client.query(queryString, parms)
             .then(res => {
                 client.release();
