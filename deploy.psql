@@ -1,0 +1,5 @@
+\i db/tables.pgsql
+\i db/functions.pgsql
+\i db/participants.pgsql
+\i db/occasions.pgsql
+\i db/assignments.pgsql
