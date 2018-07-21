@@ -21,9 +21,9 @@ class DeaconsDb {
         this.pool = new pg.Pool(config);
     }
     getParticipants(email) {
-        let queryString = 'SELECT type, short_name, full_name, team, family FROM participants';
+        let queryString = 'SELECT id, type, short_name, full_name, team, family FROM participants order by id';
         if (email) {
-            queryString = 'SELECT type, short_name, full_name, email, team, family FROM participants';
+            queryString = 'SELECT id, type, short_name, full_name, email, team, family FROM participants order by id';
         }
         let result = [];
         return this.pool.connect().then( client => {
