@@ -13,7 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/lupestro/deacon-service.git"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node app.js"
+  },
   "devDependencies": {},
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
