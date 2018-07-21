@@ -1,5 +1,6 @@
 const db = require('./db');
 const express = require('express');
+const hydrator = require('./hydrator');
 let router = express.Router();
 
 let db1 = new db;
@@ -8,12 +9,12 @@ let _initResult = function() {
 }
 router.get('/participants', (req, res) => {
     let email = req.query.email;
-    try {
-        result = { success: true, data: db1.getParticipants(email)};
-    } catch (e) {
-        result = { success: false, err: e.message};
-    }
-    return res.json(result);
+    return db1.getParticipants(email).then( data => {
+        return res.json({ success: true, data: data });
+    })
+    .catch (e => {
+        return res.json({ success: false, err: e.message});
+    });
 });
 router.get('/occasions', (req, res) => {
     let result = _initResult();
@@ -21,16 +22,13 @@ router.get('/occasions', (req, res) => {
     let participants = req.query.participants;
     let subneeded = req.query.subneeded;
     let from = req.query.from;
-    try {
-        result = { 
-            success: true, 
-            data: db1.getOccasions(participants, subneeded, from) 
-        };
-    } catch (e) {
-        result = { success: false, err: e.message};
-    }
-    ;
-    return res.json(result);
+    return db1.getOccasions(participants, subneeded, from).then( data => {
+        return res.json({ success: true, data: hydrator.pumpOccasionData(data) });
+    })
+    .catch (e => {
+        return res.json({ success: false, err: e.message});
+    });
 });
+
 
 module.exports = router;
