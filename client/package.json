@@ -11,11 +11,11 @@
   },
   "repository": "",
   "scripts": {
-    "build": "node node_modules/.bin/ember build",
-    "build:prod": "ls node_modules/.bin && node node_modules/.bin/ember build -prod",
+    "build": "ember build",
+    "build:prod": "ember build -prod",
     "lint:js": "eslint ./*.js app blueprints config lib server tests",
-    "start": "node node_modules/.bin/ember serve",
-    "test": "node node_modules/.bin/ember test"
+    "start": "ember serve",
+    "test": "ember test"
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
