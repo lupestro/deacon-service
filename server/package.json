@@ -10,7 +10,8 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "",
+    "build": "echo No Build Required for Server",
+    "build:prod": "echo No Build Required for Server",
     "start": "nodemon --inspect ./app.js",
     "start:prod": "node ./app.js"
   },
