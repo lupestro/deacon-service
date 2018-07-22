@@ -12,7 +12,7 @@
   "repository": "",
   "scripts": {
     "build": "node node_modules/.bin/ember build",
-    "build:prod": "node node_modules/.bin/ember build -prod",
+    "build:prod": "ls node_modules/.bin && node node_modules/.bin/ember build -prod",
     "lint:js": "eslint ./*.js app blueprints config lib server tests",
     "start": "node node_modules/.bin/ember serve",
     "test": "node node_modules/.bin/ember test"
