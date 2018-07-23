@@ -1,0 +1,29 @@
+{{duties-header 
+    title=title 
+    icon='calendar-alt' 
+    iconclick=(action clickCalendar)}}
+<div class='body-frame'>
+    {{outlet}}
+</div>
+{{#selection-bar}}
+  {{selection-item 
+    text='Me' 
+    icon='user' 
+    itemclick=(action clickMyDuties)}}
+  {{selection-item 
+    text='Family' 
+    icon='bed' 
+    itemclick=(action clickFamilyDuties)}}
+  {{selection-item 
+    text='All' 
+    icon='users' 
+    itemclick=(action clickAllDuties)}}
+  {{selection-item 
+    text='Subs' 
+    icon='exchange-alt' 
+    itemclick=(action clickDutySubstitutions)}}
+  {{selection-item 
+    text='Any' 
+    icon='user-plus' 
+    itemclick=(action clickAnyPersonDuties)}}
+{{/selection-bar}}
