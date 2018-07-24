@@ -5,7 +5,7 @@ import { computed } from '@ember-decorators/object';
 
 export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
-    @computed('application.model.participants', 'application.me') get members() {
+    @computed('application.model.participants', 'application.watchableMe') get members() {
         let model = this.application.model as ApplicationModel;
         if (model.id_map) {
             let myId = model.id_map[this.application.me];
@@ -19,10 +19,10 @@ export default class DutiesMineController extends DutiesBaseController {
         }
         return [this.application.me];
     }
-    @computed ('application.me') get rules() {
+    @computed ('application.watchableMe') get rules() {
         return new DutiesRoleRules(this.members)
     };
-    @computed('occasions') get occasions() : Occasion[] {
+    @computed('occasions','application.watchableMe') get occasions() : Occasion[] {
         return this.getMatchingOccasions(this.application.model.occasions, this.rules, this.members);
     }
 }

@@ -21,6 +21,7 @@ export default class DutiesController extends Controller {
     }
     @action
     clickCalendar() {
+        this.transitionToRoute('roster','mine');
         console.log('ToDo: Calendar');
     }
     @action
