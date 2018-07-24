@@ -1,15 +1,18 @@
 import Controller from '@ember/controller';
-import { action } from '@ember-decorators/object';
+import { action, computed } from '@ember-decorators/object';
+import { controller, service } from '@ember-decorators/controller';
 import ApplicationController from './application';
-import { controller } from '@ember-decorators/controller';
+import ApiService from '../services/api';
 
 export default class RosterController extends Controller {
     @controller('application') application! : ApplicationController;
-    title: string;
+    @service api!: ApiService;
+    searchtext: string;
     constructor() {
         super(...arguments);
-        this.title = 'Duties';
+        this.searchtext = "";
     }
+   
     @action clickReturn (shortname : string | undefined) {
         if (typeof shortname === "undefined") {
             this.transitionToRoute('duties.all');
@@ -20,7 +23,19 @@ export default class RosterController extends Controller {
             this.transitionToRoute('duties.any', shortname);
         }
     }
+    @computed('searchtext','application.model.participants') 
+    get candidates() : Participant[] {
+        if (this.searchtext === "") {
+            return this.application.model.participants;
+        } else {
+            let participants = this.application.model.participants as Participant[];
+            return participants.filter(person  => {
+                let expr = new RegExp(this.searchtext, 'i');
+                return person.short_name.match(expr) || person.full_name.match(expr);
+            })
+        }
+    }
     @action incrementalSearch(searchstring: string) {
-
+        this.searchtext = searchstring;
     }
 }

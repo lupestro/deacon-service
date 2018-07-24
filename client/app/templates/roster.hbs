@@ -2,8 +2,9 @@
     title='Roster' 
     backtext='< Duties' 
     backclick=(action clickReturn) }}
-{{search-bar winnow=(action incrementalSearch)}}
+{{search-bar searchtext=searchtext winnow=(action incrementalSearch)}}
 <div class='body-frame'>
-    <p> Imagine a list of people here...</p>
+{{#each candidates as |participant| }}
+    {{roster-row model=participant selection=(action clickReturn) }}
+{{/each}}
 </div>
-{

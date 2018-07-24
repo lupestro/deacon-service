@@ -16,7 +16,7 @@ export default class DutiesController extends Controller {
     }
     @action
     clickMyDuties() {
-        if (this.application.model.me === "") {
+        if (this.application.model.mine === "") {
             this.transitionToRoute('roster','mine'); 
         } else {
             this.transitionToRoute('duties.mine');

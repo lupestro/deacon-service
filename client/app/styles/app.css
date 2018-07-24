@@ -17,7 +17,8 @@
     flex: 0 0 auto;
 }
 .body-frame {
-    min-height: 640px;
+    height: 640px;
+    overflow: scroll;
 }
 .selection-bar {
     display: flex;
@@ -37,6 +38,31 @@
     font-size: 13px;
 }
 
+.roster-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.roster-row:nth-child(even) {
+    background: #dddddd;
+}
+.roster-row-left, .roster-row-right {
+    flex: 1 1 auto;
+}
+
+.roster-search {
+    height: 24px;
+    padding: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+.roster-search-input {
+    width: 200px;
+    height: 18px;
+}
+.roster-search-clear{
+    font-size: 16px;
+}
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
