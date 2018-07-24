@@ -16,6 +16,7 @@ Router.map(function() {
   });
   this.route('service', {path:'/service/:timestamp'});
   this.route('roster', { path: '/roster/:picking'});
+  this.route('base', { path: '/' })
   this.route('not-found', { path: '/*path'});
 });
 

@@ -5,11 +5,11 @@ import { computed } from '@ember-decorators/object';
 
 export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
-    @computed ('application.model.me') get rules() {
-        return new DutiesRoleRules([this.application.model.me])
+    @computed ('application.me') get rules() {
+        return new DutiesRoleRules([this.application.me])
     };
     @computed('occasions') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(this.application.model.occasions, this.rules, [this.application.model.me]
+        return this.getMatchingOccasions(this.application.model.occasions, this.rules, [this.application.me]
         );
     }
 }

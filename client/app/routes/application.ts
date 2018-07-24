@@ -8,9 +8,8 @@ declare global {
     type ApplicationModel = {
         participants: Participant[];
         occasions: Occasion[];
-        me: string;
-        id_map?: { [ key:string ] : number};
-        name_map?: { [ key:number ] : string};
+        id_map: { [ key:string ] : number};
+        name_map: { [ key:number ] : string};
     };
 }
 
@@ -21,7 +20,8 @@ export default class ApplicationRoute extends Route {
         return RSVP.hash ({
             participants: this.api.getParticipants(),
             occasions: this.api.getOccasions(),
-            me: this.local.me
+            id_map: {},
+            name_map: {}
         });
     }
     afterModel(model: ApplicationModel) {

@@ -17,7 +17,7 @@ export default class RosterController extends Controller {
         if (typeof shortname === "undefined") {
             this.transitionToRoute('duties.all');
         } else if (this.model.dutytype === 'mine') {
-            this.application.setMe(shortname);
+            this.application.me = shortname;
             this.transitionToRoute('duties.mine');
         } else {
             this.transitionToRoute('duties.any', shortname);

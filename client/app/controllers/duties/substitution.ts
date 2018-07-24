@@ -14,7 +14,7 @@ class SubstitutionRoleRules extends DutiesRoleRules {
 
 export default class DutiesSubstitutionController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
-    @computed ('application.model.me') get rules() {
+    @computed ('application.me') get rules() {
         return new SubstitutionRoleRules([])
     };
     @computed('occasions') get occasions() : Occasion[] {
