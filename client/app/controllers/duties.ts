@@ -3,6 +3,15 @@ import { action } from '@ember-decorators/object';
 import ApplicationController from './application';
 import { controller } from '@ember-decorators/controller';
 
+declare global {
+    interface RoleRules {
+        getIconType (role: Role) : string;
+        getIconImage (role: Role) : string;
+        getNames(role: Role): string[];
+        doesRoleMatch (role: Role, who: string[]) : boolean;
+    }
+}
+
 export default class DutiesController extends Controller {
     @controller('application') application! : ApplicationController;
     title: string;
@@ -12,11 +21,12 @@ export default class DutiesController extends Controller {
     }
     @action
     clickCalendar() {
-        console.log('Calendar');
+        console.log('ToDo: Calendar');
     }
     @action
     clickMyDuties() {
-        if (this.application.model.mine === "") {
+        console.log (this.application.model.me);
+        if (this.application.model.me === "") {
             this.transitionToRoute('roster','mine'); 
         } else {
             this.transitionToRoute('duties.mine');

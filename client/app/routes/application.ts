@@ -4,13 +4,15 @@ import LocalService from 'deacon-dash/services/local';
 import { service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
 
-declare type ApplicationModel = {
-    participants: Participant[];
-    occasions: Occasion[];
-    me: string;
-    id_map?: { [ key:string ] : number};
-    name_map?: { [ key:number ] : string};
-};
+declare global {
+    type ApplicationModel = {
+        participants: Participant[];
+        occasions: Occasion[];
+        me: string;
+        id_map?: { [ key:string ] : number};
+        name_map?: { [ key:number ] : string};
+    };
+}
 
 export default class ApplicationRoute extends Route {
     @service api!: ApiService;

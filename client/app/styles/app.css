@@ -1,3 +1,4 @@
+/* Overall layout */
 .header {
     display: flex;
     background: #ffffff;
@@ -38,18 +39,70 @@
     font-size: 13px;
 }
 
+/* Duties Layout */
+
+.sub-header {
+    font-size: 16px;
+    padding: 10px;
+    background: #eeeeee;
+    border-bottom-style: solid;
+    border-bottom-color: #888888;
+    border-bottom-width: 2px;
+}
+
+.duty-row {
+    padding: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: #CCCCCC;
+    border-bottom-width: 1px;
+}
+
+.duty-icon.disabled {
+    color: gray;
+}
+.duty-icon.needy {
+    color: red;
+}
+.duty-icon.satisfied {
+    color: cornflowerblue;
+}
+.duty-icon.confirmed {
+    color: green;
+}
+.duty-icon.unconfirmed {
+    color: orange;
+}
+.duty-row-group { 
+    display: inline-block;
+    width: 200px;
+}
+.duty-row-type {
+    font-size: 18px;
+}
+.duty-row-subtype {
+    font-size: 13px;
+}
+.duty-row-names {
+    display: inline-block;
+}
+
+/* Roster Layout */
+
 .roster-row {
-    display: flex;
-    justify-content: space-between;
     padding: 5px;
 }
 .roster-row:nth-child(even) {
     background: #dddddd;
 }
 .roster-row-left, .roster-row-right {
-    flex: 1 1 auto;
+    display: inline-block;
 }
-
+.roster-row-left {
+    width: 150px;
+}
+.roster-row-right {
+    width: 200px;
+}
 .roster-search {
     height: 24px;
     padding: 4px;

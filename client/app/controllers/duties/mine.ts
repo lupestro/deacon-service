@@ -1,10 +1,15 @@
-import Controller from '@ember/controller';
+import DutiesBaseController, {DutiesRoleRules} from './base';
 import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
+import { computed } from '@ember-decorators/object';
 
-export default class DutiesMineController extends Controller {
+export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
-    constructor() {
-        super(...arguments);
+    @computed ('application.model.me') get rules() {
+        return new DutiesRoleRules([this.application.model.me])
+    };
+    @computed('occasions') get occasions() : Occasion[] {
+        return this.getMatchingOccasions(this.application.model.occasions, this.rules, [this.application.model.me]
+        );
     }
 }

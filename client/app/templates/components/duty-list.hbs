@@ -1,0 +1,6 @@
+{{#each sourceData as |occasion|}}
+    {{sub-header title=(moment-format occasion.when 'MMMM DD, YYYY HH:mm')}}
+    {{#each occasion.roles as |role|}}
+        {{duty-row showNames=showNames rules=rules occasion=occasion role=role}}
+    {{/each}}
+{{/each}}

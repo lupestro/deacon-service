@@ -43,7 +43,7 @@ const occasions: OccasionData = {
     "data":[
         {
             "id":1,
-            "when":"2018-06-03T08:30:00.000Z",
+            "when":"2018-06-03T12:30:00.000Z",
             "type":"service",
             "subtype":"communion",
             "roles":[
@@ -86,7 +86,7 @@ const occasions: OccasionData = {
         },
         {
             "id":2,
-            "when":"2018-06-03T10:00:00.000Z",
+            "when":"2018-06-03T14:00:00.000Z",
             "type":"service",
             "subtype":"communion",
             "roles":[
@@ -115,7 +115,7 @@ const occasions: OccasionData = {
         },
         {
             "id":4,
-            "when":"2018-06-17T09:00:00.000Z",
+            "when":"2018-06-17T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -131,7 +131,7 @@ const occasions: OccasionData = {
         },
         {
             "id":5,
-            "when":"2018-06-24T09:00:00.000Z",
+            "when":"2018-06-24T13:00:00.000Z",
             "type":"service",
             "subtype":"baptism",
             "roles":[
@@ -155,7 +155,7 @@ const occasions: OccasionData = {
         },
         {
             "id":6,
-            "when":"2018-07-01T09:00:00.000Z",
+            "when":"2018-07-01T13:00:00.000Z",
             "type":"service",
             "subtype":"communion",
             "roles":[
@@ -194,7 +194,7 @@ const occasions: OccasionData = {
         },
         {
             "id":7,
-            "when":"2018-07-08T09:00:00.000Z",
+            "when":"2018-07-08T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -210,7 +210,7 @@ const occasions: OccasionData = {
         },
         {
             "id":8,
-            "when":"2018-07-15T09:00:00.000Z",
+            "when":"2018-07-15T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -226,7 +226,7 @@ const occasions: OccasionData = {
         },
         {
             "id":9,
-            "when":"2018-07-22T09:00:00.000Z",
+            "when":"2018-07-22T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -242,7 +242,7 @@ const occasions: OccasionData = {
         },
         {
             "id":10,
-            "when":"2018-07-29T09:00:00.000Z",
+            "when":"2018-07-29T13:00:00.000Z",
             "type":"service",
             "subtype":"baptism",
             "roles":[
@@ -266,7 +266,7 @@ const occasions: OccasionData = {
         },
         {
             "id":12,
-            "when":"2018-08-05T09:00:00.000Z",
+            "when":"2018-08-05T13:00:00.000Z",
             "type":"service",
             "subtype":"communion",
             "roles":[
@@ -304,7 +304,7 @@ const occasions: OccasionData = {
         },
         {
             "id":13,
-            "when":"2018-08-12T09:00:00.000Z",
+            "when":"2018-08-12T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -320,7 +320,7 @@ const occasions: OccasionData = {
         },
         {
             "id":14,
-            "when":"2018-08-19T09:00:00.000Z",
+            "when":"2018-08-19T13:00:00.000Z",
             "type":"service",
             "subtype":null,
             "roles":[
@@ -336,7 +336,7 @@ const occasions: OccasionData = {
         },
         {
             "id":15,
-            "when":"2018-08-26T09:00:00.000Z",
+            "when":"2018-08-26T13:00:00.000Z",
             "type":"service",
             "subtype":"baptism",
             "roles":[
