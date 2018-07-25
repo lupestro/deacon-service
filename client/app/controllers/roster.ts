@@ -14,6 +14,7 @@ export default class RosterController extends Controller {
     }
    
     @action clickReturn (shortname : string | undefined) {
+        this.set('searchtext',"");
         if (typeof shortname === "undefined") {
             this.transitionToRoute('duties.all');
         } else if (this.model.dutytype === 'mine') {
@@ -34,8 +35,5 @@ export default class RosterController extends Controller {
                 return person.short_name.match(expr) || person.full_name.match(expr);
             })
         }
-    }
-    @action incrementalSearch(searchstring: string) {
-        this.searchtext = searchstring;
     }
 }
