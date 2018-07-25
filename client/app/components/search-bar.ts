@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import {classNames} from '@ember-decorators/component';
 import { action } from '@ember-decorators/object';
 
-@classNames('roster-search')
+@classNames('search-bar')
 export default class SearchBar extends Component {
     constructor() {
         super(...arguments);

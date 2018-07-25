@@ -1,13 +1,20 @@
+<div class='page'>
+
+<h2 class='supertitle'>First Church Deacons</h2>
 {{duties-header title='Roster' iconclick=(action clickReturn) }}
 {{search-bar searchtext=searchtext winnow=(action incrementalSearch)}}
-<div class='body-frame roster'>
+
+<div class='page-frame roster'>
 {{#each candidates as |participant| }}
     {{roster-row model=participant selection=(action clickReturn) }}
 {{/each}}
 </div>
+
 {{#selection-bar}}
     {{selection-item 
     text='Back' 
     icon='users' 
     itemclick=(action clickReturn)}}
 {{/selection-bar}}
+
+</div>
