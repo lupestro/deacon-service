@@ -9,7 +9,10 @@ export default class DutiesMineController extends DutiesBaseController {
         return new DutiesRoleRules([this.application.me])
     };
     @computed('occasions','application.watchableMe') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(this.application.model.occasions, this.rules, [this.application.me]
+        return this.getMatchingOccasions(
+            this.application.model.occasions, 
+            this.rules, 
+            [this.application.me]
         );
     }
 }

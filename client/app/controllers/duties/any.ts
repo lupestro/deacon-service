@@ -1,5 +1,5 @@
 import DutiesBaseController, {DutiesRoleRules} from './base';
-import ApplicationController from 'deacon-dash/controllers/application';
+import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
 import { computed } from '@ember-decorators/object';
 

@@ -8,8 +8,10 @@ export class DutiesRoleRules implements RoleRules {
         this.who = who;
     }
     anyUnconfirmed(role: Role) : boolean {
-        return role.assigned.any( item => {
-            return !role.confirmed.includes(item);
+        return role.assigned.any( assigned => {
+            return !role.confirmed.any(confirmed => {
+                return confirmed.who === assigned.who; 
+            });
         })
     }
     hasHoles(role: Role) : boolean {
@@ -32,23 +34,32 @@ export class DutiesRoleRules implements RoleRules {
             return this.hasHoles(role) ? 'exclamation-triangle' : 'exchange-alt'
         }
     }
+    _assignedActive(role: Role, who: Attendance) {
+        return !role.declined.any (item =>{
+            return item.who === who.who ;
+        })
+    }
     getNames(role: Role): string[] {
         let assigned =  role.assigned.filter( item => {
-            return this.who.length === 0 || (!!item.who_name && this.who.includes(item.who_name));
-        }).map( item => { return item.who_name ? item.who_name : ''; });
+            return this._assignedActive(role, item) && 
+                (
+                    this.who.length === 0 || 
+                    (!!item.who_name && this.who.includes(item.who_name))
+                );
+        }).map( item => { 
+            return item.who_name ? item.who_name : ''; 
+        });
         let substituted = role.declined.filter( item => {
             return this.who.length === 0 || 
                 (!!item.sub_name && this.who.includes(item.sub_name));
-        }).map( item => { return item.sub_name ? item.sub_name : ''; ; });
-        let confirmed = role.confirmed.filter( item => {
-            return this.who.length === 0 || (!!item.who_name && this.who.includes(item.who_name));
-        }).map( item => { return item.who_name ? item.who_name : ''; ; });
-        if (assigned && substituted && confirmed) {
-            return [...assigned, ...substituted, ...confirmed];
-        } else {
-            return [];
-        }
-
+        }).map( item => { 
+            if (item.sub_name) {
+                return `${item.sub_name} [${item.who_name}]`;
+            } else if (item.who_name) {
+                return `!! [${item.who_name}]`;
+            } else return '';
+        });
+        return assigned.concat(substituted);
     }
     doesRoleMatch(role: Role) : boolean {
         if (this.who.length === 0) {
@@ -71,9 +82,6 @@ export default class DutiesBaseController extends Controller {
         super(...arguments);
     }
     getMatchingOccasions(occasions: Occasion[], rules: RoleRules, who: string[]) : Occasion[] {
-        if (who.length === 0) {
-            return occasions;
-        }
         return occasions.filter (occasion => {
             return occasion.roles.any(role => {
                 return rules.doesRoleMatch(role, who);

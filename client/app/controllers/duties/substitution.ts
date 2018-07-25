@@ -8,7 +8,7 @@ class SubstitutionRoleRules extends DutiesRoleRules {
         super(who);
     }
     doesRoleMatch(role: Role) : boolean {
-        return this.hasHoles(role);
+        return role.declined.length > 0;
     }
 };
 

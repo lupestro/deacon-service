@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { capitalize } from '@ember/string';
-import { classNames } from '@ember-decorators/component';
+import { classNames, className } from '@ember-decorators/component';
 import { computed } from '@ember-decorators/object';
 
 @classNames('duty-row')
@@ -19,14 +19,23 @@ export default class DutyRow extends Component {
     }
     @computed('role') 
     get icontype () {
-        if (new Date() > new Date(this.occasion.when)) {
-            return 'disabled';
-        } else if (this.rules) {
+        if (this.rules) {
             return this.rules.getIconType(this.role);
         } else {
             return 'disabled';
         }
     }
+    @computed('occasion')
+    @className('historical')
+    get historical() 
+    {
+        if (new Date() > new Date(this.occasion.when)) {
+            return 'historical';
+        } else {
+            return '';
+        }
+    } 
+
     @computed('occasion','role') 
     get type ()
     {

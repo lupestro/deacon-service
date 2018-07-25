@@ -1,10 +1,17 @@
 /* Overall layout */
+.supertitle {
+    text-align: center;
+    opacity: .85;
+    color: rgb(31, 31, 127);
+}
 .header {
     display: flex;
     background: #ffffff;
     padding: 10px;
     border-bottom-style: solid;
     border-bottom-width: 2px;
+    opacity: .85;
+    color: rgb(31, 31, 127);
 }
 .header-title {
     font-weight: bold;
@@ -28,6 +35,8 @@
     padding: 10px;
     border-top-style: solid;
     border-top-width: 2px;
+    color: rgb(31, 31, 127);
+    opacity: .85;
 }
 .selection-item {
     display: inline-block;
@@ -56,9 +65,9 @@
     border-bottom-color: #CCCCCC;
     border-bottom-width: 1px;
 }
-
-.duty-icon.disabled {
-    color: gray;
+.duty-row.historical {
+    background: #cccccc;
+    opacity:0.5;
 }
 .duty-icon.needy {
     color: red;
@@ -88,6 +97,9 @@
 
 /* Roster Layout */
 
+.body-frame.roster {
+    height: 605px;
+}
 .roster-row {
     padding: 5px;
 }

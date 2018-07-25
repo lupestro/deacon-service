@@ -42,15 +42,21 @@ let occasions : Occasion[] = [
                 "type":"dod",
                 "required":1,
                 "assigned":[{"id":1,"who":10,"team":null}],
-                "confirmed":[],
+                "confirmed":[{"id":101,"who":10,"team":null}],
                 "declined":[]
             },
             {
-                "id":2,
+                "id":2, 
                 "type":"dom",
                 "required":2,
-                "assigned":[{"id":2,"who":3,"team":6},{"id":3,"who":13,"team":6}],
-                "confirmed":[],
+                "assigned":[
+                    {"id":2,"who":3,"team":6},
+                    {"id":3,"who":13,"team":6}
+                ],
+                "confirmed":[
+                    {"id":102,"who":3,"team":6},
+                    {"id":3,"who":13,"team":6}
+                ],
                 "declined":[]
             },
             {
@@ -61,10 +67,16 @@ let occasions : Occasion[] = [
                     {"id":4,"who":1,"team":5},
                     {"id":5,"who":2,"team":5},
                     {"id":6,"who":17,"team":4},
-                    {"id":7,"who":18,"team":4},
+                    {"id":7,"who":18,"team":4}
                 ],
-                "confirmed":[],
-                "declined":[]
+                "confirmed":[
+                    {"id":104,"who":1,"team":5},
+                    {"id":106,"who":17,"team":4},
+                    {"id":107,"who":18,"team":4}
+                ],
+                "declined":[
+                    {"id":105,"who":2,"team":5,"substitute":8}
+                ]
             }
         ]
     },
@@ -79,15 +91,21 @@ let occasions : Occasion[] = [
                 "type":"dod",
                 "required":1,
                 "assigned":[{"id":1,"who":10,"team":null}],
-                "confirmed":[],
+                "confirmed":[{"id":101,"who":10,"team":null}],
                 "declined":[]
             },
             {
                 "id":5,
                 "type":"dom",
                 "required":2,
-                "assigned":[{"id":8,"who":3,"team":6},{"id":9,"who":13,"team":6}],
-                "confirmed":[],
+                "assigned":[
+                    {"id":8,"who":3,"team":6},
+                    {"id":9,"who":13,"team":6}
+                ],
+                "confirmed":[
+                    {"id":108,"who":3,"team":6},
+                    {"id":109,"who":13,"team":6}
+                ],
                 "declined":[]
             },
             {
@@ -102,7 +120,14 @@ let occasions : Occasion[] = [
                     {"id":18,"who":8,"team":9},
                     {"id":19,"who":11,"team":9}
                 ],
-                "confirmed":[],
+                "confirmed":[
+                    {"id":114,"who":7,"team":1},
+                    {"id":115,"who":15,"team":1},
+                    {"id":116,"who":4,"team":7},
+                    {"id":117,"who":6,"team":7},
+                    {"id":118,"who":8,"team":9},
+                    {"id":119,"who":11,"team":9}
+                ],
                 "declined":[]
             },
             {
@@ -115,8 +140,14 @@ let occasions : Occasion[] = [
                     {"id":12,"who":17,"team":4},
                     {"id":13,"who":18,"team":4}
                 ],
-                "confirmed":[],
-                "declined":[]
+                "confirmed":[
+                    {"id":110,"who":1,"team":5},
+                    {"id":112,"who":17,"team":4},
+                    {"id":113,"who":18,"team":4}
+                ],
+                "declined":[
+                    {"id":111,"who":2,"team":5}
+                ]
             }
         ]
     },
@@ -131,7 +162,7 @@ let occasions : Occasion[] = [
                 "type":"dod",
                 "required":1,
                 "assigned":[{"id":20,"who":15,"team":null}],
-                "confirmed":[],
+                "confirmed":[{"id":120,"who":15,"team":null}],
                 "declined":[]
             }
         ]
