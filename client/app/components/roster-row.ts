@@ -14,4 +14,7 @@ export default class RosterRow extends Component {
     click() {
         (this.selection)(this.model.short_name);
     }
+    tap() {
+        (this.selection)(this.model.short_name);
+    }
 }

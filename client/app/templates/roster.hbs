@@ -4,11 +4,11 @@
 {{duties-header title='Roster' iconclick=(action clickReturn) }}
 {{search-bar searchtext=searchtext}}
 
-<div class='page-frame roster'>
+{{#roster-list class='page-frame'}}
 {{#each candidates as |participant| }}
     {{roster-row model=participant selection=(action clickReturn) }}
 {{/each}}
-</div>
+{{/roster-list}}
 
 {{#selection-bar}}
     {{selection-item 

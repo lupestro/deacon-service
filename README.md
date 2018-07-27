@@ -4,7 +4,7 @@
 
 This service provides a mechanism for the First Church deacons to coordinate availability and negotiate stepping in for one another as needed.
 
-It sports a simple Node Express server with a PostgreSQL database with only four tables. The client is pure EmberJS, written in TypeScript, with mobile phones as the design center. During initial development, it is currently deployed to Heroku at the following location: https://deacon-service.herokuapp.com/
+It sports a simple Node Express server and a PostgreSQL database with only four tables. The client is pure EmberJS, written in TypeScript, with mobile phones as the design center. During initial development, it is currently deployed to Heroku at the following location: https://deacon-service.herokuapp.com/
 
 As a summer coding project, this is being implemented in stages, so it can be put down and picked up again.
 
