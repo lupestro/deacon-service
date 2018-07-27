@@ -1,4 +1,16 @@
-<div class='selection-item' {{action itemclick}} {{action itemclick on="tap"}}>
-    {{fa-icon icon size="2x"}}
-    <div class='selection-item-text'>{{text}}</div>
+{{#if itempress}}
+<div class='selection-item' 
+    {{action itemclick}} 
+    {{action itemclick on="tap"}}
+    {{action itempress on="press"}}>
+        {{fa-icon icon size="2x"}}
+        <div class='selection-item-text'>{{text}}</div>
 </div>
+{{else}}
+<div class='selection-item' 
+    {{action itemclick}} 
+    {{action itemclick on="tap"}} >
+        {{fa-icon icon size="2x"}}
+        <div class='selection-item-text'>{{text}}</div>
+</div>
+{{/if}}

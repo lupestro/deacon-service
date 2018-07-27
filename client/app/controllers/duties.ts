@@ -20,8 +20,11 @@ export default class DutiesController extends Controller {
         this.title = 'Duties';
     }
     @action
-    clickCalendar() {
+    clickNewMe() {
         this.transitionToRoute('roster','mine');
+    }
+    @action
+    clickCalendar() {
         console.log('ToDo: Calendar');
     }
     @action

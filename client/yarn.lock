@@ -246,6 +246,12 @@
     "@types/ember" "*"
     "@types/ember-test-helpers" "*"
 
+"@types/ember-resolver@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@types/ember-resolver/-/ember-resolver-4.5.0.tgz#0f9be96fd0a6964cd5164c2a5f93cd709acaf828"
+  dependencies:
+    "@types/ember" "*"
+
 "@types/ember-test-helpers@*", "@types/ember-test-helpers@^0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@types/ember-test-helpers/-/ember-test-helpers-0.7.1.tgz#14b9f132e9c60c2dfaf7a10ace937bfb7157fb26"

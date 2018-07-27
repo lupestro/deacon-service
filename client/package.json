@@ -28,8 +28,10 @@
     "@types/ember": "^2.8.30",
     "@types/ember-data": "^2.14.18",
     "@types/ember-qunit": "^3.0.3",
+    "@types/ember-resolver": "^4.5.0",
     "@types/ember-test-helpers": "^0.7.1",
     "@types/ember-testing-helpers": "^0.0.3",
+    "@types/hammerjs": "^2.0.35",
     "@types/qunit": "^2.5.1",
     "@types/rsvp": "^4.0.2",
     "babel-eslint": "^8.0.0",
@@ -68,7 +70,6 @@
   },
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
-    "@fortawesome/free-solid-svg-icons": "^5.1.1",
-    "@types/hammerjs": "^2.0.35"
+    "@fortawesome/free-solid-svg-icons": "^5.1.1"
   }
 }
