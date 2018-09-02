@@ -53,11 +53,18 @@ exports.pumpOccasionData = (data) => {
                 });
                 break;
             case 'declined':
-                role.declined.push ({
-                    id: row.attendance,
-                    who: parseInt(row.participant),
-                    sub: row.substitute
-                });
+                if (row.substitute === null) {
+                    role.declined.push ({
+                        id: row.attendance,
+                        who: parseInt(row.participant)
+                    });
+                } else {
+                    role.declined.push ({
+                        id: row.attendance,
+                        who: parseInt(row.participant),
+                        substitute: parseInt(row.substitute)
+                    });
+                }
                 break;
         }
     }
@@ -66,6 +73,49 @@ exports.pumpOccasionData = (data) => {
             occasion.roles.push(role);
         }
         result.push(occasion);
+    }
+    return result;
+}
+
+exports.pumpRoleData = (data) => {
+    let result = {
+        id: data[0].role,
+        type: data[0].roletype,
+        required: data[0].count,
+        assigned: [],
+        confirmed: [],
+        declined: []
+    };
+    for (let row of data) {
+        switch (row.attype) {
+            case 'assigned':
+                result.assigned.push ({
+                    id: row.attendance,
+                    who: parseInt(row.participant),
+                    team: row.team
+                });
+                break;
+            case 'confirmed':
+                result.confirmed.push ({
+                    id: row.attendance,
+                    who: parseInt(row.participant)
+                });
+                break;
+            case 'declined':
+                if (row.substitute === null) {
+                    result.declined.push ({
+                        id: row.attendance,
+                        who: parseInt(row.participant)
+                    });
+                } else {
+                    result.declined.push ({
+                        id: row.attendance,
+                        who: parseInt(row.participant),
+                        substitute: parseInt(row.substitute)
+                    });
+                }
+                break;
+        }    
     }
     return result;
 }

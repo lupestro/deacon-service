@@ -39,11 +39,11 @@ CREATE TABLE roles (
 CREATE TABLE attendances (
     id SERIAL PRIMARY KEY,
     type TEXT NOT NULL CHECK (
-        type = 'assigned' or type='confirmed' or type='declined' or type='volunteered'
+        type = 'assigned' or type='confirmed' or type='declined'
     ),
     role BIGINT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
     participant BIGINT NOT NULL REFERENCES participants(id) ON DELETE RESTRICT,
-    substitute_for BIGINT NULL REFERENCES participants(id) ON DELETE RESTRICT,
+    substitute BIGINT NULL REFERENCES participants(id) ON DELETE RESTRICT,
     team INTEGER,
     updated TIMESTAMP DEFAULT(CURRENT_TIMESTAMP),
     UNIQUE (type, role, participant)

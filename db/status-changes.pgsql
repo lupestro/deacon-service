@@ -1,0 +1,10 @@
+SELECT confirm_role_for_person ('Rich', 'dod', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Eli', 'dom', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Joe', 'dom', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Cayden', 'downstairs', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Gary', 'downstairs', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Mike', 'downstairs', '2018-09-02 9:00');
+SELECT confirm_role_for_person ('Ava', 'downstairs', '2018-09-02 9:00');
+SELECT decline_role_for_person ('Rich', 'downstairs', '2018-09-02 9:00');
+SELECT decline_role_for_person ('Alan', 'downstairs', '2018-09-02 9:00');
+SELECT substitute_in_role_for_person ('Laurie', 'downstairs', '2018-09-02 9:00','Rich');

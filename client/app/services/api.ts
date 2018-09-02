@@ -36,7 +36,7 @@ declare global {
         id: number,
         who: number,
         who_name?: string,
-        team: number | null,
+        team?: number | null,
         substitute?: number,
         sub_name? : string
       };

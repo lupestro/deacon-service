@@ -32,6 +32,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION confirm_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
+    DECLARE attendanceId integer;
 BEGIN
     SELECT r.id FROM roles r, occasions o WHERE o.id = r.occasion AND r.type = role_type AND o.type = 'service' and o.time = occ_time INTO roleId;
     IF NOT FOUND THEN 
@@ -41,17 +42,18 @@ BEGIN
     IF NOT FOUND THEN 
         RAISE 'Participant % not found', part_name;
     END IF;
-    SELECT id FROM attendances WHERE role = roleId and participant = partId and (type = 'assigned' or type = 'volunteer');
+    SELECT id FROM attendances WHERE role = roleId and participant = partId INTO attendanceId;
     IF NOT FOUND THEN
-        RAISE 'Participant % is not assigned to or volunteer for role of type % at time %', part_name, role_type, occ_time;
+        RAISE 'Participant % is not assigned to role of type % at time %', part_name, role_type, occ_time;
     END IF;
-    INSERT INTO attendances (type, role, participant) VALUES ('confirmed', roleId, partId);
+    UPDATE attendances SET type='confirmed' WHERE id=attendanceId;
 END    
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION decline_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
+    DECLARE attendanceId integer;
 BEGIN
     SELECT r.id FROM roles r, occasions o WHERE o.id = r.occasion AND r.type = role_type AND o.type = 'service' and o.time = occ_time INTO roleId;
     IF NOT FOUND THEN 
@@ -61,25 +63,25 @@ BEGIN
     IF NOT FOUND THEN
         RAISE 'Participant % is not found', part_name;
     END IF;
-    SELECT id FROM attendances WHERE role = roleId and participant = partId and (type = 'assigned' or type = 'volunteer');
+    SELECT id FROM attendances WHERE role = roleId and participant = partId INTO attendanceId;
     IF NOT FOUND THEN
-        RAISE 'Participant % is not assigned to or volunteer for role of type % at time %', part_name, role_type, occ_time;
+        RAISE 'Participant % is not assigned to role of type % at time %', part_name, role_type, occ_time;
     END IF;
-    INSERT INTO attendances (type, role, participant) VALUES ('declined', roleId, partId);
+    UPDATE attendances SET type='declined' WHERE id=attendanceId;
 END    
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION substitute_in_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP, IN orig_name TEXT) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
-    DECLARE currId integer;
-    DECLARE subId integer;
+    DECLARE origId integer;
+    DECLARE attId integer;
 BEGIN
     SELECT r.id FROM roles r, occasions o WHERE o.id = r.occasion AND r.type = role_type AND o.type = 'service' and o.time = occ_time INTO roleId;
     IF NOT FOUND THEN 
         RAISE 'Role of type % not found at time %', role_type, occ_time;
     END IF;
-    SELECT id FROM participants where short_name = orig_name INTO subId;
+    SELECT id FROM participants where short_name = orig_name INTO origId;
     IF NOT FOUND THEN
         RAISE 'Participant % seeking substitution wasn''t found', orig_name;
     END IF;
@@ -87,12 +89,11 @@ BEGIN
     IF NOT FOUND THEN
         RAISE 'Participant % volunteering as substitute wasn''t found', part_name;
     END IF;
-    SELECT id FROM attendances WHERE role = roleId and participant = partId and (type = 'volunteered') INTO currId;
-    IF NOT FOUND THEN -- Fresh substitution
-        INSERT INTO attendances (type, role, participant, substitute_for) VALUES ('volunteered', roleId, partId, subId);
-    ELSE
-        UPDATE attendances SET substitute_for=subId WHERE id=currId;
+    SELECT id FROM attendances WHERE role = roleId and participant = origId INTO attId;
+    IF NOT FOUND THEN
+        RAISE 'Attendance for participant % seeking substitution wasn''t found', orig_name;
     END IF;
+    UPDATE attendances SET substitute=partId WHERE id=attId and role=roleId;
 END    
 $$ LANGUAGE plpgsql;
 

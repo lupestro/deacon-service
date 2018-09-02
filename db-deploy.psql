@@ -3,3 +3,4 @@
 \i db/participants.pgsql
 \i db/occasions.pgsql
 \i db/assignments.pgsql
+\i db/status-changes.pgsql
