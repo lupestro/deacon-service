@@ -19,7 +19,7 @@ CREATE TABLE occasions (
     id SERIAL PRIMARY KEY,
     type TEXT NOT NULL CHECK (type='service' or type = 'coffee-hour'),
     subtype TEXT NULL CHECK (subtype='communion' or subtype='baptism'),
-    time TIMESTAMP NOT NULL,
+    time TIMESTAMP WITH TIME ZONE NOT NULL,
     updated TIMESTAMP DEFAULT(CURRENT_TIMESTAMP),
     UNIQUE (type, time)
 );

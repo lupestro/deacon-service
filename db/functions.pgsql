@@ -1,7 +1,7 @@
 
 -- Attendance management functions
-DROP FUNCTION assign_role_to_person (TEXT, TEXT, TIMESTAMP without time zone);
-CREATE OR REPLACE FUNCTION assign_role_to_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
+DROP FUNCTION assign_role_to_person (TEXT, TEXT, TIMESTAMP WITH TIME ZONE);
+CREATE OR REPLACE FUNCTION assign_role_to_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
 BEGIN
@@ -15,8 +15,8 @@ BEGIN
 END    
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION assign_role_to_team (integer, TEXT, TIMESTAMP without time zone);
-CREATE OR REPLACE FUNCTION assign_role_to_team (IN part_team integer, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
+DROP FUNCTION assign_role_to_team (integer, TEXT, TIMESTAMP WITH TIME ZONE);
+CREATE OR REPLACE FUNCTION assign_role_to_team (IN part_team integer, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
 BEGIN
@@ -30,8 +30,8 @@ BEGIN
 END    
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION confirm_role_for_person (TEXT, TEXT, TIMESTAMP without time zone);
-CREATE OR REPLACE FUNCTION confirm_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
+DROP FUNCTION confirm_role_for_person (TEXT, TEXT, TIMESTAMP WITH TIME ZONE);
+CREATE OR REPLACE FUNCTION confirm_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
     DECLARE attendanceId integer;
@@ -52,8 +52,8 @@ BEGIN
 END    
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION decline_role_for_person (TEXT, TEXT, TIMESTAMP without time zone);
-CREATE OR REPLACE FUNCTION decline_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS void AS $$ 
+DROP FUNCTION decline_role_for_person (TEXT, TEXT, TIMESTAMP WITH TIME ZONE);
+CREATE OR REPLACE FUNCTION decline_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
     DECLARE attendanceId integer;
@@ -74,8 +74,8 @@ BEGIN
 END    
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION substitute_in_role_for_person (TEXT, TEXT, TIMESTAMP without time zone, TEXT);
-CREATE OR REPLACE FUNCTION substitute_in_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP, IN orig_name TEXT) RETURNS void AS $$ 
+DROP FUNCTION substitute_in_role_for_person (TEXT, TEXT, TIMESTAMP WITH TIME ZONE, TEXT);
+CREATE OR REPLACE FUNCTION substitute_in_role_for_person (IN part_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE, IN orig_name TEXT) RETURNS void AS $$ 
     DECLARE roleId integer;
     DECLARE partId integer;
     DECLARE origId integer;
@@ -102,7 +102,7 @@ END
 $$ LANGUAGE plpgsql;
 
 -- Assignment change functions
-DROP FUNCTION add_person_to_team(text,integer,timestamp without time zone);
+DROP FUNCTION add_person_to_team(text,integer,TIMESTAMP);
 CREATE OR REPLACE FUNCTION add_person_to_team(IN part_name TEXT, IN teamId INTEGER, IN from_date TIMESTAMP) RETURNS void AS $$
     DECLARE partId INTEGER;
     DECLARE roleId INTEGER;
@@ -119,7 +119,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION remove_person_from_team(text,integer,timestamp without time zone);
+DROP FUNCTION remove_person_from_team(text,integer,TIMESTAMP);
 CREATE OR REPLACE FUNCTION remove_person_from_team(IN part_name TEXT, IN teamId INTEGER, IN from_date TIMESTAMP)  RETURNS void AS $$
     DECLARE partId INTEGER;
     DECLARE accId INTEGER;
@@ -136,7 +136,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION replace_person_in_nonteam_role(IN new_name TEXT, IN old_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP)  RETURNS void AS $$
+CREATE OR REPLACE FUNCTION replace_person_in_nonteam_role(IN new_name TEXT, IN old_name TEXT, IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE)  RETURNS void AS $$
     DECLARE partId INTEGER;
     DECLARE oldId INTEGER;
     DECLARE accId INTEGER;
@@ -158,7 +158,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION remove_person_from_nonteam_roles(IN part_name TEXT, IN from_date TIMESTAMP)  RETURNS void AS $$
+CREATE OR REPLACE FUNCTION remove_person_from_nonteam_roles(IN part_name TEXT, IN from_date TIMESTAMP WITH TIME ZONE)  RETURNS void AS $$
     DECLARE partId INTEGER;
     DECLARE accId INTEGER;
 BEGIN
@@ -217,7 +217,7 @@ BEGIN
 END    
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION latest_role_attendance_date (IN role_type TEXT, IN occ_time TIMESTAMP) RETURNS TIMESTAMP AS $$ 
+CREATE OR REPLACE FUNCTION latest_role_attendance_date (IN role_type TEXT, IN occ_time TIMESTAMP WITH TIME ZONE) RETURNS TIMESTAMP AS $$ 
     DECLARE roleId INTEGER;
     DECLARE result TIMESTAMP;
 BEGIN
