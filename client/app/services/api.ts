@@ -1,23 +1,83 @@
 import Service from '@ember/service';
-import { participants, occasions } from '../data/fakedb';
-import RSVP from 'rsvp';
 
-const participantsRecord  = {
-    "success":true,
-    "data": participants
+declare type ParticipantsRecord  = {
+    success: boolean,
+    data:Participant[]
+};
+declare type OccasionsRecord  = {
+    success: boolean,
+    data: Occasion[]
 };
 
-const occasionsRecord = {
-    "success":true,
-    "data": occasions
-};
+declare type RoleRecord = {
+    success: boolean,
+    data: Role
+}
 
 export default class ApiService extends Service {
     getParticipants() {
-        return RSVP.resolve(participantsRecord.data);
+        return fetch('/api/v1/participants').then( result  => { 
+            return result.json();
+        }).then ( json => { 
+            let record = json as ParticipantsRecord;
+            if (!record.success) {
+                throw ("Request failed");
+            }
+            return record.data;
+        })
     }
     getOccasions() {
-        return RSVP.resolve(occasionsRecord.data);
+        return fetch('/api/v1/occasions').then( result  => { 
+            return result.json();
+        }).then ( json => { 
+            let record = json as OccasionsRecord;
+            if (!record.success) {
+                throw ("Request failed");
+            }
+            return record.data;
+        })
+    }
+    confirmAttendance(id:number) {
+        return fetch(`/api/v1/attendance/${id}/type`,{
+            method: 'POST',
+            body: '{ "type": "confirmed" }',
+        }).then( result => {
+            return result.json();
+        }).then (json => {
+            let record = json as RoleRecord;
+            if (!record.success) {
+                throw ("Request failed");
+            }
+            return record.data;
+        })
+    }
+    declineAttendance(id:number) {
+        return fetch(`/api/v1/attendance/${id}/type`, {
+            method: 'POST',
+            body: '{ "type": "declined" }',
+        }).then( result => {
+            return result.json();
+        }).then (json => {
+            let record = json as RoleRecord;
+            if (!record.success) {
+                throw ("Request failed");
+            }
+            return record.data;
+        })
+    }
+    substitute(id : number, substitute: number) {
+        return fetch(`/api/v1/attendance/${id}/substitute`, {
+            method: 'POST',
+            body: `{ "substitute": ${substitute} }`,
+        }).then( result => {
+            return result.json();
+        }).then (json => {
+            let record = json as RoleRecord;
+            if (!record.success) {
+                throw ("Request failed");
+            }
+            return record.data;
+        })
     }
 }
 

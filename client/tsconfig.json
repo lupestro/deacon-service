@@ -20,6 +20,9 @@
     "baseUrl": ".",
     "module": "es6",
     "paths": {
+      "fetch": [
+        "node_modules/ember-fetch/index.d.ts"
+      ],
       "deacon-dash/tests/*": [
         "tests/*"
       ],
