@@ -38,35 +38,25 @@ exports.pumpOccasionData = (data) => {
                 roles: []
             };
         }
-        switch (row.attype) {
-            case 'assigned':
-                role.assigned.push ({
-                    id: row.attendance,
-                    who: parseInt(row.participant),
-                    team: row.team
-                });
-                break;
-            case 'confirmed':
-                role.confirmed.push ({
-                    id: row.attendance,
-                    who: parseInt(row.participant)
-                });
-                break;
-            case 'declined':
-                if (row.substitute === null) {
-                    role.declined.push ({
-                        id: row.attendance,
-                        who: parseInt(row.participant)
-                    });
-                } else {
-                    role.declined.push ({
-                        id: row.attendance,
-                        who: parseInt(row.participant),
-                        substitute: parseInt(row.substitute)
-                    });
-                }
-                break;
+        let attitem = {
+            id: row.attendance,
+            who: parseInt(row.participant)
+        };
+        if (row.team) {
+            attitem.team = row.team;
         }
+        switch (row.attype) {
+            case 'declined':
+                if (row.substitute) {
+                    attitem.substitute = parseInt(row.substitute);
+                }
+                role['declined'].push (attitem);
+                break;
+            case 'assigned': 
+            case 'confirmed':
+                role[row.attype].push (attitem);
+                break;
+        }  
     }
     if (occasion !== null) {
         if (role !== null) {
@@ -78,6 +68,9 @@ exports.pumpOccasionData = (data) => {
 }
 
 exports.pumpRoleData = (data) => {
+    if (data.length === 0) {
+        return null;
+    }
     let result = {
         id: data[0].role,
         type: data[0].roletype,
@@ -87,33 +80,23 @@ exports.pumpRoleData = (data) => {
         declined: []
     };
     for (let row of data) {
+        let item = {
+            id: row.attendance,
+            who: parseInt(row.participant)
+        };
+        if (row.team) {
+            item.team = row.team;
+        }
         switch (row.attype) {
-            case 'assigned':
-                result.assigned.push ({
-                    id: row.attendance,
-                    who: parseInt(row.participant),
-                    team: row.team
-                });
-                break;
-            case 'confirmed':
-                result.confirmed.push ({
-                    id: row.attendance,
-                    who: parseInt(row.participant)
-                });
-                break;
             case 'declined':
-                if (row.substitute === null) {
-                    result.declined.push ({
-                        id: row.attendance,
-                        who: parseInt(row.participant)
-                    });
-                } else {
-                    result.declined.push ({
-                        id: row.attendance,
-                        who: parseInt(row.participant),
-                        substitute: parseInt(row.substitute)
-                    });
+                if (row.substitute) {
+                    item.substitute = parseInt(row.substitute);
                 }
+                result['declined'].push (item);
+                break;
+            case 'assigned': 
+            case 'confirmed':
+                result[row.attype].push (item);
                 break;
         }    
     }
