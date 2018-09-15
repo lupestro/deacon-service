@@ -49,6 +49,15 @@ export class DutiesRoleRules implements RoleRules {
         }).map( item => { 
             return item.who_name ? item.who_name : ''; 
         });
+        let confirmed =  role.confirmed.filter( item => {
+            return this._assignedActive(role, item) && 
+                (
+                    this.who.length === 0 || 
+                    (!!item.who_name && this.who.includes(item.who_name))
+                );
+        }).map( item => { 
+            return item.who_name ? `\u2713 ${item.who_name}` : ''; 
+        });
         let substituted = role.declined.filter( item => {
             return this.who.length === 0 || 
                 (!!item.sub_name && this.who.includes(item.sub_name));
@@ -56,10 +65,10 @@ export class DutiesRoleRules implements RoleRules {
             if (item.sub_name) {
                 return `${item.sub_name} [${item.who_name}]`;
             } else if (item.who_name) {
-                return `!! [${item.who_name}]`;
+                return `\u2718'[${item.who_name}]`;
             } else return '';
         });
-        return assigned.concat(substituted);
+        return assigned.concat(substituted).concat(confirmed);
     }
     doesRoleMatch(role: Role) : boolean {
         if (this.who.length === 0) {
