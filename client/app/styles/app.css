@@ -114,6 +114,9 @@
 .roster-row.alternate {
     opacity:.5;
 }
+.roster-row.historical {
+    text-decoration: line-through;
+}
 .roster-row-left, .roster-row-right {
     display: inline-block;
 }
