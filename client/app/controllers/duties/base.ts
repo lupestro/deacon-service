@@ -56,7 +56,7 @@ export class DutiesRoleRules implements RoleRules {
                     (!!item.who_name && this.who.includes(item.who_name))
                 );
         }).map( item => { 
-            return item.who_name ? `\u2713 ${item.who_name}` : ''; 
+            return item.who_name ? `\u2713${item.who_name}` : ''; 
         });
         let substituted = role.declined.filter( item => {
             return this.who.length === 0 || 

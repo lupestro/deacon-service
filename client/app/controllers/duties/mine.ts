@@ -1,7 +1,7 @@
 import DutiesBaseController, {DutiesRoleRules} from './base';
 import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
-import { computed } from '@ember-decorators/object';
+import { computed, action } from '@ember-decorators/object';
 
 export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
@@ -14,5 +14,8 @@ export default class DutiesMineController extends DutiesBaseController {
             this.rules, 
             [this.application.me]
         );
+    }
+    @action changeCommitment(role: Role, changeType: string) {
+        console.log(`Change attendance for ${this.application.me} in role ${role.type} to ${changeType}`);
     }
 }

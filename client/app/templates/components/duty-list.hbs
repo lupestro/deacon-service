@@ -1,6 +1,18 @@
 {{#each sourceData as |occasion|}}
     {{sub-header title=(moment-format occasion.when 'MMMM DD, YYYY HH:mm')}}
     {{#each occasion.roles as |role|}}
-        {{duty-row showNames=showNames rules=rules occasion=occasion role=role}}
+        <div class="duty-row-wrapper">
+            {{duty-row 
+                showNames=showNames 
+                rules=rules 
+                occasion=occasion 
+                role=role
+                clicked=(action clicked role)
+                held=(action held role)
+            }}
+            {{#if (eq role.id overlay.role) }} 
+                {{duty-overlay title=overlay.title icon=overlay.icon icontype=overlay.icontype submit=(action submit role) close=(action cancel) }}
+            {{/if}}
+        </div>
     {{/each}}
 {{/each}}

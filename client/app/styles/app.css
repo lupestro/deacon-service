@@ -1,19 +1,22 @@
 /* Overall layout */
-.supertitle {
-    text-align: center;
-    opacity: .85;
-    color: rgb(31, 31, 127);
-}
 .page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+}
+.supertitle {
+    text-align: center;
+    opacity: .85;
+    height: 30px;
+    margin: 0px;
+    color: rgb(31, 31, 127);
 }
 .header {
     flex: 0 0 auto;
     display: flex;
     background: #ffffff;
     padding: 10px;
+    height: 28px;
+    margin: 0px;
     border-bottom-style: solid;
     border-bottom-width: 2px;
     opacity: .85;
@@ -33,14 +36,15 @@
 .page-frame {
     flex: 1 1 auto;
     overflow: scroll;
-    height: 100vh;
+    height: calc(100vh - 170px);
 }
 .selection-bar {
     flex: 0 0 auto;
     display: flex;
     justify-content: space-around;
-    margin-top: 10px;
+    margin: 0px;
     padding: 10px;
+    height: 48px;
     border-top-style: solid;
     border-top-width: 2px;
     color: rgb(31, 31, 127);
@@ -72,10 +76,15 @@
     border-bottom-style: solid;
     border-bottom-color: #CCCCCC;
     border-bottom-width: 1px;
+    position: relative;
+    display: flex;
 }
 .duty-row.historical {
     background: #cccccc;
     opacity:0.5;
+}
+.duty-icon {
+    margin-right: 10px;
 }
 .duty-icon.needy {
     color: red;
@@ -89,8 +98,11 @@
 .duty-icon.unconfirmed {
     color: orange;
 }
+.duty-icon.cancel {
+    color: gray;
+}
 .duty-row-group { 
-    display: inline-block;
+    flex: 0 0 auto;
     width: 120px;
 }
 .duty-row-type {
@@ -100,7 +112,26 @@
     font-size: 13px;
 }
 .duty-row-names {
-    display: inline-block;
+    flex: 1 1 auto;
+    height: 30px;
+}
+.duty-row-wrapper {
+    position: relative;
+}
+.duty-overlay {
+    /*background-color: lightgray;*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+.duty-overlay-item {
+    flex: 0 0 auto;
+    font-size: 16px;
 }
 
 /* Roster Layout */
@@ -121,7 +152,7 @@
     display: inline-block;
 }
 .roster-row-left {
-    width: 150px;
+    width: 120px;
 }
 .roster-row-right {
     width: 200px;
@@ -145,8 +176,4 @@
 }
 body {
     font-family: Arial, Helvetica, sans-serif;
-    height: 100vh;
-}
-html {
-    height: 100vh;
 }

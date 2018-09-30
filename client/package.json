@@ -62,6 +62,7 @@
     "ember-moment": "^7.7.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.1.0",
+    "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.0.0",
     "loader.js": "^4.2.3",
     "typescript": "^2.9.2"

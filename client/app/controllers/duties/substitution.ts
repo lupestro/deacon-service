@@ -1,7 +1,7 @@
 import DutiesBaseController, {DutiesRoleRules} from './base';
 import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
-import { computed } from '@ember-decorators/object';
+import { computed, action } from '@ember-decorators/object';
 
 class SubstitutionRoleRules extends DutiesRoleRules {
     constructor(who : string[]) {
@@ -19,6 +19,9 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
     };
     @computed('occasions') get occasions() : Occasion[] {
         return this.getMatchingOccasions(this.application.model.occasions, this.rules, []);
+    }
+    @action changeSubstitution(role: Role, changeType: string) {
+        console.log(`Change substitution for ${this.application.me} in role ${role.type} to ${changeType}`);
     }
 }
 

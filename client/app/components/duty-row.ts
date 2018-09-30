@@ -5,10 +5,16 @@ import { computed } from '@ember-decorators/object';
 
 @classNames('duty-row')
 export default class DutyRow extends Component {
-    itemclick! : Function;
     occasion!: Occasion;
     role!: Role; 
     rules!: RoleRules;
+    clicked!: Function;
+    held!: Function;
+
+    constructor (){ 
+        super(...arguments);
+    }
+
     @computed('role')
     get icon() {
         if (this.rules) {
@@ -62,4 +68,16 @@ export default class DutyRow extends Component {
     get names() {
         return this.rules.getNames(this.role).join(', ');
     }
+
+    tap() {
+        if (!this.historical) {
+            (this.clicked)();
+        }
+    }
+
+    longPress() {
+        if (!this.historical) {
+            (this.held)();
+        }
+    }   
 }
