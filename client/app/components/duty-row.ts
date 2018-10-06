@@ -70,14 +70,10 @@ export default class DutyRow extends Component {
     }
 
     tap() {
-        if (!this.historical) {
-            (this.clicked)();
-        }
+        (this.clicked)();
     }
 
     longPress() {
-        if (!this.historical) {
-            (this.held)();
-        }
+        (this.held)();
     }   
 }

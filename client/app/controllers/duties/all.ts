@@ -8,7 +8,7 @@ export default class DutiesAllController extends DutiesBaseController {
     @computed ('model.name') get rules() {
         return new DutiesRoleRules([]);
     };
-    @computed('occasions') get occasions() : Occasion[] {
+    @computed('application.model.occasions') get occasions() : Occasion[] {
         return this.getMatchingOccasions(
             this.application.model.occasions, 
             this.rules, 

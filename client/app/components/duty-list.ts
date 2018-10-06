@@ -12,11 +12,11 @@ type Overlay = {
 };
 
 const OVERLAYS : {[name: string]: Overlay } = {
-    empty: {role: -1, type: "", title: "", icon: "", icontype: ""},
+    empty: {role: -1, type: "empty", title: "", icon: "", icontype: ""},
     confirm: {role: 0, type: "confirm", title: "Confirm", icon: "check-circle", icontype: 'confirmed' },
     decline: {role: 0, type: "decline", title: "Decline", icon: "exclamation-triangle", icontype: 'needy' },
     substitute: { role: 0, type: "substitute", title: "Substitute", icon: 'exchange-alt', icontype: 'satisfied' },
-    tentative: { role: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed' }
+    unconfirm: { role: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed' }
 };
 
 @classNames('duty-list')
@@ -24,28 +24,40 @@ export default class DutyList extends Component.extend(RecognizerMixin, { recogn
     clickType!: string;
     holdType!: string;
     action!: Function;
+    permit!: Function;
 
     overlay: Overlay;
     constructor() {
         super(...arguments);
         this.overlay = OVERLAYS['empty'];
     }
-    @action clicked(role: Role) {
-        if (this.clickType && this.clickType !== 'empty') {
-            let overlay = Object.assign({}, OVERLAYS[this.clickType]);
-            overlay.role = role.id;
-            this.set('overlay', overlay);    
+
+    @action clicked(role: Role, occasion: Occasion) {
+        if (this.overlay.type !== "empty") {
+            this.set('overlay', OVERLAYS['empty']);
+        } else {
+            const actualClickType = this.permit ? (this.permit)(role, occasion, this.clickType) : this.clickType;
+            if (actualClickType && actualClickType != 'empty')  {
+                let overlay = Object.assign({}, OVERLAYS[actualClickType]);
+                overlay.role = role.id;
+                this.set('overlay', overlay);
+            }
         }
     }
-    @action held(role: Role) {
-        if (this.holdType && this.holdType !== 'empty') {
-            let overlay = Object.assign({}, OVERLAYS[this.holdType]);
-            overlay.role = role.id;
-            this.set('overlay', overlay);
+    @action held(role: Role, occasion: Occasion) {
+        if (this.overlay.type !== "empty") {
+            this.set('overlay', OVERLAYS['empty']);
+        } else {
+            const actualHoldType = this.permit ? (this.permit)(role, occasion, this.holdType) : this.holdType;
+            if (actualHoldType && actualHoldType != 'empty')  {
+                let overlay = Object.assign({}, OVERLAYS[actualHoldType]);
+                overlay.role = role.id;
+                this.set('overlay', overlay);    
+            }
         }
     }
-    @action submit(role: Role) {
-        (this.action)(role, this.overlay.type);
+    @action submit(role: Role, occasion: Occasion) {
+        (this.action)(role, occasion, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
     @action cancel() {

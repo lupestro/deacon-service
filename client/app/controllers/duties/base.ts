@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
+import moment from 'moment';
 
 export class DutiesRoleRules implements RoleRules {
     who: string[];
@@ -14,6 +15,22 @@ export class DutiesRoleRules implements RoleRules {
             });
         })
     }
+    statusInRole(role: Role, who: string) : string {
+        if (role.assigned.any( item => {
+            return !!item.who_name && this.who.includes(item.who_name);
+        })) return 'assigned';
+        if (role.declined.any( item => {
+            return !!item.who_name && this.who.includes(item.who_name);
+        })) return 'declined';
+        if (role.confirmed.any( item => {
+            return !!item.who_name && this.who.includes(item.who_name);
+        })) return 'confirmed';  
+        if (role.declined.any( item => {
+            return !!item.sub_name && this.who.includes(item.sub_name);
+        })) return 'substitute';
+        return 'none';
+    }
+
     hasHoles(role: Role) : boolean {
         return role.declined.any( item => {
             return !item.substitute;
@@ -21,15 +38,24 @@ export class DutiesRoleRules implements RoleRules {
     }
     getIconType(role: Role): string {
         if (role.declined.length === 0) {
-            return this.anyUnconfirmed(role) ? 'unconfirmed' : 'confirmed';
+            if (this.who.length === 1) {
+                let result = this.statusInRole(role, this.who[0]); 
+                return (result === 'assigned') ? 'unconfirmed' : result === 'confirmed' ?  'confirmed' : '';
+            } else {
+                return this.anyUnconfirmed(role) ? 'unconfirmed' : 'confirmed';
+            }
         } else {
             return this.hasHoles(role) ? 'needy' : 'satisfied';
         }
-        return '';
     }
     getIconImage(role: Role): string {
         if (role.declined.length === 0) {
-            return this.anyUnconfirmed(role) ? 'circle' : 'check-circle'
+            if (this.who.length === 1) {
+                let result = this.statusInRole(role, this.who[0]); 
+                return (result === 'assigned') ? 'circle' : result === 'confirmed' ?  'check-circle' : '';
+            } else {
+                return this.anyUnconfirmed(role) ? 'circle' : 'check-circle'
+            }
         } else {
             return this.hasHoles(role) ? 'exclamation-triangle' : 'exchange-alt'
         }
@@ -105,4 +131,13 @@ export default class DutiesBaseController extends Controller {
             return newocc;
         })
     }
+    isImminent(when:string) : boolean {
+        const sched = moment(when);
+        return sched >= moment().startOf('day') && sched < moment().startOf('day').add(8,'days');
+    }
+
+    isHistorical(when:string) : boolean {
+        return moment(when) < moment().startOf('day');
+    }
+
 }

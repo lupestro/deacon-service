@@ -1,1 +1,8 @@
-{{duty-list rules=rules sourceData=occasions showNames=true clickType='substitute' holdType='unconfirm' action=(action changeSubstitution)}}
+{{duty-list 
+    rules=rules 
+    sourceData=occasions 
+    showNames=true 
+    clickType='substitute' 
+    holdType='unconfirm' 
+    permit=(action permit)
+    action=(action changeSubstitution) }}

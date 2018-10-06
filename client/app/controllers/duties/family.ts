@@ -8,7 +8,7 @@ export default class DutiesMineController extends DutiesBaseController {
     @computed ('application.watchableMe') get rules() {
         return new DutiesRoleRules(this.members)
     };
-    @computed('occasions','application.watchableMe') get occasions() : Occasion[] {
+    @computed('application.model.occasions','application.watchableMe') get occasions() : Occasion[] {
         return this.getMatchingOccasions(
             this.application.model.occasions, 
             this.rules, 
@@ -28,7 +28,10 @@ export default class DutiesMineController extends DutiesBaseController {
         }
         return [this.application.me];
     }
-    @action changeCommitment(role: Role, changeType: string) {
+    @action permit(role: Role, occasion: Occasion, changeType: string) : string {
+        return 'empty';
+    }
+    @action changeCommitment(role: Role, occasion: Occasion, changeType: string) {
         console.log(`Change attendance for ${this.application.me} in role ${role.type} to ${changeType}`);
     }
 }

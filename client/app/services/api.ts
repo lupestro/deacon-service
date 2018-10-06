@@ -2,16 +2,19 @@ import Service from '@ember/service';
 
 declare type ParticipantsRecord  = {
     success: boolean,
-    data:Participant[]
+    data?:Participant[],
+    err?: string
 };
 declare type OccasionsRecord  = {
     success: boolean,
-    data: Occasion[]
+    data?: Occasion[],
+    err?: string
 };
 
 declare type RoleRecord = {
     success: boolean,
-    data: Role
+    data?: Role,
+    err?: string
 }
 
 export default class ApiService extends Service {
@@ -21,9 +24,9 @@ export default class ApiService extends Service {
         }).then ( json => { 
             let record = json as ParticipantsRecord;
             if (!record.success) {
-                throw ("Request failed");
+                throw (record.err);
             }
-            return record.data;
+            return record.data!;
         })
     }
     getOccasions() {
@@ -32,51 +35,81 @@ export default class ApiService extends Service {
         }).then ( json => { 
             let record = json as OccasionsRecord;
             if (!record.success) {
-                throw ("Request failed");
+                throw (record.err);
             }
-            return record.data;
+            return record.data!;
         })
     }
     confirmAttendance(id:number) {
         return fetch(`/api/v1/attendance/${id}/type`,{
             method: 'POST',
+            headers: {
+                "Accept": "application/json; charset=utf-8",
+                "Content-Type": "application/json; charset=utf-8"
+            },
             body: '{ "type": "confirmed" }',
         }).then( result => {
             return result.json();
         }).then (json => {
             let record = json as RoleRecord;
             if (!record.success) {
-                throw ("Request failed");
+                throw (record.err);
             }
-            return record.data;
+            return record.data!;
+        })
+    }
+    unconfirmAttendance(id:number) {
+        return fetch(`/api/v1/attendance/${id}/type`,{
+            method: 'POST',
+            headers: {
+                "Accept": "application/json; charset=utf-8",
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: '{ "type": "assigned" }',
+        }).then( result => {
+            return result.json();
+        }).then (json => {
+            let record = json as RoleRecord;
+            if (!record.success) {
+                throw (record.err);
+            }
+            return record.data!;
         })
     }
     declineAttendance(id:number) {
         return fetch(`/api/v1/attendance/${id}/type`, {
             method: 'POST',
+            headers: {
+                "Accept": "application/json; charset=utf-8",
+                "Content-Type": "application/json; charset=utf-8"
+            },
             body: '{ "type": "declined" }',
         }).then( result => {
             return result.json();
         }).then (json => {
             let record = json as RoleRecord;
             if (!record.success) {
-                throw ("Request failed");
+                throw (record.err);
             }
-            return record.data;
+            return record.data!;
         })
     }
     substitute(id : number, substitute: number) {
         return fetch(`/api/v1/attendance/${id}/substitute`, {
             method: 'POST',
-            body: `{ "substitute": ${substitute} }`,
+            headers: {
+                "Accept": "application/json; charset=utf-8",
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: `{ "substitute": "${substitute}" }`,
         }).then( result => {
             return result.json();
         }).then (json => {
             let record = json as RoleRecord;
             if (!record.success) {
-                throw ("Request failed");
+                throw (record.err);
             }
-            return record.data;
+            return record.data!;
         })
     }
 }

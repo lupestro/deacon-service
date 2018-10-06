@@ -7,11 +7,11 @@
                 rules=rules 
                 occasion=occasion 
                 role=role
-                clicked=(action clicked role)
-                held=(action held role)
+                clicked=(action clicked role occasion)
+                held=(action held role occasion)
             }}
             {{#if (eq role.id overlay.role) }} 
-                {{duty-overlay title=overlay.title icon=overlay.icon icontype=overlay.icontype submit=(action submit role) close=(action cancel) }}
+                {{duty-overlay title=overlay.title icon=overlay.icon icontype=overlay.icontype submit=(action submit role occasion) close=(action cancel) }}
             {{/if}}
         </div>
     {{/each}}

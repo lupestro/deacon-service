@@ -33,19 +33,23 @@ export default class DutiesController extends Controller {
         if (this.application.me === "") {
             this.transitionToRoute('roster','mine'); 
         } else {
+            this.application.refreshOccasions();
             this.transitionToRoute('duties.mine');
         }
     }
     @action
     clickFamilyDuties() {
+        this.application.refreshOccasions();
         this.transitionToRoute('duties.family');
     }
     @action
     clickAllDuties() {
+        this.application.refreshOccasions();
         this.transitionToRoute('duties.all');
     }
     @action
     clickDutySubstitutions() {
+        this.application.refreshOccasions();
         this.transitionToRoute('duties.substitution');
     }
     @action

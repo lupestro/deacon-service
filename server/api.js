@@ -24,12 +24,6 @@ let _validateAttendanceType = function(value, optional) {
     return (typeof value === 'string') && 
         (value === 'confirmed' || value === 'declined' || value === 'assigned');
 }
-let _validateParticipantName = function(value, optional) {
-    if (optional && typeof value === 'undefined') {
-        return true;
-    }
-    return typeof value === 'string';
-}
 let _validateFlag = function(value, optional) {
     if (optional && typeof value === 'undefined') {
         return true;
@@ -119,8 +113,8 @@ router.post('/attendance/:id/substitute', (req, res) => {
     if (!_validateId(req.params.id, false)) {
         return res.json({ success: false, err: "Attendance ID is invalid"});
     }
-    if (!_validateParticipantName(req.body.substitute, false)) {
-        return res.json({ success: false, err: "Participant name is invalid"});
+    if (!_validateId(req.body.substitute, false)) {
+        return res.json({ success: false, err: "Participant ID is invalid"});
     }
     //Get the parameters
     let id = parseInt(req.params.id);
