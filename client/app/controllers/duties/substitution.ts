@@ -21,44 +21,62 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
     @computed ('application.me') get rules() {
         return new SubstitutionRoleRules([])
     };
-    @computed('application.model.occasions') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(this.application.model.occasions, this.rules, []);
+    @computed('application.model.occasions','rules') get occasions() : Occasion[] {
+        return this.getMatchingOccasions(
+            this.application.model.occasions, 
+            this.rules, 
+            []);
     }
     @action permit(role: Role, occasion: Occasion, actionType: string) : string {
-        if (this.isHistorical(occasion.when) || actionType !== 'substitute') {
+        if (this.isHistorical(occasion.when) ) {
             return 'empty'
-        } else {
-            if (!!role.declined.find ( item => {
+        } else if (actionType === 'substitute') {
+            if (role.declined.any ( item => {
                 return item.who_name === this.application.me;
             })) {
                 return 'empty';
             } else {
                 return actionType;
             }
+        } else if (actionType === 'decline') {
+            if (role.declined.any ( item => {
+                return item.sub_name === this.application.me;
+            })) {
+                return actionType;
+            } else {
+                return 'empty';
+            }
+        } else {
+            return 'empty';
         }
     }
-    @action changeSubstitution(role: Role, occasion: Occasion, changeType: string) {
+    @action changeSubstitution(role: Role, changeType: string) {
         const myId = this.application.model.id_map[this.application.me];
-        const att = this.findFirstForSubstitute(role);
-        if (att && att.id) {
-            this.api.substitute(att.id, myId).then( updatedRole => {
-                if (updatedRole) {
-                    this.application.refreshOccasions();
-                }
-            })
-            .catch( error => {
-                console.log(`Failed substituting id ${myId} for id ${att.id}:`, error);
+        if (changeType === 'substitute') {
+            const att = role.declined.find ( item => {
+                return !item.substitute;
             });
+            if (att && att.id) {
+                this.api.substitute(att.id, myId).then( () => {
+                    this.application.refreshOccasions();
+                })
+                .catch( error => {
+                    console.log(`Failed substituting id ${myId} for id ${att.id}:`, error);
+                });
+            }    
+        } else if (changeType === 'decline') {
+            const att = role.declined.find ( item => {
+                return item.substitute === myId;
+            });
+            if (att && att.id) {
+                this.api.declineAttendance(att.id).then( () => {
+                    this.application.refreshOccasions();
+                })
+                .catch( error => {
+                    console.log(`Failed declining substitution of id ${myId} for id ${att.id}:`, error);
+                });
+            }
         }
         console.log(`Change substitution for ${this.application.me} in role ${role.type} to ${changeType}`);
     }
-
-    findFirstForSubstitute(role:Role) : Attendance | undefined {
-        const declined = role.declined.find ( item => {
-            return !item.substitute;
-        })
-        return declined;
-    }
-
 }
-

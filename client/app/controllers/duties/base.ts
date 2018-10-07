@@ -15,7 +15,7 @@ export class DutiesRoleRules implements RoleRules {
             });
         })
     }
-    statusInRole(role: Role, who: string) : string {
+    statusInRole(role: Role) : string {
         if (role.assigned.any( item => {
             return !!item.who_name && this.who.includes(item.who_name);
         })) return 'assigned';
@@ -39,7 +39,7 @@ export class DutiesRoleRules implements RoleRules {
     getIconType(role: Role): string {
         if (role.declined.length === 0) {
             if (this.who.length === 1) {
-                let result = this.statusInRole(role, this.who[0]); 
+                let result = this.statusInRole(role); 
                 return (result === 'assigned') ? 'unconfirmed' : result === 'confirmed' ?  'confirmed' : '';
             } else {
                 return this.anyUnconfirmed(role) ? 'unconfirmed' : 'confirmed';
@@ -51,7 +51,7 @@ export class DutiesRoleRules implements RoleRules {
     getIconImage(role: Role): string {
         if (role.declined.length === 0) {
             if (this.who.length === 1) {
-                let result = this.statusInRole(role, this.who[0]); 
+                let result = this.statusInRole(role); 
                 return (result === 'assigned') ? 'circle' : result === 'confirmed' ?  'check-circle' : '';
             } else {
                 return this.anyUnconfirmed(role) ? 'circle' : 'check-circle'

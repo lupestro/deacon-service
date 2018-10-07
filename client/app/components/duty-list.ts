@@ -63,8 +63,8 @@ export default class DutyList extends Component.extend(RecognizerMixin, { recogn
             }
         }
     }
-    @action submit(role: Role, occasion: Occasion) {
-        (this.action)(role, occasion, this.overlay.type);
+    @action submit(role: Role) {
+        (this.action)(role, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
     @action cancel() {

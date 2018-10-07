@@ -12,7 +12,7 @@ export default class DutiesMineController extends DutiesBaseController {
     @computed ('application.watchableMe') get rules() {
         return new DutiesRoleRules([this.application.me])
     };
-    @computed('application.model.occasions','application.watchableMe') get occasions() : Occasion[] {
+    @computed('application.model.occasions','application.watchableMe','rules') get occasions() : Occasion[] {
         return this.getMatchingOccasions(
             this.application.model.occasions, 
             this.rules, 
@@ -48,7 +48,7 @@ export default class DutiesMineController extends DutiesBaseController {
             }
         }
     }
-    @action changeCommitment(role: Role, occasion: Occasion, changeType: string) {
+    @action changeCommitment(role: Role, changeType: string) {
         if (changeType === 'confirm') {
             const att = this.findAttendance(role, this.application.me);
             if (att && att.id) { 
