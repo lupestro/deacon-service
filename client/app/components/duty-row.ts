@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { capitalize } from '@ember/string';
 import { classNames, className } from '@ember-decorators/component';
 import { computed } from '@ember-decorators/object';
+import moment from 'moment';
 
 @classNames('duty-row')
 export default class DutyRow extends Component {
@@ -35,7 +36,7 @@ export default class DutyRow extends Component {
     @className('historical')
     get historical() 
     {
-        if (new Date() > new Date(this.occasion.when)) {
+        if (moment(this.occasion.when) < moment().startOf('day')) {
             return 'historical';
         } else {
             return '';

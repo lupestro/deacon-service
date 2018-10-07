@@ -31,7 +31,14 @@ export default class DutyList extends Component.extend(RecognizerMixin, { recogn
         super(...arguments);
         this.overlay = OVERLAYS['empty'];
     }
-
+    didInsertElement() {
+        const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const element = document.getElementById(this.elementId);
+        if (element) {
+            element.style.height = (height - 170)+ 'px';
+        }
+    } 
+    
     @action clicked(role: Role, occasion: Occasion) {
         if (this.overlay.type !== "empty") {
             this.set('overlay', OVERLAYS['empty']);

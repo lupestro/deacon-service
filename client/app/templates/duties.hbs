@@ -1,33 +1,41 @@
 <div class='page'>
+
 <h2 class='supertitle'>First Church Deacons</h2>
 {{duties-header 
-    title=title 
-    icon='calendar-alt' 
-    iconclick=(action clickCalendar)}}
-<div class='page-frame'>
-    {{outlet}}
-</div>
+  title=title 
+  icon='calendar-alt' 
+  iconclick=(action clickCalendar)
+}}
+
+{{outlet}}
+
 {{#selection-bar}}
   {{selection-item 
     text='Me' 
     icon='user' 
     itemclick=(action clickMyDuties) 
-    itempress=(action clickNewMe) }}
+    itempress=(action clickNewMe) 
+  }}
   {{selection-item 
     text='Family' 
     icon='bed' 
-    itemclick=(action clickFamilyDuties)}}
+    itemclick=(action clickFamilyDuties)
+  }}
   {{selection-item 
     text='All' 
     icon='users' 
-    itemclick=(action clickAllDuties)}}
+    itemclick=(action clickAllDuties)
+  }}
   {{selection-item 
     text='Subs' 
     icon='exchange-alt' 
-    itemclick=(action clickDutySubstitutions)}}
+    itemclick=(action clickDutySubstitutions)
+  }}
   {{selection-item 
     text='Any' 
     icon='user-plus' 
-    itemclick=(action clickAnyPersonDuties)}}
+    itemclick=(action clickAnyPersonDuties)
+  }}
 {{/selection-bar}}
+
 </div>
