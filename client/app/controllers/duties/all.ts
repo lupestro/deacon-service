@@ -1,17 +1,16 @@
-import DutiesBaseController, {DutiesRoleRules} from './base';
-import ApplicationController from 'deacon-dash/controllers/application';
-import { controller } from '@ember-decorators/controller';
-import { computed } from '@ember-decorators/object';
+import DutiesBaseController from './base';
+import { action } from '@ember-decorators/object';
 
 export default class DutiesAllController extends DutiesBaseController {
-    @controller('application') application! : ApplicationController;
-    @computed ('model.name') get rules() {
-        return new DutiesRoleRules([]);
-    };
-    @computed('application.model.occasions','rules') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(
-            this.application.model.occasions, 
-            this.rules, 
-            []);
+
+    @action 
+    permit( /* role: Role, occasion: Occasion, attendance: Attendance, actionType: string */) : string { 
+        return 'empty'; 
     }
+
+    @action 
+    change(/*attendance: Attendance, changeType: string*/) {
+        // Do nothing - this will never be called
+    }
+
 }

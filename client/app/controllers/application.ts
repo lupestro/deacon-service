@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { service } from '@ember-decorators/service';
+import { computed } from '@ember-decorators/object';
 import LocalService from '../services/local';
 import ApiService from '../services/api';
 
@@ -19,33 +20,29 @@ export default class ApplicationController extends Controller {
         this.local.me = value;
         this.set('watchableMe', value);
     }
-    refreshOccasions() {
-        this.api.getOccasions().then(occasions => {
-            for (let occasion of occasions) {
-                for (let role of occasion.roles) {
-                    for (let assigned of role.assigned) {
-                        assigned.who_name = this.model.name_map[assigned.who];
-                    }
-                    for (let confirmed of role.confirmed) {
-                        confirmed.who_name = this.model.name_map[confirmed.who];
-                    }
-                    for (let declined of role.declined) {
-                        declined.who_name = this.model.name_map[declined.who];
-                        if (typeof declined.substitute !== "undefined") {
-                            declined.sub_name = this.model.name_map[declined.substitute];
-                        }
-                    }
-                }
-            }
-    
-            let model : ApplicationModel = {
-                participants: this.model.participants,
-                occasions: occasions,
-                id_map: this.model.id_map,
-                name_map: this.model.name_map
-            };
-            this.set('model', model);
-        })
+
+    @computed('watchableMe','model.participants') 
+    get myId() {
+        let model = this.model as ApplicationModel;
+        let myParticipant = model.participants.find ( participant => {
+            return participant.short_name === this.me;
+        });
+        return myParticipant ? myParticipant.id : 0;
+    }
+
+    @computed('watchableMe','model.participants') 
+    get myFamily() {
+        let model = this.model as ApplicationModel;
+        let myParticipant = model.participants.find ( participant => {
+            return participant.short_name === this.me;
+        });
+        if (!myParticipant || !myParticipant.family) return [this.me];
+
+        return model.participants.filter ( participant => {
+            return participant.family && myParticipant && participant.family === myParticipant.family;
+        }).map( participant => {
+            return participant.short_name;
+        });
     }
 }
 

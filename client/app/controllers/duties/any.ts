@@ -1,18 +1,15 @@
-import DutiesBaseController, {DutiesRoleRules} from './base';
-import ApplicationController from '../application';
-import { controller } from '@ember-decorators/controller';
-import { computed } from '@ember-decorators/object';
+import DutiesBaseController from './base';
+import { action } from '@ember-decorators/object';
 
 export default class DutiesAnyController extends DutiesBaseController {
-    @controller('application') application! : ApplicationController;
-    @computed ('model.name') get rules() {
-        return new DutiesRoleRules([this.model.name]);
-    };
-    @computed('application.model.occasions','rules') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(
-            this.application.model.occasions, 
-            this.rules, 
-            [this.model.name]
-        );
+
+    @action 
+    permit( /* role: Role, occasion: Occasion, attendance: Attendance, actionType: string */) : string { 
+        return 'empty'; 
+    }
+
+    @action 
+    change(/*attendance: Attendance, changeType: string*/) {
+        // Do nothing - this will never be called
     }
 }

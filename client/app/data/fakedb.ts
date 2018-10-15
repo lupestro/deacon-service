@@ -30,7 +30,7 @@ let participants : Participant[]= [
     {"id":29,"type":"substitute","short_name":"Maribeth","full_name":"Maribeth Stone","team":null,"family":3},
     {"id":30,"type":"substitute","short_name":"Keanna","full_name":"Keanna Smigliani","team":null,"family":2}
 ];
-let occasions : Occasion[] = [
+let occasions : OccasionData[] = [
     {
       "id": 1,
       "when": "2018-08-26T13:00:00.000Z",
@@ -1354,4 +1354,4 @@ let occasions : Occasion[] = [
     }
   ];
 
-export   { occasions, participants} ;
+export { occasions, participants} ;

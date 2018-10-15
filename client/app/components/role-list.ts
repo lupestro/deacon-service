@@ -20,26 +20,29 @@ const OVERLAYS : {[name: string]: Overlay } = {
 };
 
 @classNames('duty-list')
-export default class DutyList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class RoleList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
     clickType!: string;
     holdType!: string;
     action!: Function;
     permit!: Function;
 
     overlay: Overlay;
+
     constructor() {
         super(...arguments);
         this.overlay = OVERLAYS['empty'];
     }
+
     didInsertElement() {
-        const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
         const element = document.getElementById(this.elementId);
         if (element) {
             element.style.height = (height - 170)+ 'px';
         }
     } 
     
-    @action clicked(role: Role, occasion: Occasion) {
+    @action 
+    clicked(role: Role, occasion: Occasion) {
         if (this.overlay.type !== "empty") {
             this.set('overlay', OVERLAYS['empty']);
         } else {
@@ -51,7 +54,9 @@ export default class DutyList extends Component.extend(RecognizerMixin, { recogn
             }
         }
     }
-    @action held(role: Role, occasion: Occasion) {
+
+    @action 
+    held(role: Role, occasion: Occasion) {
         if (this.overlay.type !== "empty") {
             this.set('overlay', OVERLAYS['empty']);
         } else {
@@ -63,11 +68,15 @@ export default class DutyList extends Component.extend(RecognizerMixin, { recogn
             }
         }
     }
-    @action submit(role: Role) {
+
+    @action 
+    submit(role: Role) {
         (this.action)(role, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
-    @action cancel() {
+
+    @action 
+    cancel() {
         this.set('overlay', OVERLAYS['empty']);
     }
 }

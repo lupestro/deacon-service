@@ -15,43 +15,46 @@ declare global {
 export default class DutiesController extends Controller {
     @controller('application') application! : ApplicationController;
     title: string;
+
     constructor() {
         super(...arguments);
         this.title = 'Duties';
     }
+
     @action
     clickNewMe() {
         this.transitionToRoute('roster','mine');
     }
+
     @action
     clickCalendar() {
         console.log('ToDo: Calendar');
     }
+
     @action
     clickMyDuties() {
-        console.log (this.application.me);
         if (this.application.me === "") {
             this.transitionToRoute('roster','mine'); 
         } else {
-            this.application.refreshOccasions();
             this.transitionToRoute('duties.mine');
         }
     }
+
     @action
     clickFamilyDuties() {
-        this.application.refreshOccasions();
         this.transitionToRoute('duties.family');
     }
+
     @action
     clickAllDuties() {
-        this.application.refreshOccasions();
         this.transitionToRoute('duties.all');
     }
+
     @action
     clickDutySubstitutions() {
-        this.application.refreshOccasions();
         this.transitionToRoute('duties.substitution');
     }
+    
     @action
     clickAnyPersonDuties() {
         this.transitionToRoute('roster', 'any');

@@ -1,37 +1,72 @@
-import DutiesBaseController, {DutiesRoleRules} from './base';
-import ApplicationController from '../application';
 import { controller } from '@ember-decorators/controller';
-import { computed, action } from '@ember-decorators/object';
+import { action } from '@ember-decorators/object';
+import { service } from '@ember-decorators/service';
+
+import DutiesBaseController from './base';
+import ApplicationController from '../application';
+import ApiService from '../../services/api';
+import OccasionsService from '../../services/occasions';
 
 export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;
-    @computed ('application.watchableMe') get rules() {
-        return new DutiesRoleRules(this.members)
-    };
-    @computed('application.model.occasions','application.watchableMe','rules') get occasions() : Occasion[] {
-        return this.getMatchingOccasions(
-            this.application.model.occasions, 
-            this.rules, 
-            this.members);
-    }
-    @computed('application.model.participants', 'application.watchableMe') get members() {
-        let model = this.application.model as ApplicationModel;
-        if (model.id_map) {
-            let myId = model.id_map[this.application.me];
-            let me = model.participants.find(item => { return item.id === myId; });
-            if (me && me.family) {
-                let family = me.family;
-                return model.participants
-                    .filter( item => { return item.family == family; })
-                    .map( item => { return item.short_name; })
-            } 
+    @service api!: ApiService;
+    @service occasions!: OccasionsService;
+
+    @action 
+    permit(role: Role, occasion: Occasion, attendance: Attendance, changeType: string) : string {
+        if (changeType === 'confirm') {
+            if (this.isImminent(occasion.when) && attendance.who_name === this.application.me) {
+                if (attendance.type === 'confirmed') {
+                    return 'unconfirm';
+                } else {
+                    return 'confirm';
+                }
+            } else {
+                return 'empty';
+            }
+        } else {
+            if (this.isHistorical(occasion.when) || attendance.who_name !== this.application.me) {
+                return 'empty';
+            } else {
+                if (attendance.type === 'declined') {
+                    return 'unconfirm';
+                } else {
+                    return 'decline';
+                }
+            }
         }
-        return [this.application.me]; 
     }
-    @action permit(/*role: Role, occasion: Occasion, changeType: string*/) : string {
-        return 'empty';
-    }
-    @action changeCommitment(role: Role, changeType: string) {
-        console.log(`Change attendance for ${this.application.me} in role ${role.type} to ${changeType}`);
+
+    @action 
+    changeCommitment(attendance: Attendance, changeType: string) {
+        if (changeType === 'confirm') {
+            this.api.confirmAttendance(attendance.id)
+            .then(updatedRole => {
+                this.occasions.update(updatedRole);
+                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+            })
+            .catch( error => {
+                console.log(`Failed confirming attendance for id ${attendance.id}:`, error);
+            });
+        } else if (changeType === 'unconfirm') {
+            this.api.unconfirmAttendance(attendance.id)
+            .then(updatedRole => {
+                this.occasions.update(updatedRole);
+                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+            })
+            .catch( error => {
+                console.log(`Failed unconfirming attendance for id ${attendance.id}:`, error);
+            });
+        } else if (changeType === 'decline') {
+            this.api.declineAttendance(attendance.id).then(updatedRole => {
+                this.occasions.update(updatedRole);
+                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+            })
+            .catch( error => {
+                console.log(`Failed declining attendance for id ${attendance.id}:`, error);
+            });
+        }
+
+        console.log(`Change attendance ${attendance.id} for ${this.application.me} to ${changeType}`);
     }
 }

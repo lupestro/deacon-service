@@ -1,45 +1,84 @@
 import Service from '@ember/service';
 
+declare type ErrorRecord = {
+    success: boolean,
+    err: string
+}
+
 declare type ParticipantsRecord  = {
     success: boolean,
-    data?:Participant[],
-    err?: string
+    data:Participant[],
 };
+
 declare type OccasionsRecord  = {
     success: boolean,
-    data?: Occasion[],
-    err?: string
+    data: OccasionData[],
 };
 
 declare type RoleRecord = {
     success: boolean,
-    data?: Role,
-    err?: string
+    data: RoleData,
+}
+
+declare global {
+    type Participant = {
+        id: number,
+        type: string,
+        short_name: string,
+        full_name: string,
+        team?: number | null,
+        family?: number | null
+    }; 
+    
+    type AttendanceData = {
+        id: number,
+        who: number,
+        team?: number | null,
+        substitute?: number
+    };
+
+    type RoleData = {
+        id: number,
+        type: string,
+        required: number,
+        assigned: AttendanceData[],
+        confirmed: AttendanceData[],
+        declined: AttendanceData[]
+    };
+    
+    type OccasionData = {
+        id: number,
+        when: string,
+        type: string,
+        subtype: string | null,
+        roles: RoleData[]
+    }
 }
 
 export default class ApiService extends Service {
+
     getParticipants() {
         return fetch('/api/v1/participants').then( result  => { 
             return result.json();
         }).then ( json => { 
-            let record = json as ParticipantsRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as ParticipantsRecord).data;
         })
     }
+
     getOccasions() {
         return fetch('/api/v1/occasions').then( result  => { 
             return result.json();
         }).then ( json => { 
-            let record = json as OccasionsRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as OccasionsRecord).data;
         })
     }
+
     confirmAttendance(id:number) {
         return fetch(`/api/v1/attendance/${id}/type`,{
             method: 'POST',
@@ -51,13 +90,13 @@ export default class ApiService extends Service {
         }).then( result => {
             return result.json();
         }).then (json => {
-            let record = json as RoleRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as RoleRecord).data;
         })
     }
+
     unconfirmAttendance(id:number) {
         return fetch(`/api/v1/attendance/${id}/type`,{
             method: 'POST',
@@ -69,13 +108,13 @@ export default class ApiService extends Service {
         }).then( result => {
             return result.json();
         }).then (json => {
-            let record = json as RoleRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as RoleRecord).data;
         })
     }
+
     declineAttendance(id:number) {
         return fetch(`/api/v1/attendance/${id}/type`, {
             method: 'POST',
@@ -87,13 +126,13 @@ export default class ApiService extends Service {
         }).then( result => {
             return result.json();
         }).then (json => {
-            let record = json as RoleRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as RoleRecord).data;
         })
     }
+    
     substitute(id : number, substitute: number) {
         return fetch(`/api/v1/attendance/${id}/substitute`, {
             method: 'POST',
@@ -105,52 +144,10 @@ export default class ApiService extends Service {
         }).then( result => {
             return result.json();
         }).then (json => {
-            let record = json as RoleRecord;
-            if (!record.success) {
-                throw (record.err);
+            if (!json.success) {
+                throw (json as ErrorRecord).err;
             }
-            return record.data!;
+            return (json as RoleRecord).data;
         })
     }
 }
-
-declare global {
-    
-    type Participant = {
-        id: number,
-        type: string,
-        short_name: string,
-        full_name: string,
-        team: number | null,
-        family: number | null
-      }; 
-    
-    type Attendance = {
-        id: number,
-        who: number,
-        who_name?: string,
-        team?: number | null,
-        substitute?: number,
-        sub_name? : string
-      };
-    
-    type Role = {
-        id: number,
-        icon?: string,
-        type: string,
-        required: number,
-        assigned: Attendance[],
-        confirmed: Attendance[],
-        declined: Attendance[]
-      };
-      
-    type Occasion = {
-        id: number,
-        when: string,
-        type: string,
-        subtype: string | null,
-        roles: Role[]
-      }
-    
-    }
-  

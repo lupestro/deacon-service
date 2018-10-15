@@ -8,12 +8,14 @@ export default class RosterController extends Controller {
     @controller('application') application! : ApplicationController;
     @service api!: ApiService;
     searchtext: string;
+
     constructor() {
         super(...arguments);
         this.searchtext = "";
     }
    
-    @action clickReturn (shortname : string | undefined) {
+    @action 
+    clickReturn (shortname : string | undefined) {
         this.set('searchtext',"");
         if (typeof shortname === "undefined") {
             this.transitionToRoute('duties.all');
@@ -24,6 +26,7 @@ export default class RosterController extends Controller {
             this.transitionToRoute('duties.any', shortname);
         }
     }
+
     @computed('searchtext','application.model.participants') 
     get candidates() : Participant[] {
         if (this.searchtext === "") {

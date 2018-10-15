@@ -4,10 +4,12 @@ import { action } from '@ember-decorators/object';
 
 @classNames('search-bar')
 export default class SearchBar extends Component {
+    searchtext! : string;
+
     constructor() {
         super(...arguments);
     }
-    searchtext! : string;
+
     @action
     clear(){
         this.set('searchtext',"");

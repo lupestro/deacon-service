@@ -6,10 +6,14 @@ import { classNames } from '@ember-decorators/component';
 export default class DutyOverlay extends Component {
     submit!: Function;
     close!: Function;
-    @action submitAction() {
+
+    @action 
+    submitAction() {
         (this.get('submit'))();
     }
-    @action closeAction() {
+
+    @action 
+    closeAction() {
         (this.get('close'))();
     }
 }
