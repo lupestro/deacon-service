@@ -33,7 +33,8 @@ const OVERLAYS : {[name: string]: Overlay } = {
     confirm: {attendance: 0, type: "confirm", title: "Confirm", icon: "check-circle", icontype: 'confirmed', live: true },
     decline: {attendance: 0, type: "decline", title: "Decline", icon: "exclamation-triangle", icontype: 'needy' , live: true},
     substitute: { attendance: 0, type: "substitute", title: "Substitute", icon: 'exchange-alt', icontype: 'satisfied', live: true},
-    unconfirm: { attendance: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed', live: true }
+    unconfirm: { attendance: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed', live: true },
+    revoke: { attendance: 0, type: "revoke", title: "Revoke", icon: "exclamation-triangle", icontype: 'needy', live: true}
 };
 
 @classNames('duty-list')

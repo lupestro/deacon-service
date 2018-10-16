@@ -13,7 +13,7 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
     @service occasions!: OccasionsService;
 
     @action 
-    permit(role: Role, occasion: Occasion, attendance: Attendance, actionType: string) : string {
+    permit(_role: Role, occasion: Occasion, attendance: Attendance, actionType: string) : string {
         if (this.isHistorical(occasion.when) ) {
             return 'empty'
         } else if (actionType === 'substitute') {
@@ -22,7 +22,7 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
             } else {
                 return actionType;
             }
-        } else if (actionType === 'decline') {
+        } else if (actionType === 'revoke') {
             if (attendance.sub_name && attendance.sub_name === this.application.me) {
                 return actionType;
             } else {
@@ -44,13 +44,13 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
             .catch( error => {
                 console.log(`Failed substituting id ${myId} for id ${attendance.id}:`, error);
             });
-        } else if (changeType === 'decline') {
+        } else if (changeType === 'revoke') {
             this.api.declineAttendance(attendance.id).then( updatedRole => {
                 this.occasions.update(updatedRole);
                 this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
             })
             .catch( error => {
-                console.log(`Failed declining substitution of id ${myId} for id ${attendance.id}:`, error);
+                console.log(`Failed revoking substitution of id ${myId} for id ${attendance.id}:`, error);
             });
         }
         console.log(`Change substitution on id ${attendance.id} for ${this.application.me} to ${changeType}`);

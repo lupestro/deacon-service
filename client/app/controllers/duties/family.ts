@@ -13,7 +13,7 @@ export default class DutiesMineController extends DutiesBaseController {
     @service occasions!: OccasionsService;
 
     @action 
-    permit(role: Role, occasion: Occasion, attendance: Attendance, changeType: string) : string {
+    permit(_role: Role, occasion: Occasion, attendance: Attendance, changeType: string) : string {
         if (changeType === 'confirm') {
             if (this.isImminent(occasion.when) && attendance.who_name === this.application.me) {
                 if (attendance.type === 'confirmed') {
