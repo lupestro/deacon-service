@@ -1,8 +1,16 @@
 <button class="duty-overlay-item" {{action "submitAction"}}> 
-    {{fa-icon this.icon class=(concat 'duty-icon ' this.icontype) size='2x' }} 
-    {{this.title}}
+  {{fa-icon 
+    this.icon 
+    class=(concat "duty-icon " this.icontype) 
+    size="2x" 
+  }} 
+  {{this.title}}
 </button>
 <button class="duty-overlay-item" {{action "closeAction"}}> 
-    {{fa-icon 'times-circle' class='duty-icon cancel' size='2x' }} 
-    Cancel
+  {{fa-icon 
+    "times-circle" 
+    class="duty-icon cancel" 
+    size="2x" 
+  }} 
+  Cancel
 </button>

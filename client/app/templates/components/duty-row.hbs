@@ -1,8 +1,12 @@
-{{fa-icon duty.iconimage class=(concat 'duty-icon ' duty.icontype) size='2x' }}
-<div class='duty-row-group'>
-    <div class='duty-row-type'>{{duty.type}}</div>
-    <div class='duty-row-subtype'>{{duty.subtype}}</div>
+{{fa-icon 
+  duty.iconimage 
+  class=(concat "duty-icon " duty.icontype) 
+  size="2x" 
+}}
+<div class="duty-row-group">
+  <div class="duty-row-type">{{duty.type}}</div>
+  <div class="duty-row-subtype">{{duty.subtype}}</div>
 </div>
 {{#if duty.names}}
-    <div class='duty-row-names'>{{duty.names}}</div>
+  <div class="duty-row-names">{{duty.names}}</div>
 {{/if}}
