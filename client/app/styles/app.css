@@ -34,6 +34,7 @@
     padding: 2px;
     border: none;
     color: inherit;
+    background-color: inherit;
     font-size: 24px;
     font-weight: 700;
 }
@@ -59,12 +60,16 @@
     padding: 0 15px 0 15px;
     border: none;
     color: inherit;
+    background-color: inherit;
     font-size: 28px;
     font-weight: 700;
 }
 .selection-item-text {
     font-size: 13px;
     text-align: center;
+}
+.any-user .selection-item-text {
+    padding-right: 10px;
 }
 
 /* Duties Layout */
