@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action, computed } from '@ember-decorators/object';
-import { controller, service } from '@ember-decorators/controller';
+import { controller } from '@ember-decorators/controller';
+import { service } from '@ember-decorators/service';
 import ApplicationController from './application';
 import ApiService from '../services/api';
 
