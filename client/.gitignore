@@ -23,7 +23,3 @@
 /bower.json.ember-try
 /package.json.ember-try
 
-#personal database data
-/db/participants.pgsql
-/db/assignments.pgsql
-/db/status-changes.pgsql
