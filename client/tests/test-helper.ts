@@ -1,5 +1,5 @@
-import Application from '../app';
-import config from 'config/environment';
+import Application from 'deacon-dash/app';
+import config from 'deacon-dash/config/environment';
 import { setApplication } from '@ember/test-helpers';
 import { start } from 'ember-qunit';
 
