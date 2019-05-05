@@ -1,29 +1,28 @@
 {{#each sourceData as |occasion|}}
-  {{sub-header 
-    title=(moment-format occasion.when "MMMM DD, YYYY HH:mm")
-  }}
+  <SubHeader 
+    @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}}
+  />
   {{#each occasion.roles as |role|}}
-    {{#role-summarizer 
-      occasion=occasion 
-      role=role 
-    as |duty|
-    }}
+    <RoleSummarizer 
+      @occasion={{occasion}}
+      @role={{role}} as |duty|
+    >
       <div class="duty-row-wrapper">
-        {{duty-row 
-          duty=duty 
-          clicked=(action clicked role occasion attendance) 
-          held=(action held role occasion attendance) 
-        }}
-        {{#if (eq overlay.role role.id) }}
-          {{duty-overlay 
-            title=overlay.title 
-            icon=overlay.icon 
-            icontype=overlay.icontype 
-            submit=(action submit role) 
-            close=(action cancel) 
-          }}
+        <DutyRow 
+          @duty={{duty}} 
+          @clicked={{action this.clicked role occasion attendance}}
+          @held={{action this.held role occasion attendance}}
+        />
+        {{#if (eq this.overlay.role role.id) }}
+          <DutyOverlay 
+            @title={{this.overlay.title}}
+            @icon={{this.overlay.icon}} 
+            @icontype={{this.overlay.icontype}} 
+            @submission={{action this.submitChange role}}
+            @closure={{action this.cancelChange}}
+          />
         {{/if}}
       </div>
-    {{/role-summarizer}}    
+    </RoleSummarizer>    
   {{/each}}
 {{/each}}

@@ -1,42 +1,37 @@
-<div class="page">
-
-  <h2 class="supertitle">First Church Deacons</h2>
-  {{duties-header 
-    title=title 
-    icon="calendar-alt" 
-    iconclick=(action clickCalendar)
-  }}
+  <Header 
+    @title={{this.title}}
+    @icon="calendar-alt" 
+    @iconclick={{action this.clickCalendar}}
+  />
 
   {{outlet}}
 
-  {{#selection-bar}}
-    {{selection-item 
-      text="Me" 
-      icon="user" 
-      itemclick=(action clickMyDuties) 
-      itempress=(action clickNewMe) 
-    }}
-    {{selection-item 
-      text="Family" 
-      icon="bed" 
-      itemclick=(action clickFamilyDuties)
-    }}
-    {{selection-item 
-      text="All" 
-      icon="users" 
-      itemclick=(action clickAllDuties)
-    }}
-    {{selection-item 
-      text="Subs" 
-      icon="exchange-alt" 
-      itemclick=(action clickDutySubstitutions)
-    }}
-    {{selection-item 
-      class="any-user"
-      text="Any" 
-      icon="user-plus" 
-      itemclick=(action clickAnyPersonDuties)
-    }}
-  {{/selection-bar}}
-
-</div>
+  <NavigationBar>
+    <NavigationItem 
+      @text="Me" 
+      @icon="user" 
+      @itemclick={{action this.clickMyDuties}} 
+      @itempress={{action this.clickNewMe}} 
+    />
+    <NavigationItem 
+      @text="Family" 
+      @icon="bed" 
+      @itemclick={{action this.clickFamilyDuties}}
+    />
+    <NavigationItem 
+      @text="All" 
+      @icon="users" 
+      @itemclick={{action this.clickAllDuties}}
+    />
+    <NavigationItem 
+      @text="Subs" 
+      @icon="exchange-alt" 
+      @itemclick={{action this.clickDutySubstitutions}}
+    />
+    <NavigationItem 
+      @class="any-user"
+      @text="Any" 
+      @icon="user-plus" 
+      @itemclick={{action this.clickAnyPersonDuties}}
+    />
+  </NavigationBar>

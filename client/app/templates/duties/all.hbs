@@ -1,9 +1,9 @@
-{{role-list 
+<RoleList 
   class="page-frame" 
-  sourceData=this.model.occasions
-  showNames=true 
-  clickType="confirm" 
-  holdType="decline" 
-  permit=(action permit)
-  action=(action change)
-}}
+  @sourceData={{this.model.occasions}}
+  @showNames={{true}} 
+  @clickType="confirm" 
+  @holdType="decline" 
+  @permit={{action this.permit}}
+  @action={{action this.change}}
+/>

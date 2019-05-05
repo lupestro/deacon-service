@@ -1,9 +1,9 @@
-{{attendance-list 
+<AttendanceList 
   class="page-frame"
-  sourceData=this.model.occasions
-  showNames=true 
-  clickType="substitute" 
-  holdType="revoke" 
-  permit=(action permit)
-  action=(action changeSubstitution) 
-}}
+  @sourceData={{this.model.occasions}}
+  @showNames={{true}} 
+  @clickType="substitute" 
+  @holdType="revoke" 
+  @permit={{action this.permit}}
+  @action={{action this.changeSubstitution}}
+/>

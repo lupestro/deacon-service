@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { classNames } from '@ember-decorators/component';
+import { classNames, tagName } from '@ember-decorators/component';
 import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 import { action } from '@ember/object';
 
@@ -38,6 +38,7 @@ const OVERLAYS : {[name: string]: Overlay } = {
 };
 
 @classNames('duty-list')
+@tagName('main')
 export default class AttendanceList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
     rule!: AttendanceRule;
     clickType!: string;
@@ -89,13 +90,13 @@ export default class AttendanceList extends Component.extend(RecognizerMixin, { 
     }
 
     @action 
-    submit(attendance: Attendance) {
+    submitChange(attendance: Attendance) {
         (this.action)(attendance, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
     
     @action 
-    cancel() {
+    cancelChange() {
         this.set('overlay', OVERLAYS['empty']);
     }
 

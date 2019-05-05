@@ -1,20 +1,25 @@
-<div class="page">
-  <h2 class="supertitle">First Church Deacons</h2>
-  {{duties-header title="Roster" iconclick=(action clickReturn) }}
-  {{search-bar searchtext=searchtext}}
+<Header 
+  @title="Roster" 
+  @iconclick={{action this.clickReturn}} 
+/>
 
-  {{#roster-list class="page-frame"}}
+<main>
+  <SearchBar @searchtext={{this.searchtext}} />
+
+  <RosterList class="page-frame">
     {{#each candidates as |participant| }}
-      {{roster-row model=participant selection=(action clickReturn) }}
+      <RosterRow 
+        @model={{participant}} 
+        @selection={{action "clickReturn"}} 
+      />
     {{/each}}
-  {{/roster-list}}
+  </RosterList>
+</main>
 
-  {{#selection-bar}}
-    {{selection-item 
-      text="Back" 
-      icon="users" 
-      itemclick=(action clickReturn)
-    }}
-  {{/selection-bar}}
-
-</div>
+<NavigationBar>
+  <NavigationItem 
+    @text="Back" 
+    @icon="users" 
+    @itemclick={{action "clickReturn"}}
+  />
+</NavigationBar>

@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
-export default class SelectionItem extends Component {
+export default class NavigationItem extends Component {
+    tagName = '';
     itemclick! : Function;
     itempress! : Function;
 }
