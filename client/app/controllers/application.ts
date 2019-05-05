@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
-import { service } from '@ember-decorators/service';
-import { computed } from '@ember-decorators/object';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import LocalService from '../services/local';
 import ApiService from '../services/api';
 

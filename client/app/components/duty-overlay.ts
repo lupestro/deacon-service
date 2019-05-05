@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 import { classNames } from '@ember-decorators/component';
 
 @classNames('duty-overlay')

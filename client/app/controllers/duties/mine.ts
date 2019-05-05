@@ -1,5 +1,5 @@
-import { action } from '@ember-decorators/object';
-import { service } from '@ember-decorators/service';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 import DutiesBaseController from './base';
 import ApiService from '../../services/api';

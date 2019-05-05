@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { classNames } from '@ember-decorators/component';
 import RecognizerMixin from 'ember-gestures/mixins/recognizers';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 
 type Overlay = {
     role: number;
@@ -26,10 +26,10 @@ export default class RoleList extends Component.extend(RecognizerMixin, { recogn
     action!: Function;
     permit!: Function;
 
-    overlay: Overlay;
+    overlay!: Overlay;
 
-    constructor() {
-        super(...arguments);
+    init() {
+        super.init();
         this.overlay = OVERLAYS['empty'];
     }
 

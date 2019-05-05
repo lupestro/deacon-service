@@ -1,20 +1,15 @@
 import Controller from '@ember/controller';
-import { action, computed } from '@ember-decorators/object';
-import { controller } from '@ember-decorators/controller';
-import { service } from '@ember-decorators/service';
+import { action, computed } from '@ember/object';
+import { inject as controller } from '@ember/controller';
+import { inject as service } from '@ember/service';
 import ApplicationController from './application';
 import ApiService from '../services/api';
 
 export default class RosterController extends Controller {
     @controller('application') application! : ApplicationController;
     @service api!: ApiService;
-    searchtext: string;
+    searchtext: string = "";
 
-    constructor() {
-        super(...arguments);
-        this.searchtext = "";
-    }
-   
     @action 
     clickReturn (shortname : string | undefined) {
         this.set('searchtext',"");

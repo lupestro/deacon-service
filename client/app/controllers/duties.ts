@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 import ApplicationController from './application';
-import { controller } from '@ember-decorators/controller';
+import { inject as controller } from '@ember/controller';
 
 declare global {
     interface RoleRules {
@@ -14,12 +14,7 @@ declare global {
 
 export default class DutiesController extends Controller {
     @controller('application') application! : ApplicationController;
-    title: string;
-
-    constructor() {
-        super(...arguments);
-        this.title = 'Duties';
-    }
+    title: string = 'Duties';
 
     @action
     clickNewMe() {

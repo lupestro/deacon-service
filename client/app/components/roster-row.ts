@@ -7,17 +7,16 @@ export default class RosterRow extends Component {
     model! : Participant;
 
     @className('alternate') 
-    isAlternate : boolean;
+    isAlternate! : boolean;
 
     @className('historical')
-    isHistorical : boolean;
+    isHistorical! : boolean;
 
-    constructor() {
-        super(...arguments);
+    init() {
+        super.init();
         this.isAlternate = this.model.type === 'substitute';
         this.isHistorical = this.model.type === 'historical';
     }
-
     click() {
         (this.selection)(this.model.short_name);
     }

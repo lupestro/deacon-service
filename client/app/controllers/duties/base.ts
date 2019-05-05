@@ -3,10 +3,6 @@ import moment from 'moment';
 
 export default class DutiesBaseController extends Controller {
     
-    constructor() {
-        super(...arguments);
-    }
-
     isImminent(when:string) : boolean {
         const sched = moment(when);
         return sched >= moment().startOf('day') && sched < moment().startOf('day').add(8,'days');
