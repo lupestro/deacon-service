@@ -42,7 +42,11 @@ export default class DutiesController extends Controller {
 
     @action
     clickFamilyDuties() {
-        this.transitionToRoute('duties.family');
+        if (this.application.me === "") {
+            this.transitionToRoute('roster','family'); 
+        } else {
+            this.transitionToRoute('duties.family');
+        }
     }
 
     @action
