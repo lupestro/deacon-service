@@ -60,6 +60,8 @@ export default class DutiesController extends Controller {
     }
 }
 
+// The following definition is needed for TypeScript because child routes request it via controllerFor.
+
 declare module '@ember/controller' {
     interface Registry {
         'duties': DutiesController;
