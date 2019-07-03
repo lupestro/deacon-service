@@ -732,6 +732,13 @@
     ember-cli-babel "^6.16.0"
     ember-compatibility-helpers "^1.1.1"
 
+"@ember/render-modifiers@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ember/render-modifiers/-/render-modifiers-1.0.0.tgz#dc1e4c615e38507da4b6a80f6e4b27fe4d37ec8f"
+  dependencies:
+    ember-cli-babel "^7.1.2"
+    ember-modifier-manager-polyfill "^1.0.1"
+
 "@ember/test-helpers@^0.7.26":
   version "0.7.27"
   resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-0.7.27.tgz#c622cabd0cbb95b34efc1e1b6274ab5a14edc138"
@@ -2638,6 +2645,12 @@ calculate-cache-key-for-tree@^1.1.0:
   dependencies:
     json-stable-stringify "^1.0.1"
 
+calculate-cache-key-for-tree@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/calculate-cache-key-for-tree/-/calculate-cache-key-for-tree-2.0.0.tgz#7ac57f149a4188eacb0a45b210689215d3fef8d6"
+  dependencies:
+    json-stable-stringify "^1.0.1"
+
 call-me-maybe@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/call-me-maybe/-/call-me-maybe-1.0.1.tgz#26d208ea89e37b5cbde60250a15f031c16a4d66b"
@@ -3672,6 +3685,12 @@ ember-compatibility-helpers@^1.2.0:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
+ember-copy@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-copy/-/ember-copy-1.0.0.tgz#426554ba6cf65920f31d24d0a3ca2cb1be16e4aa"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
 ember-data@~3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.8.0.tgz#05b4d48ab3d612824862b037c4159ce2578fd688"
@@ -3749,20 +3768,29 @@ ember-fetch@^5.1.3:
     node-fetch "^2.0.0-alpha.9"
     rollup-plugin-babel "^3.0.7"
 
-ember-gestures@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ember-gestures/-/ember-gestures-1.1.0.tgz#4e6cc10dcb42c4d149af72b8ac88e37d2da3c7c2"
+ember-fn-helper-polyfill@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ember-fn-helper-polyfill/-/ember-fn-helper-polyfill-1.0.2.tgz#deb035fced77f98b9256ba4eb17694b7a2e2a526"
+  dependencies:
+    calculate-cache-key-for-tree "^2.0.0"
+    ember-cli-babel "^7.7.3"
+    ember-cli-version-checker "^3.1.3"
+
+ember-gestures@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/ember-gestures/-/ember-gestures-1.1.3.tgz#81cdfa8421d86c3ef8db68f85a68be415daadbd0"
   dependencies:
     animation-frame "~0.2.4"
-    broccoli-funnel "^2.0.1"
-    broccoli-merge-trees "^2.0.0"
-    broccoli-stew "^1.5.0"
+    broccoli-funnel "^2.0.2"
+    broccoli-merge-trees "^3.0.2"
     ember-cli-babel "^6.8.2"
     ember-cli-htmlbars "^2.0.1"
     ember-cli-version-checker "^2.1.0"
+    ember-copy "^1.0.0"
     ember-getowner-polyfill "^2.2.0"
+    fastboot-transform "^0.1.3"
     hammerjs "^2.0.8"
-    rsvp "^3.1.0"
+    resolve "^1.10.0"
 
 ember-get-config@^0.2.4:
   version "0.2.4"
@@ -3819,7 +3847,7 @@ ember-maybe-import-regenerator@^0.1.6:
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
 
-ember-modifier-manager-polyfill@^1.0.3:
+ember-modifier-manager-polyfill@^1.0.1, ember-modifier-manager-polyfill@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/ember-modifier-manager-polyfill/-/ember-modifier-manager-polyfill-1.0.3.tgz#6554b70d09a7d3b80d366b72ed482fb9a3e813c0"
   dependencies:
@@ -4346,6 +4374,13 @@ fast-sourcemap-concat@^1.4.0:
     source-map "^0.4.2"
     source-map-url "^0.3.0"
     sourcemap-validator "^1.1.0"
+
+fastboot-transform@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/fastboot-transform/-/fastboot-transform-0.1.3.tgz#7dea0b117594afd8772baa6c9b0919644e7f7dcd"
+  dependencies:
+    broccoli-stew "^1.5.0"
+    convert-source-map "^1.5.1"
 
 faye-websocket@~0.10.0:
   version "0.10.0"

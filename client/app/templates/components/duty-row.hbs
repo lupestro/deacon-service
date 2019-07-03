@@ -1,8 +1,8 @@
 <button 
   class="duty-row {{if this.historical "historical"}} " 
   tabindex="0" 
-  {{on "tap" (action this.clicked)}}
-  {{on "longPress" (action this.held)}}
+  {{on "tap" this.clicked}}
+  {{on "longPress" this.held}}
 >
   {{fa-icon 
     @duty.iconimage 

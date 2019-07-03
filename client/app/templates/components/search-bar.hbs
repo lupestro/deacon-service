@@ -1,5 +1,5 @@
 <label>
-Search: 
-{{input class="roster-search-input" value=searchtext}}
+  Search: 
+  {{input class="roster-search-input" value=searchtext}}
 </label>
-<button class="roster-search-clear" {{action this.clear}}>Clear</button>
+<button class="roster-search-clear" {{on "click" this.clear}}>Clear</button>

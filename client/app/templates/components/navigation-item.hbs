@@ -1,18 +1,8 @@
-{{#if itempress}}
-  <button 
-    class="selection-item" 
-    {{action @itemclick on="tap"}}
-    {{action @itempress on="longPress"}}
-  >
-    {{fa-icon @icon}}
-    <div class="selection-item-text">{{@text}}</div>
-  </button>
-{{else}}
-  <button 
-    class="selection-item" 
-    {{action @itemclick on="tap"}} 
-  >
-    {{fa-icon @icon}}
-    <div class="selection-item-text">{{@text}}</div>
-  </button>
-{{/if}}
+<button 
+  class="selection-item" 
+  {{on "tap" @itemclick}}
+  {{on "longpress" this.pressIfAvailable}}
+>
+  {{fa-icon @icon}}
+  <div class="selection-item-text">{{@text}}</div>
+</button>

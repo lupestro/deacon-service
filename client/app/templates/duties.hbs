@@ -1,7 +1,7 @@
   <Header 
     @title={{this.title}}
     @icon="calendar-alt" 
-    @iconclick={{action this.clickCalendar}}
+    @iconclick={{this.clickCalendar}}
   />
 
   {{outlet}}
@@ -10,28 +10,28 @@
     <NavigationItem 
       @text="Me" 
       @icon="user" 
-      @itemclick={{action this.clickMyDuties}} 
-      @itempress={{action this.clickNewMe}} 
+      @itemclick={{this.clickMyDuties}} 
+      @itempress={{this.clickNewMe}} 
     />
     <NavigationItem 
       @text="Family" 
       @icon="bed" 
-      @itemclick={{action this.clickFamilyDuties}}
+      @itemclick={{this.clickFamilyDuties}}
     />
     <NavigationItem 
       @text="All" 
       @icon="users" 
-      @itemclick={{action this.clickAllDuties}}
+      @itemclick={{this.clickAllDuties}}
     />
     <NavigationItem 
       @text="Subs" 
       @icon="exchange-alt" 
-      @itemclick={{action this.clickDutySubstitutions}}
+      @itemclick={{this.clickDutySubstitutions}}
     />
     <NavigationItem 
       @class="any-user"
       @text="Any" 
       @icon="user-plus" 
-      @itemclick={{action this.clickAnyPersonDuties}}
+      @itemclick={{this.clickAnyPersonDuties}}
     />
   </NavigationBar>

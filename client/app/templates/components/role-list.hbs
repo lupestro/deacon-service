@@ -10,16 +10,16 @@
       <div class="duty-row-wrapper">
         <DutyRow 
           @duty={{duty}} 
-          @clicked={{action this.clicked role occasion attendance}}
-          @held={{action this.held role occasion attendance}}
+          @clicked={{fn this.clicked role occasion attendance}}
+          @held={{fn this.held role occasion attendance}}
         />
         {{#if (eq this.overlay.role role.id) }}
           <DutyOverlay 
             @title={{this.overlay.title}}
             @icon={{this.overlay.icon}} 
             @icontype={{this.overlay.icontype}} 
-            @submission={{action this.submitChange role}}
-            @closure={{action this.cancelChange}}
+            @submission={{fn this.submitChange role}}
+            @closure={{this.cancelChange}}
           />
         {{/if}}
       </div>

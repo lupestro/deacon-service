@@ -1,6 +1,6 @@
 <Header 
   @title="Roster" 
-  @iconclick={{action this.clickReturn}} 
+  @iconclick={{this.clickReturn}} 
 />
 
 <main>
@@ -10,7 +10,7 @@
     {{#each candidates as |participant| }}
       <RosterRow 
         @model={{participant}} 
-        @selection={{action "clickReturn"}} 
+        @selection={{this.clickReturn}} 
       />
     {{/each}}
   </RosterList>
@@ -20,6 +20,6 @@
   <NavigationItem 
     @text="Back" 
     @icon="users" 
-    @itemclick={{action "clickReturn"}}
+    @itemclick={{this.clickReturn}}
   />
 </NavigationBar>

@@ -1,7 +1,7 @@
 <button 
   class="roster-row {{if this.isAlternate "alternate"}} {{if this.isHistorical "historical"}}"
-  {{on "click" (action this.selection this.model.short_name) }}
-  {{on "tap" (action this.selection this.model.short_name) }}
+  {{on "click" (fn this.selection this.model.short_name) }}
+  {{on "tap" (fn this.selection this.model.short_name) }}
 >
   <span class="roster-row-left">{{@model.short_name}}</span>
   <span class="roster-row-right">{{@model.full_name}}</span>

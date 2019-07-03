@@ -4,5 +4,6 @@ import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 
 @classNames('selection-bar','footer')
 @tagName('nav')
-export default class NavigationBar extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class NavigationBar extends Component.extend(
+    RecognizerMixin, { recognizers: 'tap long-press' }) {
 }

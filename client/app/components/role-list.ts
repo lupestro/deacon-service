@@ -21,10 +21,11 @@ const OVERLAYS : {[name: string]: Overlay } = {
 
 @classNames('duty-list')
 @tagName('main')
-export default class RoleList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class RoleList extends Component.extend(
+        RecognizerMixin, { recognizers: 'tap long-press' }) {
     clickType!: string;
     holdType!: string;
-    action!: Function;
+    update!: Function;
     permit!: Function;
 
     overlay!: Overlay;
@@ -72,7 +73,7 @@ export default class RoleList extends Component.extend(RecognizerMixin, { recogn
 
     @action 
     submitChange(role: Role) {
-        (this.action)(role, this.overlay.type);
+        (this.update)(role, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
 

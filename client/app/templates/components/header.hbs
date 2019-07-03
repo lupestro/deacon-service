@@ -2,10 +2,7 @@
 <div class="header-row">
   <h3 class="header-title">{{@title}}</h3>
   {{#if @icon}}
-    <button 
-      class="header-right-icon" 
-      {{action @iconclick on="tap"}} 
-    >
+    <button class="header-right-icon" {{on "tap" @iconclick }}>
       {{fa-icon @icon}}
     </button>
   {{/if}}

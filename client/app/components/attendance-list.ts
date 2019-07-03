@@ -39,11 +39,12 @@ const OVERLAYS : {[name: string]: Overlay } = {
 
 @classNames('duty-list')
 @tagName('main')
-export default class AttendanceList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class AttendanceList extends Component.extend(
+        RecognizerMixin, { recognizers: 'tap long-press' }) {
     rule!: AttendanceRule;
     clickType!: string;
     holdType!: string;
-    action!: Function;
+    update!: Function;
     permit!: Function;
 
     overlay!: Overlay;
@@ -91,7 +92,7 @@ export default class AttendanceList extends Component.extend(RecognizerMixin, { 
 
     @action 
     submitChange(attendance: Attendance) {
-        (this.action)(attendance, this.overlay.type);
+        (this.update)(attendance, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
     
