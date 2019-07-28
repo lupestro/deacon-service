@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/lupestro/deacon-service#readme",
   "dependencies": {
-    "concurrently": "^3.6.0",
+    "concurrently": "^4.1.1",
     "rimraf": "^2.6.2"
   }
 }
