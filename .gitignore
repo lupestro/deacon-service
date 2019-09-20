@@ -3,7 +3,9 @@ npm-debug.log
 .DS_Store
 /*.env
 /.vs/
+/local/
 #personal database data
+/db/occasions.pgsql
 /db/participants.pgsql
 /db/assignments.pgsql
 /db/status-changes.pgsql
