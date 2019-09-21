@@ -1,20 +1,20 @@
 import Component from '@ember/component';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 import { classNames } from '@ember-decorators/component';
 
 @classNames('duty-overlay')
 export default class DutyOverlay extends Component {
-    submit!: Function;
-    close!: Function;
+    submission!: Function;
+    closure!: Function;
 
     @action 
     submitAction() {
-        (this.get('submit'))();
+        this.submission();
     }
 
     @action 
     closeAction() {
-        (this.get('close'))();
+        this.closure();
     }
 }
 

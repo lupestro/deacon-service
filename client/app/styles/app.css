@@ -1,5 +1,5 @@
 /* Overall layout */
-.page {
+body {
     display: flex;
     flex-direction: column;
 }
@@ -10,7 +10,7 @@
     margin: 0px;
     color: rgb(31, 31, 127);
 }
-.header {
+.header-row {
     flex: 0 0 auto;
     display: flex;
     background: #ffffff;
@@ -27,6 +27,7 @@
     font-size: 28px;
     text-align: center;
     flex: 1 0 auto;
+    margin: 0;
 }
 .header-right-icon {
     height:30px;
@@ -90,6 +91,10 @@
     border-bottom-width: 1px;
     position: relative;
     display: flex;
+    text-align: inherit;
+    color: inherit;
+    font: inherit;
+    width: 100%;
 }
 .duty-row.historical {
     background: #cccccc;
@@ -152,6 +157,11 @@
 
 .roster-row {
     padding: 5px;
+    text-align: inherit;
+    color: inherit;
+    font: inherit;
+    display: block;
+    width: 100%;
 }
 .roster-row:nth-child(even) {
     background: #dddddd;
@@ -180,9 +190,16 @@
     border-bottom-style: solid;
     border-bottom-width: 2px;
 }
-.roster-search-input {
-    height: 18px;
+.search-bar label {
     flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+}
+.roster-search-input {
+    flex: 1 1 auto;
+    height: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .roster-search-clear{
     font-size: 16px;

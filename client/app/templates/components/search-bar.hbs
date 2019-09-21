@@ -1,3 +1,5 @@
-Search: 
-{{input class="roster-search-input" value=searchtext}}
-<button class="roster-search-clear" {{action "clear"}}>Clear</button>
+<label>
+  Search: 
+  {{input class="roster-search-input" value=searchtext}}
+</label>
+<button class="roster-search-clear" {{on "click" this.clear}}>Clear</button>

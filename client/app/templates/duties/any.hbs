@@ -1,7 +1,7 @@
-{{attendance-list 
+<AttendanceList 
   class="page-frame" 
-  sourceData=this.model.occasions 
-  showNames=false
-  permit=(action permit) 
-  action=(action change)
-}}
+  @sourceData={{this.model.occasions}}
+  @showNames={{false}}
+  @permit={{this.permit}}
+  @update={{this.change}}
+/>

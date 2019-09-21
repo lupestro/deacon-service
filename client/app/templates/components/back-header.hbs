@@ -1,2 +1,2 @@
-<button class="header-back" {{action backclick}}>{{backtext}}</button>
-<div class="header-title">{{title}}</div>
+<button class="header-back" {{on "click" this.backclick}}>{{this.backtext}}</button>
+<div class="header-title">{{this.title}}</div>

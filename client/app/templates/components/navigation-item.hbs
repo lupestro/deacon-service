@@ -1,0 +1,8 @@
+<button 
+  class="selection-item" 
+  {{on "tap" @itemclick}}
+  {{on "longpress" this.pressIfAvailable}}
+>
+  {{fa-icon @icon}}
+  <div class="selection-item-text">{{@text}}</div>
+</button>

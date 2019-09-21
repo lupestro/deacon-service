@@ -1,28 +1,16 @@
 import Component from '@ember/component';
-import { classNames, className } from '@ember-decorators/component';
 
-@classNames('roster-row')
 export default class RosterRow extends Component {
+    tagName='';
     selection! : Function;
     model! : Participant;
 
-    @className('alternate') 
-    isAlternate : boolean;
+    isAlternate! : boolean;
+    isHistorical! : boolean;
 
-    @className('historical')
-    isHistorical : boolean;
-
-    constructor() {
-        super(...arguments);
+    init() {
+        super.init();
         this.isAlternate = this.model.type === 'substitute';
         this.isHistorical = this.model.type === 'historical';
-    }
-
-    click() {
-        (this.selection)(this.model.short_name);
-    }
-    
-    tap() {
-        (this.selection)(this.model.short_name);
     }
 }

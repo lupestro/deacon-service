@@ -1,12 +1,19 @@
-{{fa-icon 
-  duty.iconimage 
-  class=(concat "duty-icon " duty.icontype) 
-  size="2x" 
-}}
-<div class="duty-row-group">
-  <div class="duty-row-type">{{duty.type}}</div>
-  <div class="duty-row-subtype">{{duty.subtype}}</div>
-</div>
-{{#if duty.names}}
-  <div class="duty-row-names">{{duty.names}}</div>
-{{/if}}
+<button 
+  class="duty-row {{if this.historical "historical"}} " 
+  tabindex="0" 
+  {{on "tap" this.clicked}}
+  {{on "longPress" this.held}}
+>
+  {{fa-icon 
+    @duty.iconimage 
+    class=(concat "duty-icon " @duty.icontype) 
+    size="2x" 
+  }}
+  <div class="duty-row-group">
+    <div class="duty-row-type">{{@duty.type}}</div>
+    <div class="duty-row-subtype">{{@duty.subtype}}</div>
+  </div>
+  {{#if @duty.names}}
+    <div class="duty-row-names">{{@duty.names}}</div>
+  {{/if}}
+</button>

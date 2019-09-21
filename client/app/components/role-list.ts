@@ -1,7 +1,7 @@
 import Component from '@ember/component';
-import { classNames } from '@ember-decorators/component';
+import { classNames, tagName } from '@ember-decorators/component';
 import RecognizerMixin from 'ember-gestures/mixins/recognizers';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 
 type Overlay = {
     role: number;
@@ -20,16 +20,18 @@ const OVERLAYS : {[name: string]: Overlay } = {
 };
 
 @classNames('duty-list')
-export default class RoleList extends Component.extend(RecognizerMixin, { recognizers: 'tap long-press' }) {
+@tagName('main')
+export default class RoleList extends Component.extend(
+        RecognizerMixin, { recognizers: 'tap long-press' }) {
     clickType!: string;
     holdType!: string;
-    action!: Function;
+    update!: Function;
     permit!: Function;
 
-    overlay: Overlay;
+    overlay!: Overlay;
 
-    constructor() {
-        super(...arguments);
+    init() {
+        super.init();
         this.overlay = OVERLAYS['empty'];
     }
 
@@ -70,13 +72,13 @@ export default class RoleList extends Component.extend(RecognizerMixin, { recogn
     }
 
     @action 
-    submit(role: Role) {
-        (this.action)(role, this.overlay.type);
+    submitChange(role: Role) {
+        (this.update)(role, this.overlay.type);
         this.set('overlay', OVERLAYS['empty']);
     }
 
     @action 
-    cancel() {
+    cancelChange() {
         this.set('overlay', OVERLAYS['empty']);
     }
 }
