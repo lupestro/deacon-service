@@ -15,6 +15,9 @@ module.exports = {
   env: {
     browser: true
   },
+  globals: {
+    "Hammer": true
+  },
   rules: {
   },
   overrides: [

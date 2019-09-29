@@ -1,9 +1,11 @@
-<h2 class="supertitle">First Church Deacons</h2>
-<div class="header-row">
-  <h3 class="header-title">{{@title}}</h3>
-  {{#if @icon}}
-    <button class="header-right-icon" {{on "tap" @iconclick }}>
-      {{fa-icon @icon}}
-    </button>
-  {{/if}}
-</div>
+<header class="header"  {{recognize-gesture "tap" "press"}}> 
+  <h2 class="supertitle">First Church Deacons</h2>
+  <div class="header-row">
+    <h3 class="header-title">{{@title}}</h3>
+    {{#if @icon}}
+      <button class="header-right-icon" {{on "tap" @iconclick }}>
+        {{fa-icon @icon}}
+      </button>
+    {{/if}}
+  </div>
+</header>

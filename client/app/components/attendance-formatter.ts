@@ -19,6 +19,7 @@ const ICON_CLASSES : { [attype: string]:string} = {
 const BIG_X = "\u2718";
 
 export default class AttendanceFormatter extends Component {
+    tagName = '';
     occasion!: Occasion;
     role!: Role;
     attendance!: Attendance;

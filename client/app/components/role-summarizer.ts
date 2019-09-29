@@ -20,6 +20,7 @@ const BIG_X = "\u2718";
 const CHECKMARK = '\u2713';
 
 export default class RoleSummarizer extends Component {
+    tagName = '';
     occasion!: Occasion;
     role!: Role;
     

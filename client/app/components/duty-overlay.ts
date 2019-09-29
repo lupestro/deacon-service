@@ -1,9 +1,8 @@
 import Component from '@ember/component';
 import { action } from '@ember/object';
-import { classNames } from '@ember-decorators/component';
 
-@classNames('duty-overlay')
 export default class DutyOverlay extends Component {
+    tagName = "";
     submission!: Function;
     closure!: Function;
 
