@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import fetch from 'fetch';
 
 declare type ErrorRecord = {
     success: boolean,

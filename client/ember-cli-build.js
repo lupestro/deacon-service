@@ -6,7 +6,10 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     babel: {
       sourceMaps: 'inline',
-    }
+    },
+    'ember-cli-babel': {
+      includePolyfill: true
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated

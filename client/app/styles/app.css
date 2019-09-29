@@ -74,6 +74,10 @@ body {
 .any-user .selection-item-text {
     padding-right: 10px;
 }
+.attribution {
+    font-size: 10px;
+    line-height: 10px;
+}
 
 /* Duties Layout */
 

@@ -35,7 +35,7 @@ export default class RoleList extends Component {
     inserted(element: HTMLElement) {
         if (element) {
             const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-            element.style.height = (height - 170)+ 'px';
+            element.style.height = (height - 180)+ 'px';
         }
     } 
     
