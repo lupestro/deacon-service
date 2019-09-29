@@ -4,7 +4,7 @@
 
 * Response:
 
-```json
+```
   {
     "success": bool,
     "data": [ // Occasion data
@@ -43,7 +43,7 @@
 
 * Response:
 
-```json
+```
   {
     "success": boolean,
     "data":[  // Participant data
@@ -65,7 +65,7 @@ Changes the status of the participant with whom the attendance is associated for
 
 * Body: attendance-type
 
-```json
+```
   { 
       "type": ("confirmed" | "assigned" | "declined" )
   }
@@ -73,7 +73,7 @@ Changes the status of the participant with whom the attendance is associated for
 
 * Response: updated occasion data
 
-```json
+```
   {
     "success": bool,
     "data": { // occasion data
@@ -93,7 +93,7 @@ Changes the status of the participant with whom the attendance is associated for
 Designates a participant as a substitute for the participant with whom the attendance is associated. Setting to null revokes the substitution.
 
 * Body: 
-```json
+```
   { 
       "substitute": participant-id (number) | null
   }
@@ -101,7 +101,7 @@ Designates a participant as a substitute for the participant with whom the atten
 
 * Response: updated occasion data
 
-```json
+```
   {
     "success": bool,
     "data": { // occasion data
