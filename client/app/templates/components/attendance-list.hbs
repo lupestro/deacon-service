@@ -1,6 +1,9 @@
 <main class="page-frame" {{did-insert this.inserted}} {{recognize-gesture "tap" "long-press"}} >
   {{#each sourceData as |occasion|}}
-    <SubHeader @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}} />
+    <SubHeader 
+      data-test={{occasion.when}} 
+      @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}} 
+    />
     {{#each occasion.roles as |role|}}
       {{#each role.attendances as |attendance|}}
         <AttendanceFormatter 
