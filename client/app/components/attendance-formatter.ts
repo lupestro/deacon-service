@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { capitalize } from '@ember/string';
+import { inject as service } from '@ember/service';
+import ApiService from 'deacon-dash/services/api';
 import moment from 'moment';
 
 const ICON_IMAGES : { [attype: string]:string} = {
@@ -23,6 +25,7 @@ export default class AttendanceFormatter extends Component {
     occasion!: Occasion;
     role!: Role;
     attendance!: Attendance;
+    @service api!: ApiService;
 
     @computed('occasion','role','attendance') 
     get duty(): Duty {
@@ -32,7 +35,7 @@ export default class AttendanceFormatter extends Component {
             type: this.type,
             subtype: this.subtype,
             names: this.names,
-            historical: (moment(this.occasion.when) < moment().startOf('day'))
+            historical: (moment(this.occasion.when) < this.api.today)
         };
     }
 

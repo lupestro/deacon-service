@@ -120,6 +120,7 @@ export default function() {
 
   this.get('/api/v1/occasions', () => { return {
     "success": true,
+    "now": "2019-10-07T08:00:00.000Z",
     "data": [
         {
             "id": 1,

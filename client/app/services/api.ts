@@ -1,5 +1,7 @@
 import Service from '@ember/service';
 import fetch from 'fetch';
+import Ember from 'ember';
+import moment from 'moment';
 
 declare type ErrorRecord = {
     success: boolean,
@@ -57,7 +59,14 @@ declare global {
 }
 
 export default class ApiService extends Service {
-
+    now : string = "";
+    get today() {
+        if (Ember.testing) {
+            return moment(this.now).startOf('day');
+        }
+        return moment().startOf('day');
+    }
+    
     getParticipants() {
         return fetch('/api/v1/participants').then( result  => { 
             return result.json();
@@ -75,6 +84,9 @@ export default class ApiService extends Service {
         }).then ( json => { 
             if (!json.success) {
                 throw (json as ErrorRecord).err;
+            }
+            if (Ember.testing && json.now) {
+                this.now = json.now;
             }
             return (json as OccasionsRecord).data;
         })
