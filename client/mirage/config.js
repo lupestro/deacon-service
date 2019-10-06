@@ -290,4 +290,63 @@ export default function() {
         }
     ]
   }});
+  this.post('/api/v1/attendance/131/type', (schema, request) => { 
+    const reqjson = JSON.parse(request.requestBody);
+    const result = {
+        "success": true,
+        "data": {}    
+    };
+
+    if (reqjson.type === "confirmed") {
+        result.data = {
+            "id": 31,
+            "type": "dod",
+            "required": 1,
+            "assigned": [
+            ],
+            "confirmed": [
+                {
+                    "id": 131,
+                    "who": 5
+                }
+            ],
+            "declined": []
+        };
+
+    } else if (reqjson.type === "unconfirmed") {
+        result.data = {
+            "id": 31,
+            "type": "dod",
+            "required": 1,
+            "assigned": [
+                {
+                    "id": 131,
+                    "who": 5
+                }
+            ],
+            "confirmed": [],
+            "declined": []
+        };
+    } else if (reqjson.type === "declined") {
+        result.data = {
+            "id": 31,
+            "type": "dod",
+            "required": 1,
+            "assigned": [
+            ],
+            "confirmed": [],
+            "declined": [
+                {
+                    "id": 131,
+                    "who": 5
+                }
+            ]
+        };
+    } else {
+        result.success = false;
+    }
+    return result;
+
+  });
+
 }

@@ -1,5 +1,5 @@
 <div class="duty-overlay">
-  <button class="duty-overlay-item" {{on "click" this.submitAction}}> 
+  <button class="duty-overlay-item" data-test="yes" {{on "click" this.submitAction}}> 
     {{fa-icon 
       @icon 
       class=(concat "duty-icon " @icontype) 
@@ -7,7 +7,7 @@
     }} 
     {{@title}}
   </button>
-  <button class="duty-overlay-item" {{on "click" this.closeAction}}> 
+  <button class="duty-overlay-item" data-test="no" {{on "click" this.closeAction}}> 
     {{fa-icon 
       "times-circle" 
       class="duty-icon cancel" 

@@ -85,7 +85,7 @@ export default class ApiService extends Service {
             if (!json.success) {
                 throw (json as ErrorRecord).err;
             }
-            if (Ember.testing && json.now) {
+            if (Ember.testing && json.now && !this.now) {
                 this.now = json.now;
             }
             return (json as OccasionsRecord).data;
