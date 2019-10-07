@@ -45,7 +45,7 @@ module('Application | Navigation', function(hooks) {
         assert.dom('.header-title').hasText("Roster");
     });
 
-    test ('Establish identity - in My Duties', async function(assert) {
+    test ('Establish identity (My Duties)', async function(assert) {
         var localService = this.owner.lookup('service:local');
         localService.me = "";
         await visit('/');
@@ -64,7 +64,7 @@ module('Application | Navigation', function(hooks) {
         assert.dom('.header-title').hasText("Roster");
     });
 
-    test ('Establish identity - in Family Duties', async function(assert) {
+    test ('Establish identity (Family Duties)', async function(assert) {
         var localService = this.owner.lookup('service:local');
         localService.me = "";
         await visit('/');
