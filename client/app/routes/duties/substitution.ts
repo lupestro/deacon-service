@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import OccasionsService from '../../services/occasions';
+import DutiesController from '../../controllers/duties';
 
 export default class DutiesSubstitutionRoute extends Route {
     @service occasions!: OccasionsService;
@@ -23,6 +24,6 @@ export default class DutiesSubstitutionRoute extends Route {
 
     @action 
     didTransition() {
-        this.controllerFor('duties').set('title', 'Substitution');       
+        (this.controllerFor('duties') as DutiesController).set('title', 'Substitution');       
     }
 }

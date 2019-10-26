@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import fetch from 'fetch';
 import Ember from 'ember';
 import moment from 'moment';
+import ENV from '../config/environment';
 
 declare type ErrorRecord = {
     success: boolean,
@@ -61,7 +62,7 @@ declare global {
 export default class ApiService extends Service {
     now : string = "";
     get today() {
-        if (Ember.testing) {
+        if (Ember.testing || ENV.APP.timeFreeze) {
             return moment(this.now).startOf('day');
         }
         return moment().startOf('day');
@@ -85,7 +86,7 @@ export default class ApiService extends Service {
             if (!json.success) {
                 throw (json as ErrorRecord).err;
             }
-            if (Ember.testing && json.now && !this.now) {
+            if ((Ember.testing || ENV.APP.timeFreeze) && json.now && !this.now) {
                 this.now = json.now;
             }
             return (json as OccasionsRecord).data;

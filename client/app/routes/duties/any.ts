@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import OccasionsService from '../../services/occasions';
+import DutiesController from '../../controllers/duties';
 
 type DutiesAnyRouteParams = {
     shortname: string;
@@ -29,6 +30,6 @@ export default class DutiesAnyRoute extends Route {
     @action 
     didTransition() {
         let title = this.controller.model.name + "'s Duties";
-        this.controllerFor('duties').set('title', title);       
+        (this.controllerFor('duties') as DutiesController).set('title', title);       
     }
 }

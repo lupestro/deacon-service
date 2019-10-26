@@ -3,6 +3,8 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import OccasionsService from '../../services/occasions';
 import DutiesFamilyController from '../../controllers/duties/family';
+import DutiesController from '../../controllers/duties';
+import ApplicationController from '../../controllers/application';
 
 export default class DutiesFamilyRoute extends Route {
     @service occasions!: OccasionsService;
@@ -23,7 +25,7 @@ export default class DutiesFamilyRoute extends Route {
         this._super(...arguments);
         const filter: FilterRule = {
             type: '',
-            involved: this.controllerFor('application').myFamily,
+            involved: (this.controllerFor('application') as ApplicationController).myFamily,
             substitute: [],
             assignee: []
         }
@@ -35,6 +37,6 @@ export default class DutiesFamilyRoute extends Route {
 
     @action 
     didTransition() {
-        this.controllerFor('duties').set('title', 'Family Duties');       
+        (this.controllerFor('duties') as DutiesController).set('title', 'Family Duties');       
     }
 }
