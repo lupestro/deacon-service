@@ -24,329 +24,66 @@ export default function() {
     https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
   */
 
-  this.get('/api/v1/participants', () => { return {
-    "success": true,
-    "data": [
-        {
-            "id": 1,
-            "type": "deacon",
-            "short_name": "Fred",
-            "full_name": "Fred Flintstone",
-            "team": 1,
-            "family": 1
-        },
-        {
-            "id": 2,
-            "type": "deacon",
-            "short_name": "Barney",
-            "full_name": "Barney Rubble",
-            "team": 1,
-            "family": 2
-        },
-        {
-            "id": 3,
-            "type": "deacon",
-            "short_name": "Pebbles",
-            "full_name": "Pebbles Flintstone",
-            "team": 2,
-            "family": 1
-        },
-        {
-            "id": 4,
-            "type": "deacon",
-            "short_name": "Betty",
-            "full_name": "Betty Rubble",
-            "team": 2,
-            "family": 2
-        },
-        {
-            "id": 5,
-            "type": "deacon",
-            "short_name": "Joe",
-            "full_name": "Joe Rockhead",
-            "team": 3,
-            "family": null
-        },
-        {
-            "id": 6,
-            "type": "deacon",
-            "short_name": "Pearl",
-            "full_name": "Pearl Slaghoople",
-            "team": 3,
-            "family": 2
-        },
-        {
-            "id": 7,
-            "type": "deacon",
-            "short_name": "Sam",
-            "full_name": "Sam Slagheap",
-            "team": 4,
-            "family": 2
-        },
-        {
-            "id": 8,
-            "type": "deacon",
-            "short_name": "Tex",
-            "full_name": "Tex Hardrock",
-            "team": 4,
-            "family": 1
-        },
-        {
-            "id": 9,
-            "type": "deacon",
-            "short_name": "George",
-            "full_name": "George Slate",
-            "team": 4,
-            "family": null
-        },
-        {
-            "id": 10,
-            "type": "historical",
-            "short_name": "Bamm-Bamm",
-            "full_name": "Bamm-Bamm Rubble",
-            "team": null,
-            "family": null
-        },
-        {
-            "id": 11,
-            "type": "substitute",
-            "short_name": "Gazoo",
-            "full_name": "The Great Gazoo",
-            "team": null,
-            "family": null
-        }
-    ]
-  }});
-
-  this.get('/api/v1/occasions', () => { return {
-    "success": true,
-    "now": "2019-10-07T08:00:00.000Z",
-    "data": [
-        {
-            "id": 1,
-            "when": "2019-10-01T12:30:00.000Z",
-            "type": "service",
-            "subtype": "communion",
-            "roles": [
-                {
-                    "id": 11,
-                    "type": "dod",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 111,
-                            "who": 3
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                },
-                {
-                    "id": 12,
-                    "type": "downstairs",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 112,
-                            "who": 1
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "when": "2019-10-01T14:00:00.000Z",
-            "type": "service",
-            "subtype": "communion",
-            "roles": [
-                {
-                    "id": 21,
-                    "type": "dod",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 121,
-                            "who": 3
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                },
-                {
-                    "id": 22,
-                    "type": "downstairs",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 122,
-                            "who": 4
-                        },
-                        {
-                            "id": 123,
-                            "who": 6
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                },
-                {
-                    "id": 23,
-                    "type": "upstairs",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 123,
-                            "who": 1
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "when": "2019-10-08T14:00:00.000Z",
-            "type": "service",
-            "subtype": null,
-            "roles": [
-                {
-                    "id": 31,
-                    "type": "dod",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 131,
-                            "who": 5
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "when": "2019-10-15T14:00:00.000Z",
-            "type": "service",
-            "subtype": null,
-            "roles": [
-                {
-                    "id": 41,
-                    "type": "dod",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 141,
-                            "who": 2
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "when": "2019-10-22T14:00:00.000Z",
-            "type": "service",
-            "subtype": "baptism",
-            "roles": [
-                {
-                    "id": 51,
-                    "type": "dod",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 151,
-                            "who": 6
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                },
-                {
-                    "id": 52,
-                    "type": "baptism",
-                    "required": 1,
-                    "assigned": [
-                        {
-                            "id": 151,
-                            "who": 7
-                        },
-                        {
-                            "id": 152,
-                            "who": 8
-                        }
-                    ],
-                    "confirmed": [],
-                    "declined": []
-                }
-
-            ]
-        }
-    ]
-  }});
-  this.post('/api/v1/attendance/131/type', (schema, request) => { 
-    const reqjson = JSON.parse(request.requestBody);
-    const result = {
+  this.get('/api/v1/participants', (schema) => { 
+    return {
         "success": true,
-        "data": {}    
+        "data": schema.db.participants
     };
-
-    if (reqjson.type === "confirmed") {
-        result.data = {
-            "id": 31,
-            "type": "dod",
-            "required": 1,
-            "assigned": [
-            ],
-            "confirmed": [
-                {
-                    "id": 131,
-                    "who": 5
-                }
-            ],
-            "declined": []
-        };
-
-    } else if (reqjson.type === "unconfirmed") {
-        result.data = {
-            "id": 31,
-            "type": "dod",
-            "required": 1,
-            "assigned": [
-                {
-                    "id": 131,
-                    "who": 5
-                }
-            ],
-            "confirmed": [],
-            "declined": []
-        };
-    } else if (reqjson.type === "declined") {
-        result.data = {
-            "id": 31,
-            "type": "dod",
-            "required": 1,
-            "assigned": [
-            ],
-            "confirmed": [],
-            "declined": [
-                {
-                    "id": 131,
-                    "who": 5
-                }
-            ]
-        };
-    } else {
-        result.success = false;
-    }
-    return result;
-
   });
 
+  this.get('/api/v1/occasions', (schema) => { 
+    return {
+      "success": true,
+      "now": "2019-10-07T08:00:00.000Z",
+      "data": schema.db.occasions.map( occasion => {
+        var occ = Object.assign({}, occasion);
+        occ.roles = schema.db.roles.where({"occasionId":occ.id}).map (role => {
+            var r = Object.assign({}, role);
+            r.assigned = schema.db.attendances.where({"type":"assigned", "roleId": role.id});
+            r.confirmed = schema.db.attendances.where({"type":"confirmed", "roleId": role.id});
+            r.declined = schema.db.attendances.where({"type":"declined", "roleId": role.id});
+            return r;
+        })
+        return occ;
+      })
+    };
+  });
+
+  this.post('/api/v1/attendance/:id/type', (schema, request) => { 
+    const reqjson = JSON.parse(request.requestBody);
+    let attendance = schema.db.attendances.find(request.params.id);
+    let type = (reqjson.type === "unconfirmed") ? "assigned" : reqjson.type;
+    if (attendance.type !== type) {
+        schema.db.attendances.update(request.params.id, {type: type, substitute: null, sub_name: null });
+    }else {
+        return {"success": false, "error": "Confirming what is already confirmed, unconfirming what is already unconfirmed, or declining what is already declined."}
+    }
+    let r = Object.assign({}, schema.db.roles.find(attendance.roleId));
+    r.assigned = schema.db.attendances.where({"type":"assigned", "roleId": r.id});
+    r.confirmed = schema.db.attendances.where({"type":"confirmed", "roleId": r.id});
+    r.declined = schema.db.attendances.where({"type":"declined", "roleId": r.id});
+    return {
+      "success": true,
+      "data": r
+    };
+  });
+
+  this.post('/api/v1/attendance/:id/substitute', (schema, request) => {
+    const reqjson = JSON.parse(request.requestBody);
+    let attendance = schema.db.attendances.find(request.params.id);
+    let sub = schema.db.participants.find(reqjson.substitute);
+    if (attendance.type === "declined") {
+        schema.db.attendances.update(request.params.id, {substitute: sub.id, sub_name: sub.short_name });
+    } else {
+        return {"success": false, "error": "Applying substitute to an attendance that is not declined."}
+    }
+    let r = Object.assign({}, schema.db.roles.find(attendance.roleId));
+    r.assigned = schema.db.attendances.where({"type":"assigned", "roleId": r.id});
+    r.confirmed = schema.db.attendances.where({"type":"confirmed", "roleId": r.id});
+    r.declined = schema.db.attendances.where({"type":"declined", "roleId": r.id});
+    return {
+      "success": true,
+      "data": r
+    };
+  })
 }
