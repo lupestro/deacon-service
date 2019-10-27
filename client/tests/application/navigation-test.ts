@@ -1,11 +1,15 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import defaultScenario from '../../mirage/scenarios/default';
 import { visit, triggerEvent } from '@ember/test-helpers';
 
 module('Application | Navigation', function(hooks) {
     setupApplicationTest(hooks);
     setupMirage(hooks);
+    hooks.beforeEach (() => {
+        defaultScenario(server);
+    })
 
     test ('Walk the tabs - no identity', async function(assert) {
         var localService = this.owner.lookup('service:local');

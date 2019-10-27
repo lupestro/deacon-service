@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import defaultScenario from '../../mirage/scenarios/default';
 import { visit, click, triggerEvent } from '@ember/test-helpers';
 
 
@@ -12,6 +13,9 @@ let rowSelector = function(when: string, what: string, who: string) {
 module('Application | Confirmation', function(hooks) {
     setupApplicationTest(hooks);
     setupMirage(hooks);
+    hooks.beforeEach (() => {
+        defaultScenario(server);
+    })
 
     test('Overlay dismissal', async function(assert) {
         this.owner.lookup('service:local').me = "Joe";

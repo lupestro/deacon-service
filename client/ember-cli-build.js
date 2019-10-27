@@ -7,6 +7,10 @@ module.exports = function(defaults) {
     babel: {
       sourceMaps: 'inline',
     },
+    sourcemaps: {
+      enabled: true,
+      extensions: ['js']
+    },
     'ember-cli-babel': {
       includePolyfill: true
     },

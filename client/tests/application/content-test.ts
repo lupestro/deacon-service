@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import defaultScenario from '../../mirage/scenarios/default';
 import { visit, triggerEvent } from '@ember/test-helpers';
 
 let  allDutiesContentCheck  = function(assert : Assert) {
@@ -109,6 +110,9 @@ let  allDutiesContentCheck  = function(assert : Assert) {
 module('Application | Content', function(hooks) {
     setupApplicationTest(hooks);
     setupMirage(hooks);
+    hooks.beforeEach (() => {
+        defaultScenario(server);
+    })
 
     test ('All Duties content - no identity', async function(assert) {
         var localService = this.owner.lookup('service:local');

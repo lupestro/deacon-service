@@ -24,6 +24,8 @@ export default function() {
     https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
   */
 
+  this.passthrough('/write-coverage');
+
   this.get('/api/v1/participants', (schema) => { 
     return {
         "success": true,

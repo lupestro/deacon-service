@@ -5,6 +5,7 @@
 
     Setting `disableAnalytics` to true will prevent any data from being sent.
   */
-  "disableAnalytics": false,
-  "proxy": "http://localhost:5000"
+  "disableAnalytics": false
+  /*,
+  "proxy": "http://localhost:5000"*/
 }
