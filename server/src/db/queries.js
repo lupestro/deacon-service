@@ -69,11 +69,18 @@ const TABLE_FIELD_VALIDATIONS = {
     ]
 }
 
+/**
+ * The FieldTree is a hash of field name/value pairs. Foreign key field values are themselves FieldTree hashes that contain 
+ * either a database id or the set of natural keys that identify the record in the other table. 
+ * This treatment of foreign keys applies recursively.
+ * @typedef {object} FieldTree
+ */
 /* The following functions build the text and parameters of the queries from the supplied data.*/
 
 /**
  * Build the predicate that goes in a WHERE clause of a query based on a set of field values.
- * @param {*} fields The fields to use in the predicate.
+ * @param {FieldTree} fields The fields to use in the predicate.
+ * @private
  */
 function buildPredicate(fields) {
     var clauses = [];
@@ -94,8 +101,9 @@ function buildPredicate(fields) {
 /**
  * Build the string of fields to change in the SET clause of an UPDATE query, indexed from the startIndex.
  * (The UPDATE will typically dedicate the first one or more parameters to its predicate.)
- * @param {*} fields The set of fields to change
- * @param {*} startIndex The index to specify ("$n") on the first field to change
+ * @param {FieldTree} fields The set of fields to change
+ * @param {number} startIndex The index to specify ("$n") on the first field to change
+ * @private
  */
 function buildUpdateList(fields, startIndex) {
     var clauses = [];
@@ -111,10 +119,11 @@ function buildUpdateList(fields, startIndex) {
 
 /**
  * Build the query for a SELECT statement
- * @param {*} tablename The name of the table
- * @param {*} fieldnames The list of fieldnames to deliver
- * @param {*} criteria The criteria to apply on the selection (as "=" conditions ANDed together)
- * @param {*} orderby Array of field names to order by
+ * @param {string} tablename The name of the table
+ * @param {string[]} fieldnames The list of fieldnames to deliver
+ * @param {FieldTree} criteria The criteria to apply on the selection (as "=" conditions ANDed together)
+ * @param {string[]} orderby Array of field names to order by
+ * @private
  */
 function buildSelection(tablename, fieldnames, criteria, orderby) {
     const members = fieldnames.join(',');
@@ -131,9 +140,10 @@ function buildSelection(tablename, fieldnames, criteria, orderby) {
 
 /**
  * Build an UPDATE query setting the specified values, given the specified keys
- * @param {*} tablename The name of the table
- * @param {*} keys A hash of the keys and their values (with recursive foreign keys)
- * @param {*} values A hash of the values to set
+ * @param {string} tablename The name of the table
+ * @param {FieldTree} keys A hash of the keys and their values (with recursive foreign keys)
+ * @param {FieldTree} values A hash of the values to set
+ * @private
  */
 function buildUpdate(tablename, keys, values) { // ["A=$1,B=$2,C=$3", parms]
     const [ predicate, selectParms ] = buildPredicate(keys);
@@ -146,9 +156,10 @@ function buildUpdate(tablename, keys, values) { // ["A=$1,B=$2,C=$3", parms]
 
 /**
  * Build an INSERT query setting the specified keys and other values.
- * @param {*} tablename Name of the table involved
- * @param {*} keys The set of natural keys needed to uniquely identify the record
- * @param {*} values The set of other values to include in the record
+ * @param {string} tablename Name of the table involved
+ * @param {FieldTree} keys The set of natural keys needed to uniquely identify the record
+ * @param {FieldTree} values The set of other values to include in the record
+ * @private
  */
 function buildInsertion(tablename, keys, values) { //[]
     let fields = Object.assign({}, keys);
@@ -174,6 +185,7 @@ function buildInsertion(tablename, keys, values) { //[]
  * Tests whether the supplied set of keys contains either an id or a full set of natural keys.
  * @param {*} table The name of the table
  * @param {*} keys The set of keys being tested
+ * @private
  */
 function neededKeysArePresent(table, keys) {
     const trueKeys = Object.keys(keys).filter(key => {  // enumerable properties of fields
@@ -187,6 +199,15 @@ function neededKeysArePresent(table, keys) {
 
 /**
  * This class provides all of the primitive database queries for the application. 
+ * It should be the only place in the server in which the text of SQL queries appears 
+ * or in which the internal organization of the deacon database matters, aside from its constraints (values, foreign keys).
+ * 
+ * The queries performed are driven by this module's internal formulation of database metadata, with the following exceptions:
+ * - The `deeplist` and `validate` methods are driven by a canned set of the important cross-table queries. They are few but vital.
+ * - The `delete` method is driven by a table of the queries needed to extricate a single object of each type from the foreign key jungle.
+ * 
+ * In these cases, it was simply easier to do what was narrowly necessary, 
+ * rather than create a deeply complex (and hence hard to verify) generalization.
  */
 class DeaconQueries {
 
@@ -204,9 +225,10 @@ class DeaconQueries {
     /**
      * Determine the ID indicated by the set of provided keys, returning the value of the 'id' key if present, 
      * but using natural keys to perform a single-row selection otherwise.
-     * @param {*} table The name of the table
-     * @param {*} fields A hash containing the named key fields, with nested natural keys from foreign key 
+     * @param {string} table The name of the table
+     * @param {FieldTree} fields A hash containing the named key fields, with nested natural keys from foreign key 
      * relationships (hence the mutually recursive calls between _resolveIds and _resolveId). 
+     * @private
      */
     async _resolveId(table, fields) {
         if (Object.prototype.hasOwnProperty.call(fields, 'id')) {
@@ -228,10 +250,11 @@ class DeaconQueries {
     /**
      * Starting with a set of natural keys for the table, recursively resolve the ids of each of the keys. 
      * This provides the data necessary to provide the foreign keys needed to do an operation on a record 
-     * of the table itself, but does not collect the id of the record.  
-     * @param {*} table The name of the table
-     * @param {*} fields A hash containing the named key fields, with nested natural keys from foreign key 
+     * of the table itself, but does not collect the id of the record, since it may not exist yet.  
+     * @param {string} table The name of the table
+     * @param {FieldTree} fields A hash containing the named key fields, with nested natural keys from foreign key 
      * relationships.
+     * @private
      */
     async _resolveIds(table, fields) {
         const keyFieldsNeedingLookup = Object.keys(fields).filter(key => {  
@@ -255,8 +278,8 @@ class DeaconQueries {
      * Performs query to get the id of a table, given its natural keys, 
      * one or more of which may be ids for foreign keys of other tables 
      * (i.e. this just does the one query and doesn't do recursive calls to get the foreign keys).
-     * @param {*} table Table name
-     * @param {*} keys Array of natural keys on table
+     * @param {string} table Table name
+     * @param {FieldTree} keys Array of natural keys on table
      */
     async getId(table, keys) {
         if (!neededKeysArePresent(table, keys)) {
@@ -275,8 +298,8 @@ class DeaconQueries {
 
     /**
      * Perform a cross-table select between the specified table and its children based on the supplied criteria
-     * @param {*} table The name of the table
-     * @param {*} criteria Any additional criteria needed
+     * @param {string} table The name of the table
+     * @param {FieldTree} criteria Any additional criteria needed
      */
     async deeplist(table, criteria) {
         let criteriaToUse = criteria ? criteria : [];
@@ -290,9 +313,9 @@ class DeaconQueries {
 
     /**
      * Perform validations on the specified table and field, returning the rows involved.
-     * @param {*} table The name of the table
-     * @param {*} field The name of the field being tested
-     * @param {*} criteria The criteria needed for the validation
+     * @param {string} table The name of the table
+     * @param {string} field The name of the field being tested
+     * @param {FieldTree} criteria The criteria needed for the validation
      */
     async validate(table, field, criteria) {
         const resolvedCriteria = await this._resolveIds(table, criteria);
@@ -306,8 +329,8 @@ class DeaconQueries {
 
     /**
      * List the rows from the specified table identified by the specified criteria
-     * @param {*} table The name of the table
-     * @param {*} criteria A hash of the field values to use to narrow the list
+     * @param {string} table The name of the table
+     * @param {FieldTree} criteria A hash of the field values to use to narrow the list
      */
     async list(table, criteria) {
         let criteriaToUse = criteria ? criteria : [];
@@ -319,8 +342,8 @@ class DeaconQueries {
 
     /**
      * Get the row from the specified table identified by the specified keys.
-     * @param {*} table The name of the table
-     * @param {*} keys A hash of the keys to identify the record
+     * @param {string} table The name of the table
+     * @param {FieldTree} keys A hash of the keys to identify the record
      */
     async get(table, keys) {
         if (!neededKeysArePresent(table, keys)) {
@@ -343,9 +366,9 @@ class DeaconQueries {
      * * This method will fail to create a new row if it isn't supplied with values for all non-key non-NULL fields 
      * * This method will fail if natural keys are changed in ways that lead to collisions.
      * 
-     * @param {*} table The name of the table
-     * @param {*} keys A hash of the keys to identify the record
-     * @param {*} values A hash of the values to set
+     * @param {string} table The name of the table
+     * @param {FieldTree} keys A hash of the keys to identify the record
+     * @param {FieldTree} values A hash of the values to set
      */
     async set(table, keys, values) {
         if (!neededKeysArePresent(table, keys)) {
@@ -369,8 +392,8 @@ class DeaconQueries {
     /**
      * Delete the row from the table identified by the supplied keys. 
      * This will recursively delete rows from tables dependent upon this one.
-     * @param {*} table The name of the table
-     * @param {*} keys The set of keys
+     * @param {string} table The name of the table
+     * @param {FieldTree} keys The set of keys
      */
     async delete(table, keys) {
         if (!neededKeysArePresent(table, keys)) {

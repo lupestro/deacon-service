@@ -1,17 +1,44 @@
 const hydratorModule = require('./hydrator');
 
+/**
+ * The API class provides the bodies of all of the operations exported to express by the {App} module. 
+ * It validates the passed data, calls Operations to do the work, and calls the Hydrator to turn it into the desired JSON. 
+ * 
+ * The private validator methods of the API validate only that the passed data parses as the intended type of data. 
+ * Any relationship with the database must be validated during the performance of the operation.
+ * 
+ * This particular API implementation uses database record IDs in its interface. 
+ * A new generation of API will operate entirely on natural keys, keeping the implementation details private.
+ */
 class ApiV1 {
+    /**
+     * Create an ApiV1 object
+     * @param {*} operations The operations object to perform the operations, applying the business rules
+     * @param {*} hydrator The object that transforms database row data into nested JSON
+     */
     constructor (operations, hydrator) {
         this.operations = operations;
         this.pumpOccasionData = hydrator ? hydrator.pumpOccasionData : hydratorModule.pumpOccasionData;
         this.pumpRoleData = hydrator? hydrator.pumpRoleData : hydratorModule.pumpRoleData;
     }
+    /**
+     * Validate the form of an id
+     * @param {string} value the received id value to validate
+     * @param {boolean} optional `true` if the id is optional, `false` if mandatory
+     * @private
+     */
     _validateId (value, optional) {
         if (optional && typeof value === 'undefined') {
             return true;
         }
         return (typeof value === 'string') && /^\d+$/.test(value);
     }
+    /**
+     * Validate the form of an attendance type
+     * @param {string} value the received type value to validate
+     * @param {boolean} optional `true` if the id is optional, `false` if mandatory
+     * @private
+     */
     _validateAttendanceType(value, optional) {
         if (optional && typeof value === 'undefined') {
             return true;
@@ -19,6 +46,12 @@ class ApiV1 {
         return (typeof value === 'string') && 
             (value === 'confirmed' || value === 'declined' || value === 'assigned');
     }
+    /**
+     * Validate the form of a boolean flag
+     * @param {string} value the received flag value to validate
+     * @param {boolean} optional `true` if the id is optional, `false` if mandatory
+     * @private
+     */
     _validateFlag(value, optional) {
         if (optional && typeof value === 'undefined') {
             return true;
@@ -27,6 +60,12 @@ class ApiV1 {
         const result2 = (typeof value === 'number' && (value === 0 || value === 1));
         return result1 || result2;
     }
+    /**
+     * Validate the form of an attendance list - incomplete
+     * @param {string} value the received list value to validate
+     * @param {boolean} optional `true` if the id is optional, `false` if mandatory
+     * @private
+     */
     _validateParticipantList(value, optional) {
         if (optional && typeof value === 'undefined') {
             return true;
@@ -34,6 +73,12 @@ class ApiV1 {
         //TODO: Implement _validateParticipantList
         return typeof value === 'string';
     }
+    /**
+     * Validate the form of a timestamp - incomplete
+     * @param {string} value the received timestamp value to validate
+     * @param {boolean} optional `true` if the id is optional, `false` if mandatory
+     * @private
+     */
     _validateTimestamp(value, optional) {
         if (optional && typeof value === 'undefined') {
             return true;
@@ -41,6 +86,15 @@ class ApiV1 {
         //TODO: Implement _validateTimestamp
         return typeof value === 'string';
     }
+    /**
+     * Get all the participants as a JSON object. The `email` query parameter determines whether to include email addresses. 
+     * 
+     * The Operations object will ignore this parameter until we have security in place so not just anybody can ask - 
+     * and maybe we don't need it.
+     * 
+     * @param {request} req Node Express router request object
+     * @param {response} res Node Express router response object
+     */
     async getParticipants(req, res) {
         //Validate the parameters as received
         if (!this._validateFlag(req.query.email, true)) {
@@ -56,6 +110,14 @@ class ApiV1 {
             return res.json({ success: false, err: e.message});
         });
     }
+    /**
+     * Get all the occasions, with their roles and their roles' attendances, as a JSON object. 
+     * 
+     * The Operations object currently ignores these parameters as it's much less involved to filter in the client. 
+     * Consequently, the validation isn't very thorough.
+     * @param {request} req Node Express router request object
+     * @param {response} res Node Express router response object
+     */
     async getOccasions(req,res) {
         //Validate the parameters as received
         if (!this._validateParticipantList(req.query.participants, true)){
@@ -79,6 +141,11 @@ class ApiV1 {
             return res.json({ success: false, err: e.message});
         });
     }
+    /**
+     * Change the type of one participant's attendance in one role for one occasion
+     * @param {request} req Node Express router request object
+     * @param {response} res Node Express router response object
+     */
     async postAttendanceType(req, res) {
         //Validate the parameters as received
         if (!this._validateId(req.params.id, false)) {
@@ -96,6 +163,11 @@ class ApiV1 {
             return res.json({ success: false, err: e.message});
         })
     }
+    /**
+     * Change the substitute for one participant's attendance in one role for one occasion
+     * @param {request} req Node Express router request object
+     * @param {response} res Node Express router response object
+     */
     async postAttendanceSubstitution(req, res) {
         //Validate the parameters as received
         if (!this._validateId(req.params.id, false)) {

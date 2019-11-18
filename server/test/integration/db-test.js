@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
-const Db = require('../../db/index');
+const Db = require('../../src/db/index');
 
 describe('db/index', function (){
     let db, db2;

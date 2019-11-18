@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
-const Operations = require('../../api/operations');
+const Operations = require('../../src/api/operations');
 class DummyQueries {
     constructor () {
         this.lists = {count: 0, input: [], result: []};
@@ -63,7 +63,7 @@ describe('api/operations', function (){
     
     describe('getParticipants', async () => {
 
-        it('should get participants with email', async () => {
+        it('should get participants without email even though the email flag is set', async () => {
             const queries = new DummyQueries();
             queries.lists.input.push( { table: 'participants' });
             queries.lists.result.push([
@@ -80,8 +80,7 @@ describe('api/operations', function (){
             expect(participants[0]).deep.equals({
                 id: 10,
                 short_name: 'Fred',
-                type: 'deacon',
-                email: 'fred@fred.org'
+                type: 'deacon'
             });
             queries.verifyCounts();
         });

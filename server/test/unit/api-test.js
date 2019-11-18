@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
-const Api = require('../../api/index');
+const Api = require('../../src/api/index');
 
 // Stub surface area - 
 //  External data this class accesses

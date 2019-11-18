@@ -37,12 +37,13 @@ As a summer coding project, this is being implemented in stages, so it can be pu
      * `yarn install`
 * Create a local postgres database, typically named 'deacons'.
 * Create a postgres user who will own the database.
+* The [client](./client/README.md), the [server](./server/README.md), and the [database](./db/README.md) each have their own README.md files that describe available tooling for the subproject and any important restrictions on what gets saved in source control.
 
 ## Running locally
 
 ### Server
 * Open a command prompt and navigate to the server subdirectory.
-*Start it all by performing the following:
+* Start it all by performing the following:
     * `DATABASE_URL= postgres://localhost:5432/user@pass:deacons yarn start`
 * The server will run at http://localhost:5000 and you can connect to it for 
 debugging with [chrome://inspect](chrome://inspect)
@@ -52,6 +53,5 @@ debugging with [chrome://inspect](chrome://inspect)
 * Start it all by performing the following:
    	* `yarn start`
 * Client will proxy to server at port 5000 for back-end operations.
-When both are up, navigate your browser to http://localhost:4200
-
+* When both are up, navigate your browser to http://localhost:4200
 

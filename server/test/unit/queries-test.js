@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
-const Queries = require('../../db/queries');
+const Queries = require('../../src/db/queries');
 
 //TODO: Augment DummyDb to test for both the text and the _values_ passed to the queries. Use what we did for operations as a pattern.
 

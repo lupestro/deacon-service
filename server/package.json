@@ -1,6 +1,6 @@
 {
   "name": "deacon-server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Deacon server app",
   "license": "MIT",
@@ -13,8 +13,9 @@
     "build": "npx tsc",
     "build:prod": "npx tsc",
     "lint": "npx eslint .",
-    "start": "npx tsc && node ./app.js",
-    "debug": "npx tsc && node --inspect-brk=36942 ./app.js",
+    "docs": "npx jsdoc -c ./jsdoc.json",
+    "start": "npx tsc && node ./src/app.js",
+    "debug": "npx tsc && node --inspect-brk=36942 ./src/app.js",
     "test": "npx tsc && mocha test/**/*",
     "coverage": "npx nyc -r HTML mocha test/**/*",
     "debug:test": "npx tsc && npx mocha --inspect-brk=36942 test/**/*"
@@ -29,10 +30,12 @@
     "chai-as-promised": "^7.1.1",
     "eslint": "^6.6.0",
     "eslint-plugin-node": "^10.0.0",
+    "jsdoc": "^3.6.3",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
     "npm": "^6.1.0",
     "nyc": "^14.1.1",
+    "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
   },
   "engines": {
