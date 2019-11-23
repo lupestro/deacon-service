@@ -8,27 +8,32 @@
 
   <NavigationBar>
     <NavigationItem 
+      data-test="Me"
       @text="Me" 
       @icon="user" 
       @itemclick={{this.clickMyDuties}} 
       @itempress={{this.clickNewMe}} 
     />
     <NavigationItem 
+      data-test="Family"
       @text="Family" 
       @icon="bed" 
       @itemclick={{this.clickFamilyDuties}}
     />
     <NavigationItem 
+      data-test="All"
       @text="All" 
       @icon="users" 
       @itemclick={{this.clickAllDuties}}
     />
     <NavigationItem 
+      data-test="Subs"
       @text="Subs" 
       @icon="exchange-alt" 
       @itemclick={{this.clickDutySubstitutions}}
     />
     <NavigationItem 
+      data-test="Any"
       @class="any-user"
       @text="Any" 
       @icon="user-plus" 

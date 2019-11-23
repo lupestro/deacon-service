@@ -1,16 +1,15 @@
 import Component from '@ember/component';
-import {classNames} from '@ember-decorators/component';
-import RecognizerMixin from 'ember-gestures/mixins/recognizers';
+import { action } from '@ember/object';
+//import { htmlSafe } from '@ember/template';
 
-@classNames('roster-list')
-export default class RosterList extends Component.extend(
-    RecognizerMixin, { recognizers: 'tap press' }) {
-    
-    didInsertElement() {
-        const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-        const element = document.getElementById(this.elementId);
+export default class RosterList extends Component {
+    tagName = "";
+
+    @action
+    inserted(element:HTMLElement) {
         if (element) {
-            element.style.height = (height - 190)+ 'px';
+            const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
+            element.style.height = `${height - 210}px`;
         }
     } 
 }

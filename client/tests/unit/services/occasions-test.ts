@@ -110,13 +110,13 @@ module('Unit | Service | occasions', function(hooks) {
       assert.equal(filtered[0].type, 'Party');
       assert.equal(filtered[0].roles.length, 1);
       assert.equal(filtered[0].roles[0].attendances.length, 1);
-      assert.equal(filtered[0].roles[0].attendances[0].who, 'Betty');
+      assert.equal(filtered[0].roles[0].attendances[0].who, 3);
     }
     if (filtered.length > 1) {
       assert.equal(filtered[1].type, 'Playgroup');
       assert.equal(filtered[1].roles.length, 1);
       assert.equal(filtered[1].roles[0].attendances.length, 1);
-      assert.equal(filtered[1].roles[0].attendances[0].who, 'Betty');
+      assert.equal(filtered[1].roles[0].attendances[0].who, 3);
     }
 
   });
@@ -134,17 +134,17 @@ module('Unit | Service | occasions', function(hooks) {
       assert.equal(filtered[0].type, 'Party');
       assert.equal(filtered[0].roles.length, 2);
       assert.equal(filtered[0].roles[0].attendances.length, 1);
-      assert.equal(filtered[0].roles[0].attendances[0].who, 'Fred');
+      assert.equal(filtered[0].roles[0].attendances[0].who, 1);
       assert.equal(filtered[0].roles[1].attendances.length, 1);
-      assert.equal(filtered[0].roles[1].attendances[0].who, 'Wilma');
+      assert.equal(filtered[0].roles[1].attendances[0].who, 2);
     }
     if (filtered.length > 1) {
       assert.equal(filtered[1].type, 'Playgroup');
       assert.equal(filtered[1].roles.length, 2);
       assert.equal(filtered[1].roles[0].attendances.length, 1);
-      assert.equal(filtered[1].roles[0].attendances[0].who, 'Pebbles');
+      assert.equal(filtered[1].roles[0].attendances[0].who, 5);
       assert.equal(filtered[1].roles[1].attendances.length, 1);
-      assert.equal(filtered[1].roles[1].attendances[0].who, 'Wilma');
+      assert.equal(filtered[1].roles[1].attendances[0].who, 2);
     }
   });
 
@@ -162,7 +162,7 @@ module('Unit | Service | occasions', function(hooks) {
       assert.equal(filtered[0].roles.length, 1);
       assert.equal(filtered[0].roles[0].type, 'Mover');
       assert.equal(filtered[0].roles[0].attendances.length, 1);
-      assert.equal(filtered[0].roles[0].attendances[0].who, 'Fred');
+      assert.equal(filtered[0].roles[0].attendances[0].who, 1);
     }
   });
 

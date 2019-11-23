@@ -124,6 +124,19 @@ describe('api/operations', function (){
             queries.verifyCounts();
         });
 
+        it('should get occasions with a timestamp', async () => {
+            const queries = new DummyQueries();
+            queries.deeplists.input.push({
+                table: 'occasions_time',
+                criteria: { time: "2020-01-01T12:30:00GMT" }
+            });
+            queries.deeplists.result.push([]);
+            const operations = new Operations(queries);
+            const occasions = await operations.getOccasions(null, null, "2020-01-01T12:30:00GMT"); 
+            expect(occasions.length).to.equal(0);
+            queries.verifyCounts();
+        });
+
     });
 
     describe('updateAttendance', async () => {

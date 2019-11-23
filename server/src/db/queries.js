@@ -57,6 +57,9 @@ const TABLE_DEEPLISTS = {
     occasions: 
         ['SELECT o.id as occasion, o.type, o.subtype, o.time as when, r.id as role, r.type as roletype, r.count, a.id as attendance, a.type as attype, a.participant, a.substitute, a.team ' + 
         'FROM occasions o, roles r, attendances a where o.id = r.occasion and r.id = a.role order by o.time, o.id, r.id, a.type, a.id'],
+    occasions_time: 
+        ['SELECT o.id as occasion, o.type, o.subtype, o.time as when, r.id as role, r.type as roletype, r.count, a.id as attendance, a.type as attype, a.participant, a.substitute, a.team ' + 
+        'FROM occasions o, roles r, attendances a where o.id = r.occasion and r.id = a.role and o.time >= $1 order by o.time, o.id, r.id, a.type, a.id','time'],
     roles: 
         ['SELECT r.id as role, r.type as roletype, r.count, a.id as attendance, a.type as attype, a.participant, a.substitute, a.team ' + 
         'FROM roles r, attendances a WHERE r.id = (SELECT role FROM attendances WHERE id=$1) AND a.role=r.id','id']

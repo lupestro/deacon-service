@@ -1,6 +1,10 @@
 <button 
   class="duty-row {{if this.historical "historical"}} " 
   tabindex="0" 
+  data-test-icon={{duty.icontype}}
+  data-test-type={{duty.type}}
+  data-test-subtype={{duty.subtype}}
+  data-test-names={{duty.names}}
   {{on "tap" this.clicked}}
   {{on "longPress" this.held}}
 >

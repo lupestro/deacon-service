@@ -1,29 +1,34 @@
-{{#each sourceData as |occasion|}}
-  <SubHeader @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}} />
-  {{#each occasion.roles as |role|}}
-    {{#each role.attendances as |attendance|}}
-      <AttendanceFormatter 
-        @occasion={{occasion}} 
-        @role={{role}}
-        @attendance={{attendance}} as |duty| 
-      >
-        <div class="duty-row-wrapper">
-          <DutyRow 
-            @duty={{duty}}
-            @clicked={{fn this.clicked role occasion attendance}} 
-            @held={{fn this.held role occasion attendance}}
-          />
-          {{#if (eq this.overlay.attendance attendance.id) }}
-            <DutyOverlay 
-              @title={{this.overlay.title}}
-              @icon={{this.overlay.icon}}
-              @icontype={{this.overlay.icontype}} 
-              @submission={{fn this.submitChange attendance}} 
-              @closure={{this.cancelChange}}
+<main class="page-frame" {{did-insert this.inserted}} {{recognize-gesture "tap" "long-press"}} >
+  {{#each sourceData as |occasion|}}
+    <SubHeader 
+      data-test={{occasion.when}} 
+      @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}} 
+    />
+    {{#each occasion.roles as |role|}}
+      {{#each role.attendances as |attendance|}}
+        <AttendanceFormatter 
+          @occasion={{occasion}} 
+          @role={{role}}
+          @attendance={{attendance}} as |duty| 
+        >
+          <div class="duty-row-wrapper">
+            <DutyRow 
+              @duty={{duty}}
+              @clicked={{fn this.clicked role occasion attendance}} 
+              @held={{fn this.held role occasion attendance}}
             />
-          {{/if}}
-        </div>
-      </AttendanceFormatter>
+            {{#if (eq this.overlay.attendance attendance.id) }}
+              <DutyOverlay 
+                @title={{this.overlay.title}}
+                @icon={{this.overlay.icon}}
+                @icontype={{this.overlay.icontype}} 
+                @submission={{fn this.submitChange attendance}} 
+                @closure={{this.cancelChange}}
+              />
+            {{/if}}
+          </div>
+        </AttendanceFormatter>
+      {{/each}}
     {{/each}}
   {{/each}}
-{{/each}}
+</main>

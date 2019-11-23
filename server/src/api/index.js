@@ -113,8 +113,12 @@ class ApiV1 {
     /**
      * Get all the occasions, with their roles and their roles' attendances, as a JSON object. 
      * 
-     * The Operations object currently ignores these parameters as it's much less involved to filter in the client. 
-     * Consequently, the validation isn't very thorough.
+     * The Operations object currently ignores participant list and subneeded, as it's much less involved to filter these in the client. 
+     * Consequently, the validation for these isn't very thorough. 
+     * 
+     * TODO: The timestamp validation also isn't very thorough, and that could use some work. The impact isn't serious, though. 
+     * The only ill-effects of a badly formed date will be a failed query or an empty result. 
+     * 
      * @param {request} req Node Express router request object
      * @param {response} res Node Express router response object
      */

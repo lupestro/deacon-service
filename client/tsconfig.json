@@ -3,7 +3,6 @@
     "target": "es2017",
     "allowJs": true,
     "moduleResolution": "node",
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -20,12 +19,16 @@
     "inlineSources": true,
     "baseUrl": ".",
     "module": "es6",
+    "experimentalDecorators": true,
     "paths": {
       "deacon-dash/tests/*": [
         "tests/*"
       ],
       "deacon-dash/*": [
         "app/*"
+      ],
+      "fetch": [
+        "node_modules/ember-fetch/index.d.ts"
       ],
       "*": [
         "types/*"

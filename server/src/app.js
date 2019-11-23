@@ -8,12 +8,12 @@
  * - Get the list of participants
  *   - URL: GET `/participants`
  *   - query parameters: 
- *     - `email` - Include email address - boolean or 0/1
+ *     - `email` - Include email address - boolean or 0/1 (_unsupported_ by implementation)
  * - Get the list of occasions, with roles and attendances nested within them.
  *   - URL: GET `/occasions`
- *   - query parameters: ** support is unimplemented **
- *     - `participants` - a list of participants used to filter the list (number[])
- *     - `subneeded` - whether to include data where the participant is a substitute (boolean)
+ *   - query parameters: 
+ *     - `participants` - a list of participants used to filter the list (number[]) (_unsupported_ by implementation)
+ *     - `subneeded` - whether to include data where the participant is a substitute (boolean) (_unsupported_ by implementation)
  *     - `from` - the earliest date for which to include occasions (ISO timestamp)
  * - Change the type of an attendance
  *   - URL: POST `/attendance/{id}/type`

@@ -1,6 +1,4 @@
 import Component from '@ember/component';
-import { classNames, tagName } from '@ember-decorators/component';
-import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 import { action } from '@ember/object';
 
 type Overlay = {
@@ -19,10 +17,8 @@ const OVERLAYS : {[name: string]: Overlay } = {
     unconfirm: { role: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed' }
 };
 
-@classNames('duty-list')
-@tagName('main')
-export default class RoleList extends Component.extend(
-        RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class RoleList extends Component {
+    tagName = "";
     clickType!: string;
     holdType!: string;
     update!: Function;
@@ -35,11 +31,11 @@ export default class RoleList extends Component.extend(
         this.overlay = OVERLAYS['empty'];
     }
 
-    didInsertElement() {
-        const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-        const element = document.getElementById(this.elementId);
+    @action
+    inserted(element: HTMLElement) {
         if (element) {
-            element.style.height = (height - 170)+ 'px';
+            const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
+            element.style.height = (height - 180)+ 'px';
         }
     } 
     

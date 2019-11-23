@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { capitalize } from '@ember/string';
+import { inject as service } from '@ember/service';
+import ApiService from 'deacon-dash/services/api';
 import moment from 'moment';
 
 const ICON_IMAGES : { [attype: string]:string} = {
@@ -20,8 +22,10 @@ const BIG_X = "\u2718";
 const CHECKMARK = '\u2713';
 
 export default class RoleSummarizer extends Component {
+    tagName = '';
     occasion!: Occasion;
     role!: Role;
+    @service api!: ApiService;
     
     @computed('occasion','role') 
     get duty(): Duty {
@@ -31,7 +35,7 @@ export default class RoleSummarizer extends Component {
             type: this.type,
             subtype: this.subtype,
             names: this.names,
-            historical: (moment(this.occasion.when) < moment().startOf('day'))
+            historical: (moment(this.occasion.when) < this.api.today)
         };
     }
 

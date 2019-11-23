@@ -36,8 +36,12 @@ class Operations {
      * @param {string} from An ISO timestamp specifying the earliest data for which to include occasions
      * @return {object[]} an array of row hashes for the attendences - with role and occasion fields included - with one property for each field in the row
      */
-    async getOccasions(/*participants, subneeded, from*/) {
-        return await this.queries.deeplist('occasions');
+    async getOccasions(participants, subneeded, from) {
+        if (from) {
+            return await this.queries.deeplist('occasions_time', {time: from});
+        } else {
+            return await this.queries.deeplist('occasions');
+        }
     }
 
     /**

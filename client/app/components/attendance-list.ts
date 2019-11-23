@@ -1,6 +1,4 @@
 import Component from '@ember/component';
-import { classNames, tagName } from '@ember-decorators/component';
-import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 import { action } from '@ember/object';
 
 
@@ -37,10 +35,8 @@ const OVERLAYS : {[name: string]: Overlay } = {
     revoke: { attendance: 0, type: "revoke", title: "Revoke", icon: "exclamation-triangle", icontype: 'needy', live: true}
 };
 
-@classNames('duty-list')
-@tagName('main')
-export default class AttendanceList extends Component.extend(
-        RecognizerMixin, { recognizers: 'tap long-press' }) {
+export default class AttendanceList extends Component {
+    tagName = '';
     rule!: AttendanceRule;
     clickType!: string;
     holdType!: string;
@@ -54,11 +50,11 @@ export default class AttendanceList extends Component.extend(
         this.overlay = OVERLAYS['empty'];
     }
 
-    didInsertElement() {
-        const height = Math.max(document.documentElement? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-        const element = document.getElementById(this.elementId);
+    @action 
+    inserted(element: HTMLElement) {
         if (element) {
-            element.style.height = (height - 170)+ 'px';
+            const height = Math.max(document.documentElement? document.documentElement.clientHeight : 0, window.innerHeight || 0);
+            element.style.height = (height - 180)+ 'px';
         }
     } 
     
