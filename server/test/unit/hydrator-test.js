@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var hydrator = require('../hydrator');
+var hydrator = require('../../src/api/hydrator');
 
 const OCCASION_ITEMS = [
     { name: 'empty input should produce empty output', input:[], output:[]},

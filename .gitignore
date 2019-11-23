@@ -1,11 +1,15 @@
 node_modules
 npm-debug.log
+.nyc_output/
 .DS_Store
 /*.env
 /.vs/
+coverage/
+docs/
 /local/
 #personal database data
 /db/occasions.pgsql
 /db/participants.pgsql
 /db/assignments.pgsql
 /db/status-changes.pgsql
+/db/deacon-service.xlsx

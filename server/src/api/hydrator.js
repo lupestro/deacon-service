@@ -1,4 +1,14 @@
 
+/**
+ * This module contains transforms between cross-table database query results and the JSON to deliver in the API. 
+ * Because of the nature of what it does, it tends to be deeply coupled with specific `deeplist` queries.
+ * @module Hydrator
+ */
+/**
+ * Transform rows of attendance data with associated role and occasion fields (deeplist `occasions`) 
+ * into JSON nested by occasion and role.
+ * @param {row[]} data The rows of attendance data
+ */
 exports.pumpOccasionData = (data) => {
     let result = [];
     let oid = -1;
@@ -67,6 +77,11 @@ exports.pumpOccasionData = (data) => {
     return result;
 }
 
+/**
+ * Transform rows of attendance data with associated role fields for all attendances in a single role (deeplist `roles`) 
+ * into JSON nested for the role.
+ * @param {row[]} data The rows of attendance data
+ */
 exports.pumpRoleData = (data) => {
     if (data.length === 0) {
         return null;
