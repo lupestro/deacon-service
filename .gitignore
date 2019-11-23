@@ -13,3 +13,4 @@ docs/
 /db/assignments.pgsql
 /db/status-changes.pgsql
 /db/deacon-service.xlsx
+/*.tmp
