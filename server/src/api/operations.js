@@ -1,6 +1,6 @@
 /**
- * Operations that the API must perform on the database. {DeaconQueries} provides the SQL, specialized to the deacons database. 
- * Operations transforms API-meaningful parameters into the form needed by {DeaconQueries} and returns the row or rows gathered,
+ * Operations that the API must perform on the database. {@linkcode DeaconQueries} provides the SQL, specialized to the deacons database. 
+ * Operations transforms API-meaningful parameters into the form needed by {@linkcode DeaconQueries} and returns the row or rows gathered,
  * applying any business rules to the operations performed.
  */
 class Operations {
@@ -16,7 +16,7 @@ class Operations {
      * @param {boolean} email Whether to include email addresses
      * @return {object[]} an array of row hashes for the participants with one property for each field in the row
      */
-    async getParticipants(email) {
+    async getParticipants(/*email*/) {
         let result = await this.queries.list('participants');
 //        if (email) {
 //            return result;

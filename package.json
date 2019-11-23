@@ -10,7 +10,7 @@
     "url": "git+https://github.com/lupestro/deacon-service.git"
   },
   "scripts": {
-    "install": "(cd client && yarn) && (cd server && yarn)",
+    "install": "concurrently \"cd client && yarn\" \"cd server && yarn\"",
     "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules tmp dist\" \"cd server && rimraf node_modules\"",
     "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
     "build:prod": "concurrently \"cd client && yarn build:prod\" \"cd server && yarn build:prod\"",

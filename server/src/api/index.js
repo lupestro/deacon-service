@@ -1,7 +1,7 @@
 const hydratorModule = require('./hydrator');
 
 /**
- * The API class provides the bodies of all of the operations exported to express by the {App} module. 
+ * The API class provides the bodies of all of the operations exported to express by the [App]{@linkcode module:App} module. 
  * It validates the passed data, calls Operations to do the work, and calls the Hydrator to turn it into the desired JSON. 
  * 
  * The private validator methods of the API validate only that the passed data parses as the intended type of data. 
@@ -116,7 +116,7 @@ class ApiV1 {
      * The Operations object currently ignores participant list and subneeded, as it's much less involved to filter these in the client. 
      * Consequently, the validation for these isn't very thorough. 
      * 
-     * TODO: The timestamp validation also isn't very thorough, and that could use some work. The impact isn't serious, though. 
+     * The timestamp validation also isn't very thorough, and that could use some work. The impact isn't serious, though. 
      * The only ill-effects of a badly formed date will be a failed query or an empty result. 
      * 
      * @param {request} req Node Express router request object

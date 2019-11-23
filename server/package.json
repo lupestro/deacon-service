@@ -9,6 +9,7 @@
     "doc": "doc",
     "test": "tests"
   },
+  "main": "app.js",
   "scripts": {
     "build": "npx tsc",
     "build:prod": "npx tsc",
@@ -16,9 +17,9 @@
     "docs": "npx jsdoc -c ./jsdoc.json",
     "start": "npx tsc && node ./src/app.js",
     "debug": "npx tsc && node --inspect-brk=36942 ./src/app.js",
-    "test": "npx tsc && mocha test/**/*",
-    "coverage": "npx nyc -r HTML mocha test/**/*",
-    "debug:test": "npx tsc && npx mocha --inspect-brk=36942 test/**/*"
+    "test": "npx tsc && mocha test/**/*.js",
+    "cover": "npx nyc -r HTML mocha test/**/*.js",
+    "debug:test": "npx tsc && npx mocha --inspect-brk=36942 test/**/*.js"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
@@ -38,13 +39,12 @@
     "typedoc": "^0.15.2",
     "typescript": "^3.7.2"
   },
-  "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
-  },
-  "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "pg": "^7.4.3"
+  },
+  "engines": {
+    "node": "8.* || >= 10.*"
   }
 }
