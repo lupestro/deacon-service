@@ -174,7 +174,7 @@ const ROLE_ITEMS = [
     }
 ];
 
-describe('hydrator', function (){
+describe('Unit - api/hydrator', function (){
 
     describe('pumpOccasionData', function () {
         for (let item of OCCASION_ITEMS) {

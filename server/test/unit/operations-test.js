@@ -59,7 +59,7 @@ class DummyQueries {
     }
 }
 
-describe('api/operations', function (){
+describe('Unit - api/operations', function (){
     
     describe('getParticipants', async () => {
 

@@ -56,7 +56,7 @@ class DummyDb {
 
 }
 
-describe('db/queries', function (){
+describe('Unit - db/queries', function (){
     
     describe('_resolveId', async () => {
 

@@ -3,7 +3,7 @@ const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 const Db = require('../../src/db/index');
 
-describe('db/index', function (){
+describe('Integration - db/index', function (){
     let db, db2;
     
     before (() =>{

@@ -12,5 +12,5 @@ docs/
 /db/participants.pgsql
 /db/assignments.pgsql
 /db/status-changes.pgsql
-/db/deacon-service.xlsx
+/db/*.xlsx
 /*.tmp

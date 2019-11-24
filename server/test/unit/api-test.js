@@ -72,7 +72,7 @@ class DummyOperations {
 // Canned dummy response object that just knows how to stringify JSON for testing
 const res = { json(item) { return JSON.stringify(item); } }
 
-describe('api/index', function (){
+describe('Unit - api/index', function (){
     
     describe('getParticipants', async () => {
 
