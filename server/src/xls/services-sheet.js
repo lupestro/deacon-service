@@ -1,4 +1,3 @@
-const xlsx = require('xlsx');
 
 /**
  * Information from the services page of the spreadsheet - dates and times of all services with DoD

@@ -1,5 +1,3 @@
-const xlsx = require('xlsx');
-
 /**
  * Information from the "Team Schedule" page of the spreadsheet - team assignments for communion and baptisms 
  * for each month
