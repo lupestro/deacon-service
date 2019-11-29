@@ -18,7 +18,51 @@ class RosterSheet {
     load(sheet) {
         this.sheet = sheet;
         this.validateStructure();
-
+        const [deacons, alternates, families] = this.populateData();
+        this.validateDeacons(deacons, alternates);
+        this.validateFamilies(families, deacons, alternates);
+        this.deacons = deacons;
+        this.alternates = alternates;
+        this.families = families;
+    }
+    /**
+     * Validate that the structure of the data in the spreadsheet is in good enough shape to load.
+     */
+    validateStructure() {
+        let fromHeader = Utils.findCellNameByContent(this.sheet, 'From:');
+        let untilHeader = Utils.findCellNameByContent(this.sheet, "Until:");
+        let teamHeader = Utils.findCellNameByContent(this.sheet, 'Team');
+        let familiesHeader = Utils.findCellNameByContent(this.sheet, 'Families');
+        if (!fromHeader) {
+            throw new Error("Roster has invalid structure - \"From:\" not found.");
+        }
+        if (!untilHeader) {
+            throw new Error("Roster has invalid structure - \"Until:\" not found.");
+        }
+        if (!teamHeader) { 
+            throw new Error("Roster has invalid structure - \"Team\" not found.");
+        }
+        if (!familiesHeader) {
+            throw new Error("Roster has invalid structure - \"Families\" not found.")
+        }
+        let deaconHeader = Utils.offset(teamHeader,1,0);
+        if (!this.sheet[deaconHeader] || this.sheet[deaconHeader].v !== 'Deacon') {
+            throw new Error("Roster has invalid structure - \"Team\" not followed by \"Deacon\".");
+        }
+        let shortNameHeader = Utils.offset(deaconHeader,1,0);
+        if (!this.sheet[shortNameHeader] || this.sheet[shortNameHeader].v  !== 'Short Name') {
+            throw new Error("Roster has invalid structure - \"Deacon\" not followed by \"Short Name\".");
+        }
+        let emailHeader = Utils.findCellNameByContent(this.sheet, 'Primary Email');
+        if (!emailHeader) {
+            throw new Error("Roster has invalid structure - \"Primary Email\" not found.")
+        }
+        let [,y] = Utils.distance(teamHeader, emailHeader); 
+        if (y !== 0) {
+            throw new Error("Roster has invalid structure - \"Primary Email\" not in same row as \"Deacon\"");
+        }        
+    }
+    populateData() {
         let fromHeader = Utils.findCellNameByContent(this.sheet, 'From:');
         let untilHeader = Utils.findCellNameByContent(this.sheet, "Until:");
         let teamHeader = Utils.findCellNameByContent(this.sheet, 'Team');
@@ -60,46 +104,14 @@ class RosterSheet {
                 deaconInProgress[columnName] = this.sheet[cell].v; 
             }
         }
-        this.families = families;
-        this.deacons = deacons;
-        this.alternates = alternates;
+        return [deacons, alternates, families];
     }
-    /**
-     * Validate that the structure of the data in the spreadsheet is in good enough shape to load.
-     */
-    validateStructure() {
-        let fromHeader = Utils.findCellNameByContent(this.sheet, 'From:');
-        let untilHeader = Utils.findCellNameByContent(this.sheet, "Until:");
-        let teamHeader = Utils.findCellNameByContent(this.sheet, 'Team');
-        let familiesHeader = Utils.findCellNameByContent(this.sheet, 'Families');
-        if (!fromHeader) {
-            throw new Error("Roster has invalid structure - \"From:\" not found.");
-        }
-        if (!untilHeader) {
-            throw new Error("Roster has invalid structure - \"Until:\" not found.");
-        }
-        if (!teamHeader) { 
-            throw new Error("Roster has invalid structure - \"Team\" not found.");
-        }
-        if (!familiesHeader) {
-            throw new Error("Roster has invalid structure - \"Families\" not found.")
-        }
-        let deaconHeader = Utils.offset(teamHeader,1,0);
-        if (!this.sheet[deaconHeader] || this.sheet[deaconHeader].v !== 'Deacon') {
-            throw new Error("Roster has invalid structure - \"Team\" not followed by \"Deacon\".");
-        }
-        let shortNameHeader = Utils.offset(deaconHeader,1,0);
-        if (!this.sheet[shortNameHeader] || this.sheet[shortNameHeader].v  !== 'Short Name') {
-            throw new Error("Roster has invalid structure - \"Deacon\" not followed by \"Short Name\".");
-        }
-        let emailHeader = Utils.findCellNameByContent(this.sheet, 'Primary Email');
-        if (!emailHeader) {
-            throw new Error("Roster has invalid structure - \"Primary Email\" not found.")
-        }
-        let [,y] = Utils.distance(teamHeader, emailHeader); 
-        if (y !== 0) {
-            throw new Error("Roster has invalid structure - \"Primary Email\" not in same row as \"Deacon\"");
-        }        
+    validateDeacons(/*deacons, alternates*/) {
+        // Validate short names for uniqueness across the two lists.
+        // Validate each deacon has a numeric team and each alternate doesn't.
+    }
+    validateFamilies(/*families, deacons, alternates*/) {
+        // Validate at least one of the names in a family is found as a short name
     }
 }
 module.exports = RosterSheet;

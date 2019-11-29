@@ -24,7 +24,7 @@ class Workbook {
         }
         let messages = [];
         try {
-            this.teamScheduleSheet.load(this.workbook.Sheets['teamSchedule']);
+            this.teamScheduleSheet.load(this.workbook.Sheets['Team Schedule']);
         } catch (e) {
             messages.push (e.message);
         }
