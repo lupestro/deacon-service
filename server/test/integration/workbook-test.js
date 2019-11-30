@@ -20,8 +20,10 @@ describe('Integration - xls/index', function (){
             workbook.loadFromFile('../db/Deacons-2019.xlsx');
             expect(workbook.rosterSheet.deacons.length).greaterThan(0);
             expect(workbook.rosterSheet.alternates.length).greaterThan(0);
-            expect(workbook.rosterSheet.deaconIndex).exist;
-            expect(workbook.rosterSheet.deaconIndex).not.equals(null);
+            expect(workbook.rosterSheet.nameIndex).exist;
+            expect(workbook.rosterSheet.nameIndex).not.equals(null);
+            expect(workbook.rosterSheet.teamIndex).exist;
+            expect(workbook.rosterSheet.teamIndex).not.equals(null);
             expect(workbook.teamScheduleSheet.schedule.length).greaterThan(0);
             expect(workbook.servicesSheet.services.length).greaterThan(0);
         });

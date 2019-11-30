@@ -25,25 +25,29 @@ class ServicesSheet {
      * Validate that the structure of the data in the spreadsheet is in good enough shape to load.
      */
     validateStructure() {
+        let messages = [];
         let dateHeader = Utils.findCellNameByContent(this.sheet, 'Date');
         let typeHeader = Utils.findCellNameByContent(this.sheet, 'Type');
         let earlyHeader = Utils.findCellNameByContent(this.sheet, 'Early');
         let primaryHeader = Utils.findCellNameByContent(this.sheet, 'Primary');
         let dodHeader = Utils.findCellNameByContent(this.sheet, 'DoD');
         if (!dateHeader) {
-            throw new Error("Services sheet has invalid structure - \"Date\" not found.");
+            messages.push("Services sheet has invalid structure - \"Date\" not found.");
         }
         if (!typeHeader) {
-            throw new Error("Services sheet has invalid structure - \"Type\" not found.");
+            messages.push("Services sheet has invalid structure - \"Type\" not found.");
         }
         if (!earlyHeader) { 
-            throw new Error("Services sheet has invalid structure - \"Early\" not found.");
+            messages.push("Services sheet has invalid structure - \"Early\" not found.");
         }
         if (!primaryHeader) {
-            throw new Error("Services sheet has invalid structure - \"Primary\" not found.");
+            messages.push("Services sheet has invalid structure - \"Primary\" not found.");
         }
         if (!dodHeader) {
-            throw new Error("Services sheet has invalid structure - \"DoD\" not found.");
+            messages.push("Services sheet has invalid structure - \"DoD\" not found.");
+        }
+        if (messages.length > 0) {
+            throw new Error(messages.join('\r\n'));
         }
         let [, typeY] = Utils.distance(dateHeader, typeHeader);
         let [, earlY] = Utils.distance(dateHeader, earlyHeader);

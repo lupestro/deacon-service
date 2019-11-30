@@ -26,35 +26,42 @@ class TeamScheduleSheet {
      * Validate that the structure of the data in the spreadsheet is in good enough shape to load.
      */
     validateStructure() {
+        let messages = [];
         let monthHeader = Utils.findCellNameByContent(this.sheet, 'Month');
         let yearHeader = Utils.findCellNameByContent(this.sheet, 'Year');
         let domsHeader = Utils.findCellNameByContent(this.sheet, 'DOMs');
         let communionHeader = Utils.findCellNameByContent(this.sheet, 'Communion');
         let baptismsHeader = Utils.findCellNameByContent(this.sheet, 'Baptisms');
         if (!monthHeader) {
-            throw new Error("Team schedule has invalid structure - \"Month\" not found.");
+            messages.push("Team schedule has invalid structure - \"Month\" not found.");
         }
         if (!yearHeader) {
-            throw new Error("Team schedule has invalid structure - \"Year\" not found.");
+            messages.push("Team schedule has invalid structure - \"Year\" not found.");
         }
         if (!domsHeader) { 
-            throw new Error("Team schedule sheet has invalid structure - \"DOMs\" not found.");
+            messages.push("Team schedule sheet has invalid structure - \"DOMs\" not found.");
         }
         if (!communionHeader) {
-            throw new Error("Team schedule sheet has invalid structure - \"Communion\" not found.");
+            messages.push("Team schedule sheet has invalid structure - \"Communion\" not found.");
         }
         if (!baptismsHeader) {
-            throw new Error("Team schedule sheet has invalid structure - \"Baptisms\" not found.");
+            messages.push("Team schedule sheet has invalid structure - \"Baptisms\" not found.");
+        }
+        if (messages.length > 0) {
+            throw new Error (messages.join('\r\n'))
         }
         let [yearX, yearY] = Utils.distance(monthHeader, yearHeader);
         let [domsX, domsY] = Utils.distance(monthHeader, domsHeader);
         let [commX, commY] = Utils.distance(monthHeader, communionHeader);
         let [baptX, baptY] = Utils.distance(monthHeader, baptismsHeader);
         if ((yearY !== 0) || (domsY !== 0) || (commY !== 0) || (baptY !== 0)) {
-            throw new Error("Team schedule sheet has invalid structure - table headers aren't on single row.");
+            messages.push("Team schedule sheet has invalid structure - table headers aren't on single row.");
         }
         if ((yearX !== 1) || domsX !==2 || commX !== 3 || baptX - commX !== 5) {
-            throw new Error("Team schedule sheet has invalid structure - table headings aren't in expected order");
+            messages.push("Team schedule sheet has invalid structure - table headings aren't in expected order");
+        }
+        if (messages.length > 0) {
+            throw new Error (messages.join('\r\n'))
         }
     }
     populateData() {

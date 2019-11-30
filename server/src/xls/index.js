@@ -41,6 +41,7 @@ class Workbook {
         if (messages.length > 0) {
             throw new Error(messages.join('\r\n'));
         }
+        this.crossValidateData();
     }
     /**
      * Validate the overall structure of the spreadsheet. 
@@ -51,6 +52,39 @@ class Workbook {
             this.workbook.SheetNames.includes('Roster') &&
             this.workbook.SheetNames.includes('Services');
     }
+    crossValidateData () {
+        let messages = [];
+        if (this.teamScheduleSheet.schedule) {
+            for (const row of this.teamScheduleSheet.schedule) {
+                if (!Object.hasOwnProperty.call(this.rosterSheet.teamIndex, row.doms)) {
+                    messages.push(`Team schedule sheet has invalid team for its DoMs for ${row.month}`);
+                }
+                if (!Object.hasOwnProperty.call(this.rosterSheet.teamIndex, row.baptisms)) {
+                    messages.push(`Team schedule sheet has invalid team for its baptisms for ${row.month}`);
+                }
+                for (const team of row.downstairs) {
+                    if (!Object.hasOwnProperty.call(this.rosterSheet.teamIndex, team)) {
+                        messages.push(`Team schedule sheet has invalid team ${team} for downstairs in ${row.month}`);
+                    }    
+                }
+                for (const team of row.upstairs) {
+                    if (!Object.hasOwnProperty.call(this.rosterSheet.teamIndex, team)) {
+                        messages.push(`Team schedule sheet has invalid team ${team} for upstairs in ${row.month}`);
+                    }    
+                }
+            }    
+        }
+        if (this.servicesSheet.services) {
+            for (const row of this.servicesSheet.services) {
+                if (!Object.hasOwnProperty.call(this.rosterSheet.nameIndex, row.dod)) {
+                    messages.push(`Services sheet has invalid short name ${row.dod} for dod on ${row.date}`);
+                }
+            }
+        }
+        if (messages.length > 0) {
+            throw new Error(messages.join('\r\n'));
+        }    
+}
     /**
      * Combine the team schedule, team membership from the roster, and services data to build a members-oriented schedule, 
      * of similar form to the occasions list, carrying all information necessary to add occasions, roles, and attendences to the databse.
