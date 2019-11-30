@@ -20,7 +20,10 @@ describe('Integration - xls/index', function (){
             workbook.loadFromFile('../db/Deacons-2019.xlsx');
             expect(workbook.rosterSheet.deacons.length).greaterThan(0);
             expect(workbook.rosterSheet.alternates.length).greaterThan(0);
-            expect(workbook.rosterSheet.families.length).greaterThan(0);
+            expect(workbook.rosterSheet.deaconIndex).exist;
+            expect(workbook.rosterSheet.deaconIndex).not.equals(null);
+            expect(workbook.teamScheduleSheet.schedule.length).greaterThan(0);
+            expect(workbook.servicesSheet.services.length).greaterThan(0);
         });
 
         it('should fail if the sheets don\'t exist - sheets stubbed', async () => {

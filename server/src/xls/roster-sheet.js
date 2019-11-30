@@ -18,12 +18,11 @@ class RosterSheet {
     load(sheet) {
         this.sheet = sheet;
         this.validateStructure();
-        const [deacons, alternates, families] = this.populateData();
-        this.validateDeacons(deacons, alternates);
-        this.validateFamilies(families, deacons, alternates);
+        const [deacons, alternates, deaconIndex] = this.populateData();
+        this.validateData(deacons, alternates, deaconIndex);
         this.deacons = deacons;
         this.alternates = alternates;
-        this.families = families;
+        this.deaconIndex = deaconIndex;
     }
     /**
      * Validate that the structure of the data in the spreadsheet is in good enough shape to load.
@@ -104,14 +103,74 @@ class RosterSheet {
                 deaconInProgress[columnName] = this.sheet[cell].v; 
             }
         }
-        return [deacons, alternates, families];
+
+        // Build the deacon index
+        let deaconIndex = {};
+        deacons.forEach((deacon,index) => {
+            if (!Object.hasOwnProperty.call(deaconIndex, deacon.short_name)) {
+                deaconIndex[deacon.short_name] = [];
+            }
+            deaconIndex[deacon.short_name].push(index);
+        });
+    
+        alternates.forEach((alternate,index) => {
+            if (!Object.hasOwnProperty.call(deaconIndex, alternate.short_name)) {
+                deaconIndex[alternate.short_name] = [];
+            }
+            deaconIndex[alternate.short_name].push(-(index+1));
+        });
+
+        families.forEach((family,familyIndex) => {
+            family.forEach((member)=>{
+                if (Object.hasOwnProperty.call(deaconIndex, member)) {
+                    const idx = deaconIndex[member][0]
+                    if (idx >= 0) {
+                        deacons[idx].family = familyIndex;
+                    } else {
+                        alternates[(-idx) - 1].family = familyIndex;
+                    }
+                }
+            })
+        });        
+        return [deacons, alternates, deaconIndex];
     }
-    validateDeacons(/*deacons, alternates*/) {
-        // Validate short names for uniqueness across the two lists.
+    validateData(deacons, alternates, deaconIndex) {
+        let message = "";
+
+        // Validate that there are no duplicate short names across the deacons and alternates.
+        for (const key of Object.keys(deaconIndex)) {
+            if (Object.hasOwnProperty.call(deaconIndex, key)) {
+                if (deaconIndex[key].length > 1) {
+                    let fullNames = []
+                    for (const index of deaconIndex[key]) {
+                        if (index < 0) {
+                            fullNames.push(alternates[-index-1].full_name);
+                        } else {
+                            fullNames.push(deacons[index].full_name);
+                        }
+                    }
+                    message += `Roster sheet contains duplicate short name ${key} on ${fullNames.join(',')}.\n`
+                }
+            }
+        }
+        if (message.length > 0) {
+            throw new Error(message);
+        }
+
         // Validate each deacon has a numeric team and each alternate doesn't.
-    }
-    validateFamilies(/*families, deacons, alternates*/) {
-        // Validate at least one of the names in a family is found as a short name
+        for (const deacon of deacons) {
+            if (!/^\d+$/.test(deacon.team) && deacon.team !== "") {
+                message += `Roster sheet contains deacon ${deacon.short_name} with non-numeric team.\n`;
+            }
+        }
+        for (const alternate of alternates) {
+            if (alternate.team !== "" && alternate.team !== "S") {
+                message += `Roster sheet contains alternate ${alternate.short_name} with a team other than "S"\n`;
+            }
+        }
+        if (message.length > 0) {
+            throw new Error(message);
+        }
     }
 }
 module.exports = RosterSheet;
