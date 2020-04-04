@@ -77,7 +77,8 @@
     "typescript": "~3.7.3"
   },
   "resolutions": {
-    "handlebars": "4.7.6"
+    "handlebars": "4.7.6",
+    "minimist": "1.2.5"
   },
   "engines": {
     "node": "10.* || >= 12"
