@@ -10,7 +10,7 @@ class RosterSheet {
     constructor () {
         
     }
-    _
+    
     /**
      * Load the roster data from spreadsheet
      * @param {Sheet} sheet 
