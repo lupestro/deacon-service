@@ -7,7 +7,7 @@
   <SearchBar @searchtext={{this.searchtext}} />
 
   <RosterList class="page-frame">
-    {{#each candidates as |participant| }}
+    {{#each this.candidates as |participant| }}
       <RosterRow 
         @model={{participant}} 
         @selection={{this.clickReturn}} 

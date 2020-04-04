@@ -1,5 +1,5 @@
 <main class="page-frame" {{did-insert this.inserted}} {{recognize-gesture "tap" "long-press"}} >
-  {{#each sourceData as |occasion|}}
+  {{#each @sourceData as |occasion|}}
     <SubHeader 
       data-test={{occasion.when}} 
       @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}}
@@ -12,8 +12,8 @@
         <div class="duty-row-wrapper">
           <DutyRow 
             @duty={{duty}} 
-            @clicked={{fn this.clicked role occasion attendance}}
-            @held={{fn this.held role occasion attendance}}
+            @clicked={{fn this.clicked role occasion}}
+            @held={{fn this.held role occasion}}
           />
           {{#if (eq this.overlay.role role.id) }}
             <DutyOverlay 

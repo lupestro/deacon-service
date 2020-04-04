@@ -1,5 +1,5 @@
 <main class="page-frame" {{did-insert this.inserted}} {{recognize-gesture "tap" "long-press"}} >
-  {{#each sourceData as |occasion|}}
+  {{#each @sourceData as |occasion|}}
     <SubHeader 
       data-test={{occasion.when}} 
       @title={{moment-format occasion.when "MMMM DD, YYYY HH:mm"}} 

@@ -3,7 +3,7 @@
   <div class="header-row">
     <h3 class="header-title">{{@title}}</h3>
     {{#if @icon}}
-      <button class="header-right-icon" {{on "tap" @iconclick }}>
+      <button class="header-right-icon" type="button" {{on "tap" @iconclick }}>
         {{fa-icon @icon}}
       </button>
     {{/if}}
