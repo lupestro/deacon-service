@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import ApplicationController from './application';
 import { inject as controller } from '@ember/controller';
 
@@ -14,7 +15,7 @@ declare global {
 
 export default class DutiesController extends Controller {
     @controller('application') application! : ApplicationController;
-    title: string = 'Duties';
+    @tracked title: string = 'Duties';
 
     @action
     clickNewMe() {

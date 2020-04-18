@@ -7,18 +7,18 @@ import ApiService from '../services/api';
 export default class ApplicationController extends Controller {
     @service local! : LocalService;
     @service api! : ApiService;
-    @tracked watchableMe!: string;
+    @tracked watchableMe?: string;
 
     get me() {
         let result = this.local.me;
         if (!this.watchableMe) {
-            this.set('watchableMe', result);
+            this.watchableMe = result;
         }
         return result; 
     }
     set me(value: string) {
         this.local.me = value;
-        this.set('watchableMe', value);
+        this.watchableMe = value;
     }
 
     get myId() {

@@ -39,7 +39,7 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
         if (changeType === 'substitute') {
             this.api.substitute(attendance.id, myId).then( updatedRole => {
                 this.occasions.update(updatedRole);
-                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+                this.model = {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)};
             })
             .catch( error => {
                 console.log(`Failed substituting id ${myId} for id ${attendance.id}:`, error);
@@ -47,7 +47,7 @@ export default class DutiesSubstitutionController extends DutiesBaseController {
         } else if (changeType === 'revoke') {
             this.api.declineAttendance(attendance.id).then( updatedRole => {
                 this.occasions.update(updatedRole);
-                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+                this.model = {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)};
             })
             .catch( error => {
                 console.log(`Failed revoking substitution of id ${myId} for id ${attendance.id}:`, error);

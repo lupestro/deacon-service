@@ -30,6 +30,6 @@ export default class DutiesAnyRoute extends Route {
     @action 
     didTransition() {
         let title = this.controller.model.name + "'s Duties";
-        (this.controllerFor('duties') as DutiesController).set('title', title);       
+        (this.controllerFor('duties') as DutiesController).title = title;       
     }
 }

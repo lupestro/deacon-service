@@ -26,6 +26,6 @@ export default class DutiesMineRoute extends Route {
 
     @action 
     didTransition() {
-        (this.controllerFor('duties') as DutiesController).set('title', 'My Duties'); 
+        (this.controllerFor('duties') as DutiesController).title = 'My Duties'; 
     }
 }

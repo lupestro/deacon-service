@@ -29,14 +29,14 @@ export default class DutiesFamilyRoute extends Route {
             substitute: [],
             assignee: []
         }
-        controller.set('model', {
+        controller.model = {
             filter: filter, 
             occasions: this.occasions.filter(filter)
-        });
+        };
     }
 
     @action 
     didTransition() {
-        (this.controllerFor('duties') as DutiesController).set('title', 'Family Duties');       
+        (this.controllerFor('duties') as DutiesController).title = 'Family Duties';       
     }
 }

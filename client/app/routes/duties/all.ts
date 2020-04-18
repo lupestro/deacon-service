@@ -24,6 +24,6 @@ export default class DutiesAllRoute extends Route {
 
     @action 
     didTransition() {
-        (this.controllerFor('duties') as DutiesController).set('title', 'All Duties');
+        (this.controllerFor('duties') as DutiesController).title = 'All Duties';
     }
 }

@@ -43,7 +43,7 @@ export default class DutiesMineController extends DutiesBaseController {
             this.api.confirmAttendance(attendance.id)
             .then(updatedRole => {
                 this.occasions.update(updatedRole);
-                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+                this.model = {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)};
             })
             .catch( error => {
                 console.log(`Failed confirming attendance for id ${attendance.id}:`, error);
@@ -52,7 +52,7 @@ export default class DutiesMineController extends DutiesBaseController {
             this.api.unconfirmAttendance(attendance.id)
             .then(updatedRole => {
                 this.occasions.update(updatedRole);
-                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+                this.model = {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)};
             })
             .catch( error => {
                 console.log(`Failed unconfirming attendance for id ${attendance.id}:`, error);
@@ -60,7 +60,7 @@ export default class DutiesMineController extends DutiesBaseController {
         } else if (changeType === 'decline') {
             this.api.declineAttendance(attendance.id).then(updatedRole => {
                 this.occasions.update(updatedRole);
-                this.set('model', {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)});
+                this.model = {filter: this.model.filter, occasions: this.occasions.filter(this.model.filter)};
             })
             .catch( error => {
                 console.log(`Failed declining attendance for id ${attendance.id}:`, error);

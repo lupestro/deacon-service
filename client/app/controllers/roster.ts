@@ -18,7 +18,7 @@ export default class RosterController extends Controller {
 
     @action 
     clickReturn (shortname : string | undefined) {
-        this.set('searchtext',"");
+        this.searchtext = "";
         if (typeof shortname === "undefined") {
             this.transitionToRoute('duties.all');
         } else if (this.model.dutytype === 'mine') {
