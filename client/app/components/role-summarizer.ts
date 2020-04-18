@@ -1,5 +1,4 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import { capitalize } from '@ember/string';
 import { inject as service } from '@ember/service';
 import ApiService from 'deacon-dash/services/api';
@@ -21,13 +20,14 @@ const ICON_CLASSES : { [attype: string]:string} = {
 const BIG_X = "\u2718";
 const CHECKMARK = '\u2713';
 
-export default class RoleSummarizer extends Component {
+interface RoleSummarizerArgs {
+    occasion: Occasion,
+    role: Role
+}
+export default class RoleSummarizer extends Component<RoleSummarizerArgs> {
     tagName = '';
-    occasion!: Occasion;
-    role!: Role;
     @service api!: ApiService;
     
-    @computed('occasion','role') 
     get duty(): Duty {
         return {
             iconimage: ICON_IMAGES[this.attendanceType],
@@ -35,36 +35,33 @@ export default class RoleSummarizer extends Component {
             type: this.type,
             subtype: this.subtype,
             names: this.names,
-            historical: (moment(this.occasion.when) < this.api.today)
+            historical: (moment(this.args.occasion.when) < this.api.today)
         };
     }
 
-    @computed('role.type','occasion.{type,subtype}') 
     get type(): string{
-        if (this.role.type === 'dod') {
+        if (this.args.role.type === 'dod') {
             return 'DoD';
         }
-        if (this.occasion.subtype) {
-            return capitalize(this.occasion.subtype);
+        if (this.args.occasion.subtype) {
+            return capitalize(this.args.occasion.subtype);
         } else {
-            return capitalize(this.occasion.type);
+            return capitalize(this.args.occasion.type);
         }    
     }
 
-    @computed('role.type')
     get subtype() {
-        switch (this.role.type) {
+        switch (this.args.role.type) {
             case 'dod': return '';
             case 'baptism': return '';
             case 'dom': return 'DOM';
-            default: return capitalize(this.role.type);
+            default: return capitalize(this.args.role.type);
         }
     }
     
-    @computed('role.attendances') 
     get attendanceType (): string {
         let summaryType = 'confirmed';
-        this.role.attendances.forEach( attendance => {
+        this.args.role.attendances.forEach( attendance => {
             if (attendance.type === 'declined') {
                 if (!attendance.substitute) {
                     summaryType = 'declined-nosub';
@@ -78,9 +75,8 @@ export default class RoleSummarizer extends Component {
         return summaryType;
     }
 
-    @computed('role.attendances') 
     get names() : string {
-        return this.role.attendances.map( attendance => {
+        return this.args.role.attendances.map( attendance => {
             if (attendance.type === 'declined') {
                 var prefix = attendance.substitute ? attendance.sub_name : BIG_X;
                 return `${prefix}[${attendance.who_name}]`

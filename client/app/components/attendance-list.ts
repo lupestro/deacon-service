@@ -1,4 +1,5 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 
@@ -35,20 +36,17 @@ const OVERLAYS : {[name: string]: Overlay } = {
     revoke: { attendance: 0, type: "revoke", title: "Revoke", icon: "exclamation-triangle", icontype: 'needy', live: true}
 };
 
-export default class AttendanceList extends Component {
-    tagName = '';
-    rule!: AttendanceRule;
-    clickType!: string;
-    holdType!: string;
-    update!: Function;
-    permit!: Function;
-
-    overlay!: Overlay;
-
-    init() {
-        super.init();
-        this.overlay = OVERLAYS['empty'];
-    }
+interface AttendanceListArgs {
+    sourceData : Occasion[];
+    showNames : boolean;
+    clickType? : string;
+    holdType? : string;
+    permit? : Function;
+    update : Function;
+};
+export default class AttendanceList extends Component<AttendanceListArgs> {
+    rule!: AttendanceRule; // ???
+    @tracked overlay: Overlay = OVERLAYS['empty'];
 
     @action 
     inserted(element: HTMLElement) {
@@ -61,13 +59,15 @@ export default class AttendanceList extends Component {
     @action 
     clicked(role: Role, occasion: Occasion, attendance: Attendance) {
         if (this.overlay.type !== "empty") {
-            this.set('overlay', OVERLAYS['empty']);
+            this.overlay = OVERLAYS["empty"];
         } else {
-            const actualClickType = this.permit ? (this.permit)(role, occasion, attendance, this.clickType) : this.clickType;
+            const actualClickType = this.args.permit ? 
+                this.args.permit(role, occasion, attendance, this.args.clickType) : 
+                this.args.clickType;
             if (actualClickType && actualClickType != 'empty')  {
                 let overlay = Object.assign({}, OVERLAYS[actualClickType]);
                 overlay.attendance = attendance.id;
-                this.set('overlay', overlay);
+                this.overlay = overlay;
             }
         }
     }
@@ -75,26 +75,28 @@ export default class AttendanceList extends Component {
     @action 
     held(role: Role, occasion: Occasion, attendance: Attendance) {
         if (this.overlay.type !== "empty") {
-            this.set('overlay', OVERLAYS['empty']);
+            this.overlay = OVERLAYS["empty"];
         } else {
-            const actualHoldType = this.permit ? (this.permit)(role, occasion, attendance, this.holdType) : this.holdType;
+            const actualHoldType = this.args.permit ? 
+                this.args.permit(role, occasion, attendance, this.args.holdType) : 
+                this.args.holdType;
             if (actualHoldType && actualHoldType != 'empty')  {
                 let overlay = Object.assign({}, OVERLAYS[actualHoldType]);
                 overlay.attendance = attendance.id;
-                this.set('overlay', overlay);    
+                this.overlay = overlay;
             }
         }
     }
 
     @action 
     submitChange(attendance: Attendance) {
-        (this.update)(attendance, this.overlay.type);
-        this.set('overlay', OVERLAYS['empty']);
+        this.args.update(attendance, this.overlay.type);
+        this.overlay = OVERLAYS["empty"];
     }
     
     @action 
     cancelChange() {
-        this.set('overlay', OVERLAYS['empty']);
+        this.overlay = OVERLAYS["empty"];
     }
 
 }

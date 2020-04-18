@@ -4,7 +4,7 @@
 />
 
 <main>
-  <SearchBar @searchtext={{this.searchtext}} />
+  <SearchBar @searchtext={{this.searchtext}} @update={{fn this.update}}/>
 
   <RosterList class="page-frame">
     {{#each this.candidates as |participant| }}

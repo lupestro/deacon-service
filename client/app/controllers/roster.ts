@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import ApplicationController from './application';
@@ -8,7 +9,12 @@ import ApiService from '../services/api';
 export default class RosterController extends Controller {
     @controller('application') application! : ApplicationController;
     @service api!: ApiService;
-    searchtext: string = "";
+    @tracked searchtext: string = "";
+    
+    @action 
+    update(searchtext: string) {
+        this.searchtext = searchtext;
+    }
 
     @action 
     clickReturn (shortname : string | undefined) {
@@ -26,7 +32,6 @@ export default class RosterController extends Controller {
         }
     }
 
-    @computed('searchtext','application.model.participants') 
     get candidates() : Participant[] {
         if (this.searchtext === "") {
             return this.application.model.participants;

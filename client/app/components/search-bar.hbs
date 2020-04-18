@@ -1,7 +1,7 @@
 <div class="search-bar">
   <label>
     Search: 
-    {{input class="roster-search-input" value=@searchtext}}
+    <input class="roster-search-input" value={{@searchtext}} {{on "keyup" this.changed}}>
   </label>
-  <button class="roster-search-clear" type="button" {{!on "click" this.clear}}>Clear</button>
+  <button class="roster-search-clear" type="button" {{on "click" this.clear}}>Clear</button>
 </div>  

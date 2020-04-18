@@ -1,13 +1,13 @@
 import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
 import LocalService from '../services/local';
 import ApiService from '../services/api';
 
 export default class ApplicationController extends Controller {
     @service local! : LocalService;
     @service api! : ApiService;
-    watchableMe!: string;
+    @tracked watchableMe!: string;
 
     get me() {
         let result = this.local.me;
@@ -21,7 +21,6 @@ export default class ApplicationController extends Controller {
         this.set('watchableMe', value);
     }
 
-    @computed('watchableMe','model.participants') 
     get myId() {
         let model = this.model as ApplicationModel;
         let myParticipant = model.participants.find ( participant => {
@@ -30,7 +29,6 @@ export default class ApplicationController extends Controller {
         return myParticipant ? myParticipant.id : 0;
     }
 
-    @computed('watchableMe','model.participants') 
     get myFamily() {
         let model = this.model as ApplicationModel;
         let myParticipant = model.participants.find ( participant => {

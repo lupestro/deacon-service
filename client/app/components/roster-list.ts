@@ -1,9 +1,7 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
-//import { htmlSafe } from '@ember/template';
 
 export default class RosterList extends Component {
-    tagName = "";
 
     @action
     inserted(element:HTMLElement) {

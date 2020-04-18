@@ -1,12 +1,19 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
-export default class SearchBar extends Component {
-    tagName = "";
-    searchtext! : string;
-    
+interface SearchBarArgs {
+    searchtext: string;
+    update: Function;
+}
+export default class SearchBar extends Component<SearchBarArgs> {
+    @action 
+    changed(event:KeyboardEvent){
+        if (event.target && event.target instanceof HTMLInputElement) {
+            this.args.update((event.target as HTMLInputElement).value);
+        }
+    }
     @action 
     clear(){
-        this.set('searchtext',"");
+        this.args.update("");
     }
 };

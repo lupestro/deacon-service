@@ -1,5 +1,4 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import { capitalize } from '@ember/string';
 import { inject as service } from '@ember/service';
 import ApiService from 'deacon-dash/services/api';
@@ -20,14 +19,15 @@ const ICON_CLASSES : { [attype: string]:string} = {
 
 const BIG_X = "\u2718";
 
-export default class AttendanceFormatter extends Component {
-    tagName = '';
-    occasion!: Occasion;
-    role!: Role;
-    attendance!: Attendance;
+interface AttendanceFormatterArgs {
+    occasion: Occasion;
+    role: Role;
+    attendance: Attendance;
+};
+
+export default class AttendanceFormatter extends Component<AttendanceFormatterArgs> {
     @service api!: ApiService;
 
-    @computed('occasion','role','attendance') 
     get duty(): Duty {
         return {
             iconimage: ICON_IMAGES[this.attendanceType],
@@ -35,45 +35,41 @@ export default class AttendanceFormatter extends Component {
             type: this.type,
             subtype: this.subtype,
             names: this.names,
-            historical: (moment(this.occasion.when) < this.api.today)
+            historical: (moment(this.args.occasion.when) < this.api.today)
         };
     }
 
-    @computed('attendance') 
     get attendanceType (): string {
-        return (this.attendance.type !== 'declined') ? this.attendance.type : 
-            this.attendance.substitute ? 'declined-sub' : 'declined-nosub';
+        return (this.args.attendance.type !== 'declined') ? this.args.attendance.type : 
+            this.args.attendance.substitute ? 'declined-sub' : 'declined-nosub';
     }
 
-    @computed('role.type','occasion.{type,subtype}') 
     get type(): string{
-        if (this.role.type === 'dod') {
+        if (this.args.role.type === 'dod') {
             return 'DoD';
         }
-        if (this.occasion.subtype) {
-            return capitalize(this.occasion.subtype);
+        if (this.args.occasion.subtype) {
+            return capitalize(this.args.occasion.subtype);
         } else {
-            return capitalize(this.occasion.type);
+            return capitalize(this.args.occasion.type);
         }    
     }
 
-    @computed('role.type')
     get subtype() {
-        switch (this.role.type) {
+        switch (this.args.role.type) {
             case 'dod': return '';
             case 'baptism': return '';
             case 'dom': return 'DOM';
-            default: return capitalize(this.role.type);
+            default: return capitalize(this.args.role.type);
         }
     }
 
-    @computed('attendance') 
     get names() : string {
-        if (this.attendance.type === 'declined') {
-            var prefix = this.attendance.substitute ? this.attendance.sub_name : BIG_X;
-            return `${prefix}[${this.attendance.who_name}]`
+        if (this.args.attendance.type === 'declined') {
+            var prefix = this.args.attendance.substitute ? this.args.attendance.sub_name : BIG_X;
+            return `${prefix}[${this.args.attendance.who_name}]`
         } else {
-            return `${this.attendance.who_name}`
+            return `${this.args.attendance.who_name}`
         }
     }
 }

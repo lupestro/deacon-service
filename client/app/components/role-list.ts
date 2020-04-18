@@ -1,4 +1,5 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 type Overlay = {
@@ -17,19 +18,17 @@ const OVERLAYS : {[name: string]: Overlay } = {
     unconfirm: { role: 0, type: "unconfirm", title: "Unconfirm", icon: "circle", icontype: 'unconfirmed' }
 };
 
-export default class RoleList extends Component {
-    tagName = "";
-    clickType!: string;
-    holdType!: string;
-    update!: Function;
-    permit!: Function;
+interface RoleListArgs {
+    sourceData : Occasion[];
+    showNames : boolean; 
+    clickType : string; 
+    holdType : string; 
+    permit: Function;
+    update : Function;
+}
 
-    overlay!: Overlay;
-
-    init() {
-        super.init();
-        this.overlay = OVERLAYS['empty'];
-    }
+export default class RoleList extends Component<RoleListArgs> {
+    @tracked overlay: Overlay = OVERLAYS['empty'];
 
     @action
     inserted(element: HTMLElement) {
@@ -42,13 +41,15 @@ export default class RoleList extends Component {
     @action 
     clicked(role: Role, occasion: Occasion) {
         if (this.overlay.type !== "empty") {
-            this.set('overlay', OVERLAYS['empty']);
+            this.overlay = OVERLAYS['empty'];
         } else {
-            const actualClickType = this.permit ? (this.permit)(role, occasion, this.clickType) : this.clickType;
+            const actualClickType = this.args.permit ? 
+                this.args.permit(role, occasion, this.args.clickType) : 
+                this.args.clickType;
             if (actualClickType && actualClickType != 'empty')  {
                 let overlay = Object.assign({}, OVERLAYS[actualClickType]);
                 overlay.role = role.id;
-                this.set('overlay', overlay);
+                this.overlay = overlay;
             }
         }
     }
@@ -56,25 +57,27 @@ export default class RoleList extends Component {
     @action 
     held(role: Role, occasion: Occasion) {
         if (this.overlay.type !== "empty") {
-            this.set('overlay', OVERLAYS['empty']);
+            this.overlay = OVERLAYS['empty'];
         } else {
-            const actualHoldType = this.permit ? (this.permit)(role, occasion, this.holdType) : this.holdType;
+            const actualHoldType = this.args.permit ? 
+                this.args.permit(role, occasion, this.args.holdType) : 
+                this.args.holdType;
             if (actualHoldType && actualHoldType != 'empty')  {
                 let overlay = Object.assign({}, OVERLAYS[actualHoldType]);
                 overlay.role = role.id;
-                this.set('overlay', overlay);    
+                this.overlay = overlay;    
             }
         }
     }
 
     @action 
     submitChange(role: Role) {
-        (this.update)(role, this.overlay.type);
-        this.set('overlay', OVERLAYS['empty']);
+        (this.args.update)(role, this.overlay.type);
+        this.overlay = OVERLAYS['empty'];
     }
 
     @action 
     cancelChange() {
-        this.set('overlay', OVERLAYS['empty']);
+        this.overlay = OVERLAYS['empty'];
     }
 }
