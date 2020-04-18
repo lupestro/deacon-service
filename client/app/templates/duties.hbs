@@ -19,18 +19,21 @@
       @text="Family" 
       @icon="bed" 
       @itemclick={{this.clickFamilyDuties}}
+      @itempress={{this.clickFamilyDuties}} 
     />
     <NavigationItem 
       data-test="All"
       @text="All" 
       @icon="users" 
       @itemclick={{this.clickAllDuties}}
+      @itempress={{this.clickAllDuties}}
     />
     <NavigationItem 
       data-test="Subs"
       @text="Subs" 
       @icon="exchange-alt" 
       @itemclick={{this.clickDutySubstitutions}}
+      @itempress={{this.clickDutySubstitutions}}
     />
     <NavigationItem 
       data-test="Any"
@@ -38,5 +41,6 @@
       @text="Any" 
       @icon="user-plus" 
       @itemclick={{this.clickAnyPersonDuties}}
+      @itempress={{this.clickAnyPersonDuties}}
     />
   </NavigationBar>

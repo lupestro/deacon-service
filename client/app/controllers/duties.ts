@@ -58,6 +58,9 @@ export default class DutiesController extends Controller {
     clickAnyPersonDuties() {
         this.transitionToRoute('roster', 'any');
     }
+    @action
+    clickNone(){        
+    }
 }
 
 // The following definition is needed for TypeScript because child routes request it via controllerFor.

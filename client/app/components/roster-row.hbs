@@ -1,0 +1,10 @@
+<button 
+  data-test={{@model.short_name}}
+  class="roster-row {{if (eq @model.type "substitute") "alternate"}} {{if (eq @model.type "historical") "historical"}}"
+  type="button"
+  {{on "click" (fn @selection @model.short_name) }}
+  {{on "tap" (fn @selection @model.short_name) }}
+>
+  <span class="roster-row-left">{{@model.short_name}}</span>
+  <span class="roster-row-right">{{@model.full_name}}</span>
+</button>

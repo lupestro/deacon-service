@@ -2,7 +2,7 @@
   class="selection-item" 
   type="button"
   {{on "tap" @itemclick}}
-  {{on "longpress" this.pressIfAvailable}}
+  {{on "longpress" @itempress}}
   ...attributes
 >
   {{fa-icon @icon}}
