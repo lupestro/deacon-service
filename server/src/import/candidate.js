@@ -1,8 +1,10 @@
 
 class ImportCandidate {
     constructor() {
-        this.participants = {}; //key: `${short_name}`, value: {part_id?, short_name, type, full_name, email, team, family}
-        this.occasions = {};    //key: `${occ_type},${timestamp}`, value: {occ_id?, timestamp, type, subtype}
+        this.participants = {}; //key: `${short_name}`
+                                //value: {part_id?, short_name, type, full_name, email, team, family}
+        this.occasions = {};    //key: `${occ_type},${timestamp}`
+                                //value: {occ_id?, timestamp, type, subtype}
         this.roles = {};        //key: `${occ_type},${timestamp},${role_type}`, 
                                 //value: {role_id?, occ_id?, occ_type, timestamp, role_type, count}
         this.attendances = {};  //key: `${occ_type},${timestamp},${role_type},${short_name}`, 

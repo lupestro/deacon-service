@@ -70,6 +70,7 @@
     "ember-resolver": "^7.0.0",
     "ember-source": "~3.16.0",
     "ember-truth-helpers": "^2.1.0",
+    "eslint": "^7.6.0",
     "eslint-plugin-ember": "^8.1.1",
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
@@ -77,8 +78,11 @@
     "typescript": "~3.7.3"
   },
   "resolutions": {
-    "handlebars": "4.7.6",
-    "minimist": "1.2.5"
+    "clean-css": ">=4.1.11",
+    "elliptic" : ">=6.5.3",
+    "http-proxy": ">=1.18.1",
+    "lodash": ">=4.17.19",
+    "minimist": ">=0.2.1 <1.0.0 || >=1.2.3"
   },
   "engines": {
     "node": "10.* || >= 12"
