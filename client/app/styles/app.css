@@ -51,7 +51,7 @@ body {
     justify-content: space-around;
     margin: 0px;
     padding: 10px;
-    height: 48px;
+    height: 52px;
     border-top-style: solid;
     border-top-width: 2px;
     color: rgb(31, 31, 127);
@@ -92,6 +92,9 @@ body {
 
 .duty-row {
     padding: 5px;
+    margin: 0px;
+    background-color: #eeeeee;
+    border-style: none;
     border-bottom-style: solid;
     border-bottom-color: #CCCCCC;
     border-bottom-width: 1px;
