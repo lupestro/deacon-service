@@ -9,11 +9,7 @@
   {{on "tap" @clicked}}
   {{on "longpress" @held}}
 >
-  {{fa-icon 
-    @duty.iconimage 
-    class=(concat "duty-icon " @duty.icontype) 
-    size="2x" 
-  }}
+  <FaIcon @icon={{@duty.iconimage}} class={{concat "duty-icon " @duty.icontype}} @size="2x" />
   <div class="duty-row-group">
     <div class="duty-row-type">{{@duty.type}}</div>
     <div class="duty-row-subtype">{{@duty.subtype}}</div>

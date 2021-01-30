@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2020",
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -24,6 +24,9 @@
       "deacon-dash/tests/*": [
         "tests/*"
       ],
+      "deacon-dash/mirage/*": [
+        "mirage/*"
+      ],
       "deacon-dash/*": [
         "app/*"
       ],
@@ -38,6 +41,7 @@
   "include": [
     "app/**/*",
     "tests/**/*",
-    "types/**/*"
+    "types/**/*",
+    "mirage/**/*"
   ]
 }

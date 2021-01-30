@@ -1,18 +1,10 @@
 <div class="duty-overlay">
   <button class="duty-overlay-item" type="button" data-test="yes" {{on "click" @submission}}> 
-    {{fa-icon 
-      @icon 
-      class=(concat "duty-icon " @icontype) 
-      size="2x" 
-    }} 
+    <FaIcon @icon={{@icon}} class={{concat "duty-icon " @icontype}} @size="2x" /> 
     {{@title}}
   </button>
   <button class="duty-overlay-item" type="button" data-test="no" {{on "click" @closure}}> 
-    {{fa-icon 
-      "times-circle" 
-      class="duty-icon cancel" 
-      size="2x" 
-    }} 
+    <FaIcon @icon="times-circle"  class="duty-icon cancel" @size="2x" />
     Cancel
   </button>  
 </div>
