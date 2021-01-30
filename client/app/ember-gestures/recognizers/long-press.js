@@ -1,8 +1,9 @@
 export default {
-  include: ['press'], 
-  exclude: [], 
+  include: ['press'],
+  exclude: [],
   options: {
-    time: 700
+    time: 700,
   },
-  recognizer: 'press' // `tap|press|pan|swipe|rotate|pinch` the base Hammer recognizer to use
+  recognizer: 'press',
+  // `tap|press|pan|swipe|rotate|pinch` the base Hammer recognizer to use
 };
