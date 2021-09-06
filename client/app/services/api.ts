@@ -24,41 +24,38 @@ declare type RoleRecord = {
     data: RoleData,
 }
 
-declare global {
-    type Participant = {
-        id: number,
-        type: string,
-        short_name: string,
-        full_name: string,
-        team?: number | null,
-        family?: number | null
-    }; 
+export type Participant = {
+    id: number,
+    type: string,
+    short_name: string,
+    full_name: string,
+    team?: number | null,
+    family?: number | null
+}; 
     
-    type AttendanceData = {
-        id: number,
-        who: number,
-        team?: number | null,
-        substitute?: number
-    };
+export type AttendanceData = {
+    id: number,
+    who: number,
+    team?: number | null,
+    substitute?: number
+};
 
-    type RoleData = {
-        id: number,
-        type: string,
-        required: number,
-        assigned: AttendanceData[],
-        confirmed: AttendanceData[],
-        declined: AttendanceData[]
-    };
+export type RoleData = {
+    id: number,
+    type: string,
+    required: number,
+    assigned: AttendanceData[],
+    confirmed: AttendanceData[],
+    declined: AttendanceData[]
+};
     
-    type OccasionData = {
-        id: number,
-        when: string,
-        type: string,
-        subtype: string | null,
-        roles: RoleData[]
-    }
-}
-
+export type OccasionData = {
+    id: number,
+    when: string,
+    type: string,
+    subtype: string | null,
+    roles: RoleData[]
+};
 export default class ApiService extends Service {
     now : string = "";
     get today() {

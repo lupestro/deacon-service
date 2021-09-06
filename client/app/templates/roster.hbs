@@ -4,7 +4,7 @@
 />
 
 <main>
-  <SearchBar @searchtext={{this.searchtext}} @update={{fn this.update}}/>
+  <SearchBar @searchtext={{this.searchtext}} @update={{this.update}} />
 
   <RosterList class="page-frame">
     {{#each this.candidates as |participant| }}
@@ -21,7 +21,7 @@
     data-test="Back"
     @text="Back" 
     @icon="users" 
-    @itemclick={{fn this.clickReturn undefined}}
-    @itempress={{fn this.clickReturn undefined}}
+    @itemclick={{this.clickReturn}}
+    @itempress={{this.clickReturn}}
   />
 </NavigationBar>

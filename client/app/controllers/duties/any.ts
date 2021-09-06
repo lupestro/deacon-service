@@ -5,7 +5,7 @@ export default class DutiesAnyController extends DutiesBaseController {
 
     @action 
     permit( /* role: Role, occasion: Occasion, attendance: Attendance, actionType: string */) : string { 
-        return 'empty'; 
+        return 'empty';
     }
 
     @action 

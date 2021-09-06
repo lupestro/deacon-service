@@ -3,6 +3,7 @@ import { capitalize } from '@ember/string';
 import { inject as service } from '@ember/service';
 import ApiService from 'deacon-dash/services/api';
 import moment from 'moment';
+import type { Occasion, Role, Attendance } from 'deacon-dash/services/occasions';
 
 const ICON_IMAGES : { [attype: string]:string} = {
     'assigned': 'circle',

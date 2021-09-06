@@ -1,4 +1,6 @@
-let participants : Participant[]= [
+import { Participant, OccasionData } from '../services/api';
+
+let participants: Participant[] = [
     {"id":1,"type":"deacon","short_name":"Alan","full_name":"Alan Brown","team":5,"family":null},
     {"id":2,"type":"deacon","short_name":"Ava","full_name":"Ava Smigliani","team":5,"family":2},
     {"id":3,"type":"deacon","short_name":"Bill-M","full_name":"Bill McIntyre","team":6,"family":null},
@@ -30,7 +32,7 @@ let participants : Participant[]= [
     {"id":29,"type":"substitute","short_name":"Maribeth","full_name":"Maribeth Stone","team":null,"family":3},
     {"id":30,"type":"substitute","short_name":"Keanna","full_name":"Keanna Smigliani","team":null,"family":2}
 ];
-let occasions : OccasionData[] = [
+let occasions: OccasionData[] = [
     {
       "id": 1,
       "when": "2018-08-26T13:00:00.000Z",

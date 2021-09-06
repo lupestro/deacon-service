@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import OccasionsService from '../../services/occasions';
 import DutiesController from '../../controllers/duties';
 import ApplicationController from '../../controllers/application';
+import type { FilterRule } from '../../services/occasions';
 
 export default class DutiesMineRoute extends Route {
     @service occasions!: OccasionsService;

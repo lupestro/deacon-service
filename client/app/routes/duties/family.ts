@@ -5,6 +5,7 @@ import OccasionsService from '../../services/occasions';
 import DutiesFamilyController from '../../controllers/duties/family';
 import DutiesController from '../../controllers/duties';
 import ApplicationController from '../../controllers/application';
+import type { FilterRule } from '../../services/occasions';
 
 export default class DutiesFamilyRoute extends Route {
     @service occasions!: OccasionsService;

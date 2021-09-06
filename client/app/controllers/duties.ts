@@ -3,6 +3,10 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import ApplicationController from './application';
 import { inject as controller } from '@ember/controller';
+import { inject as service } from '@ember/service';
+import type RouterService from '@ember/routing/router-service';
+import type { Role } from 'deacon-dash/services/occasions';
+
 
 declare global {
     interface RoleRules {
@@ -14,12 +18,13 @@ declare global {
 }
 
 export default class DutiesController extends Controller {
-    @controller('application') application! : ApplicationController;
+    @controller('application') declare application : ApplicationController;
+    @service('router') declare router: RouterService;
     @tracked title: string = 'Duties';
 
     @action
     clickNewMe() {
-        this.transitionToRoute('roster','mine');
+        this.router.transitionTo('roster','mine');
     }
 
     @action
@@ -30,34 +35,34 @@ export default class DutiesController extends Controller {
     @action
     clickMyDuties() {
         if (this.application.me === "") {
-            this.transitionToRoute('roster','mine'); 
+            this.router.transitionTo('roster','mine'); 
         } else {
-            this.transitionToRoute('duties.mine');
+            this.router.transitionTo('duties.mine');
         }
     }
 
     @action
     clickFamilyDuties() {
         if (this.application.me === "") {
-            this.transitionToRoute('roster','family'); 
+            this.router.transitionTo('roster','family'); 
         } else {
-            this.transitionToRoute('duties.family');
+            this.router.transitionTo('duties.family');
         }
     }
 
     @action
     clickAllDuties() {
-        this.transitionToRoute('duties.all');
+        this.router.transitionTo('duties.all');
     }
 
     @action
     clickDutySubstitutions() {
-        this.transitionToRoute('duties.substitution');
+        this.router.transitionTo('duties.substitution');
     }
     
     @action
     clickAnyPersonDuties() {
-        this.transitionToRoute('roster', 'any');
+        this.router.transitionTo('roster', 'any');
     }
     @action
     clickNone(){        

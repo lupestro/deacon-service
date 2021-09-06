@@ -2,8 +2,10 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 import ApiService from '../services/api';
+import type { Participant } from '../services/api';
 import LocalService from '../services/local';
 import OccasionsService from '../services/occasions';
+import type { ParticipantIdMap } from '../services/occasions';
 
 declare global {
     type ApplicationModel = {

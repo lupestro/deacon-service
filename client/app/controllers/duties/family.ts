@@ -6,6 +6,7 @@ import DutiesBaseController from './base';
 import ApplicationController from '../application';
 import ApiService from '../../services/api';
 import OccasionsService from '../../services/occasions';
+import type { Occasion, Role, Attendance } from '../../services/occasions';
 
 export default class DutiesMineController extends DutiesBaseController {
     @controller('application') application! : ApplicationController;

@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import type { Occasion, Role } from 'deacon-dash/services/occasions';
 
 type Overlay = {
     role: number;
@@ -29,14 +30,6 @@ interface RoleListArgs {
 
 export default class RoleList extends Component<RoleListArgs> {
     @tracked overlay: Overlay = OVERLAYS['empty'];
-
-    @action
-    inserted(element: HTMLElement) {
-        if (element) {
-            const height = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-            element.style.height = (height - 180)+ 'px';
-        }
-    } 
     
     @action 
     clicked(role: Role, occasion: Occasion) {

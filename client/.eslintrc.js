@@ -24,6 +24,7 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'warn',
+    'qunit/no-conditional-assertions': 'off',
   },
   overrides: [
     // node files
@@ -58,6 +59,13 @@ module.exports = {
       // Test files:
       files: ['tests/**/*-test.{js,ts}'],
       extends: ['plugin:qunit/recommended'],
+      globals: {
+        server: true,
+      },
+      rules: {
+        'qunit/no-conditional-assertions': 'off',
+        'qunit/require-expect': ['warn', 'never-except-zero'],
+      },
     },
   ],
 };

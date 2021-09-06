@@ -1,46 +1,44 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import ApiService from './api';
-import RSVP from 'rsvp';
+import { RoleData, OccasionData, AttendanceData } from  './api';
 
-declare global {
     
-    type Attendance = {
-        id: number,
-        type: string,
-        who: number,
-        who_name: string,
-        team: number,
-        substitute: number,
-        sub_name : string
-    };
+export type Attendance = {
+    id: number,
+    type: string,
+    who: number,
+    who_name: string,
+    team: number,
+    substitute: number,
+    sub_name : string
+};
+
+export type Role = {
+    id: number,
+    type: string,
+    required: number,
+    attendances: Attendance[]
+};
     
-    type Role = {
-        id: number,
-        type: string,
-        required: number,
-        attendances: Attendance[]
-    };
-      
-    type Occasion = {
-        id: number,
-        when: string,
-        type: string,
-        subtype: string,
-        roles: Role[]
-    };
-    
-    type FilterRule = {
-        assignee: string[];
-        substitute: string[];
-        involved: string[];
-        type: string;
-    };
-    
-    type ParticipantIdMap = {
-        [id:number]: string
-    }        
-}
+export type Occasion = {
+    id: number,
+    when: string,
+    type: string,
+    subtype: string,
+    roles: Role[]
+};
+
+export type FilterRule = {
+    assignee: string[];
+    substitute: string[];
+    involved: string[];
+    type: string;
+};
+
+export type ParticipantIdMap = {
+    [id:number]: string
+}        
 
 const FILTER_RULE_NULL : FilterRule = {assignee:[], substitute:[], involved:[], type: "" };
 
@@ -55,7 +53,7 @@ export default class OccasionsService extends Service {
 
     refresh () : Promise<Occasion[]> {
         if (!this.ids) {
-            return RSVP.Promise.reject("Cannot refresh occasions - not primed with participants");
+            return Promise.reject("Cannot refresh occasions - not primed with participants");
         }
         return this.api.getOccasions().then( occasions => {
             this.occasions = occasions.map(occasion => {        // NOTE: ONLY PLACE occasions IS POPULATED

@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import OccasionsService from '../../services/occasions';
 import DutiesController from '../../controllers/duties';
-
+import type { FilterRule } from '../../services/occasions';
 export default class DutiesAllRoute extends Route {
     @service occasions!: OccasionsService;
 

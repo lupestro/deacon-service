@@ -5,10 +5,13 @@ import { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import ApplicationController from './application';
 import ApiService from '../services/api';
+import type RouterService from '@ember/routing/router-service';
+import { Participant } from  '../services/api';
 
 export default class RosterController extends Controller {
-    @controller('application') application! : ApplicationController;
-    @service api!: ApiService;
+    @controller('application') declare application : ApplicationController;
+    @service declare api: ApiService;
+    @service declare router: RouterService; 
     @tracked searchtext: string = "";
     
     @action 
@@ -20,15 +23,15 @@ export default class RosterController extends Controller {
     clickReturn (shortname : string | undefined) {
         this.searchtext = "";
         if (typeof shortname === "undefined") {
-            this.transitionToRoute('duties.all');
+            this.router.transitionTo('duties.all');
         } else if (this.model.dutytype === 'mine') {
             this.application.me = shortname;
-            this.transitionToRoute('duties.mine');
+            this.router.transitionTo('duties.mine');
         } else if (this.model.dutytype === 'family') {
             this.application.me = shortname;
-            this.transitionToRoute('duties.family');
+            this.router.transitionTo('duties.family');
         } else {
-            this.transitionToRoute('duties.any', shortname);
+            this.router.transitionTo('duties.any', shortname);
         }
     }
 

@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import DutiesBaseController from './base';
 import ApiService from '../../services/api';
 import OccasionsService from '../../services/occasions';
+import type { Occasion, Role, Attendance } from '../../services/occasions';
 
 export default class DutiesMineController extends DutiesBaseController {
     @service api!: ApiService;

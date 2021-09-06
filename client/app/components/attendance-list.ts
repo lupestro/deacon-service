@@ -1,8 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-
-
+import type { Occasion, Role, Attendance } from 'deacon-dash/services/occasions';
 declare global {
     type Overlay = {
         attendance: number;
@@ -47,14 +46,6 @@ interface AttendanceListArgs {
 export default class AttendanceList extends Component<AttendanceListArgs> {
     rule!: AttendanceRule; // ???
     @tracked overlay: Overlay = OVERLAYS['empty'];
-
-    @action 
-    inserted(element: HTMLElement) {
-        if (element) {
-            const height = Math.max(document.documentElement? document.documentElement.clientHeight : 0, window.innerHeight || 0);
-            element.style.height = (height - 180)+ 'px';
-        }
-    } 
     
     @action 
     clicked(role: Role, occasion: Occasion, attendance: Attendance) {

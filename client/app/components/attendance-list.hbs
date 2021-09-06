@@ -1,4 +1,4 @@
-<main class="page-frame" {{did-insert this.inserted}} {{recognize-gesture "tap" "long-press"}} >
+<main class="page-frame" {{adjust-height 180}} {{recognize-gesture "tap" "long-press"}} >
   {{#each @sourceData as |occasion|}}
     <SubHeader 
       data-test={{occasion.when}} 
