@@ -102,12 +102,12 @@
     "minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
     "node-fetch": ">=2.6.1 <3.0.0-beta.1|| >= 3.0.0-beta.9",
     "object-path": ">=0.11.5",
+    "path-parse": ">=1.0.7",
     "serialize-javascript": ">=3.1.0",
-    "socket.io-parser": ">=3.3.2", 
     "ssri": ">=6.0.2 <7.0.0 || >=7.1.1 < 8.0.0 || >= 8.0.1",
+    "testem": "^3.4.2",
     "underscore": ">=1.12.1",
     "ws": ">=5.2.3 <6.0.0 || >=6.2.2 <7.0.0 || >=7.4.6",
-    "xmldom": ">=0.5.0",
     "xmlhttprequest-ssl": ">=1.6.1"
   },
   "engines": {

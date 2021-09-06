@@ -37,6 +37,7 @@
   "resolutions": {
     "glob-parent": ">=5.1.2",
     "hosted-git-info": ">=2.8.9 <3.0.0 || >=3.0.8",
-    "lodash": ">=4.17.21"
+    "lodash": ">=4.17.21",
+    "path-parse": ">=1.0.7"
   }
 }
