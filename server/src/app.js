@@ -64,6 +64,7 @@ router.post('/attendance/:id/substitute', (req, res) => {
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '../client/dist')));
+let clientPath = path.join(__dirname, '../../client/dist');
+app.use(express.static(clientPath));
 app.use('/api/v1', router);
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
