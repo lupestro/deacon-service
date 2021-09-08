@@ -30,7 +30,7 @@ class Db {
             host: params.hostname,
             port: params.port,
             database: params.pathname.split('/')[1],
-            ssl: false
+            ssl: params.hostname !== localhost
         };          
         if (params.auth) {
             const auth = params.auth.split(':');
