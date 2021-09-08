@@ -16,6 +16,7 @@
     "lint": "npx eslint .",
     "docs": "npx jsdoc -c ./jsdoc.json",
     "start": "npx tsc && node ./src/app.js",
+    "start:prod": "node ./src/app.js",
     "debug": "npx tsc && node --inspect-brk=36942 ./src/app.js",
     "test": "npx tsc && mocha test/**/*.js",
     "cover": "npx nyc -r HTML mocha test/**/*.js",
