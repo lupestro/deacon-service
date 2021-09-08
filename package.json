@@ -10,9 +10,9 @@
     "url": "git+https://github.com/lupestro/deacon-service.git"
   },
   "scripts": {
-    "install": "cd client && yarn --network-concurrency 1 && cd ../server && yarn --network-concurrency 1",
+    "install": "cd client && yarn && cd ../server && yarn --network-concurrency 1",
     "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules tmp dist\" \"cd server && rimraf node_modules\"",
-    "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
+    "build": "concurrently \"cd client && yarn build:dev\" \"cd server && yarn build\"",
     "build:prod": "concurrently \"cd client && yarn build:prod\" \"cd server && yarn build:prod\"",
     "heroku-postbuild": "yarn build:prod",
     "start": "concurrently \"cd client && PORT=4200 yarn start\" \"cd server && PORT=5000 yarn start\"",
