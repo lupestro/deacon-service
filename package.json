@@ -35,6 +35,8 @@
     "rimraf": "^2.6.2"
   },
   "resolutions": {
-    "lodash": ">=4.17.19"
+    "hosted-git-info": ">=2.8.9",
+    "lodash": ">=4.17.21",
+    "path-parse": ">=1.0.7"
   }
 }

@@ -13,7 +13,7 @@
   "scripts": {
     "build": "ember build --environment=production",
     "build:dev": "ember build",
-    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel 'lint:!(fix)'",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\" ",
     "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
@@ -90,14 +90,26 @@
   },
   "resolutions": {
     "clean-css": ">=4.1.11",
-    "elliptic": ">=6.5.3",
+    "elliptic": ">=6.5.4",
+    "follow-redirects": ">=1.14.7",
+    "glob-parent": ">=5.1.2",
+    "handlebars": ">=4.7.7",
+    "hosted-git-info": ">=2.8.9",
     "http-proxy": ">=1.18.1",
     "ini": ">=1.3.6",
-    "lodash": ">=4.17.19",
+    "lodash": ">=4.17.21",
+    "markdown-it": ">=12.3.2",
     "minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
-    "node-fetch": ">=2.6.1 <3.0.0-beta.1|| >= 3.0.0-beta.9",
-    "object-path": ">=0.11.5",
-    "serialize-javascript": ">=3.1.0"
+    "node-fetch": ">=2.6.7 <3.0.0-beta.1|| >= 3.0.0-beta.9",
+    "node-notifier": ">=8.0.1",
+    "object-path": ">=0.11.8",
+    "printf": ">=0.6.1",
+    "serialize-javascript": ">=3.1.0",
+    "tmpl": ">=1.0.5",
+    "underscore": ">=1.12.1",
+    "validator": ">=13.7.0",
+    "ws": ">=7.4.6",
+    "xmlhttprequest-ssl": ">=1.6.2"
   },
   "engines": {
     "node": "10.* || >= 12"

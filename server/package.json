@@ -43,15 +43,26 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "pg": "^8.0.0",
-    "xlsx": "^0.15.2"
+    "xlsx": "^0.17.0"
   },
   "resolutions": {
     "dot-prop": ">=4.2.1 <5.0.0 || >=5.1.1",
-    "handlebars": "4.7.6",
-    "lodash": ">=4.17.19",
+    "glob-parent": ">=5.1.2",
+    "handlebars": "4.7.7",
+    "hosted-git-info": ">=2.8.9",
+    "json-schema": ">=0.4.0",
+    "lodash": ">=4.17.21",
+    "markdown-it": ">=12.3.2",
+    "marked": ">=4.0.10",
     "mem": ">=4.0.0",
     "minimist": "1.2.5",
+    "normalize-url": ">=4.5.1",
     "npm-registry-fetch": ">=4.0.5 <5.0.0 || >=8.1.1 ",
+    "path-parse": ">=1.0.7",
+    "shelljs": ">=0.8.5",
+    "ssri": ">=6.0.2",
+    "tar": ">=6.1.2",
+    "underscore": ">=1.12.1",
     "yargs-parser": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || >=18.1.2"
   },
   "engines": {
